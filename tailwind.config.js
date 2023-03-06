@@ -8,18 +8,20 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      sans: ["Arial", "sans-serif"],
-      mono: ["Lucida Console", "Courier", "monospace"],
-    },
-    screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1600px",
-      "3xl": "1920px",
+      maison: ["Maison", "sans-serif"],
+      maisonMono: ["Maison Mono", "sans-serif"],
     },
     extend: {
+      fontSize: {
+        opHeading: '4.5rem',
+        body: '1.125rem',
+        heading: '2.5rem',
+        subHeading: '0.875rem',
+        qHeading: '3.25rem',
+        qHeadingb: '1.875rem',
+        nav: '0.875rem',
+        footer: '0.625rem',
+      },
       height: {
         "screen-1/2": "50vh",
       },

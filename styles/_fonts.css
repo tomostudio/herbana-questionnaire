@@ -1,8 +1,72 @@
-/* @font-face {
-  font-family: 'Example Sans';
-  src: url('../public/fonts/ExampleSans-Regular.woff2') format('woff2'),
-      url('../public/fonts/ExampleSans-Regular.woff') format('woff');
-  font-weight: 400;
+@font-face {
+  font-family: 'Maison';
+  src: url('/fonts/Maison-Light.woff2') format('woff2'),
+      url('/fonts/Maison-Light.woff') format('woff');
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
-} */
+}
+
+@font-face {
+  font-family: 'Maison';
+  src: url('/fonts/Maison.woff2') format('woff2'),
+      url('/fonts/Maison.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison';
+  src: url('/fonts/Maison-Italic.woff2') format('woff2'),
+      url('/fonts/Maison-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Mono';
+  src: url('/fonts/MaisonMono.woff2') format('woff2'),
+      url('/fonts/MaisonMono.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison';
+  src: url('/fonts/Maison-Bold.woff2') format('woff2'),
+      url('/fonts/Maison-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Mono';
+  src: url('/fonts/MaisonMono-Italic.woff2') format('woff2'),
+      url('/fonts/MaisonMono-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Mono';
+  src: url('/fonts/MaisonMono-Bold.woff2') format('woff2'),
+      url('/fonts/MaisonMono-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Mono';
+  src: url('/fonts/MaisonMono-Light.woff2') format('woff2'),
+      url('/fonts/MaisonMono-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+

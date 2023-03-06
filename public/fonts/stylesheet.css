@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Maison';
+    src: url('Maison-Light.woff2') format('woff2'),
+        url('Maison-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison';
+    src: url('Maison.woff2') format('woff2'),
+        url('Maison.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison';
+    src: url('Maison-Italic.woff2') format('woff2'),
+        url('Maison-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison Mono';
+    src: url('MaisonMono.woff2') format('woff2'),
+        url('MaisonMono.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison';
+    src: url('Maison-Bold.woff2') format('woff2'),
+        url('Maison-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison Mono';
+    src: url('MaisonMono-Italic.woff2') format('woff2'),
+        url('MaisonMono-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison Mono';
+    src: url('MaisonMono-Bold.woff2') format('woff2'),
+        url('MaisonMono-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison Mono';
+    src: url('MaisonMono-Light.woff2') format('woff2'),
+        url('MaisonMono-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -7,24 +7,13 @@
 
 /* Custom Style Imports */
 @import '_typography.css';
-@import '_locomotive.css';
 
 /* Tailwind Utilities */
 @import 'tailwindcss/utilities';
 
-
 /* Simple defaults */
 body {
-  @apply font-sans antialiased text-black bg-white;
-}
-
-/* Trigger Animation  */
-.trigger{
-  @apply transition-colors delay-200 duration-200;
-  @apply bg-transparent;
-
-  &.is-inview{
-    @apply transition-colors delay-200 duration-1000;
-    @apply bg-red-300;
-  }
+  @apply font-maison tracking-wide font-normal antialiased text-black bg-white;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
 }
