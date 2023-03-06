@@ -22,20 +22,13 @@ module.exports = {
         nav: '0.875rem',
         footer: '0.625rem',
       },
-      height: {
-        "screen-1/2": "50vh",
-      },
       colors: {
-        black: "#000",
-        white: "#FFF",
-        "example-color": {
-          light: "#ffb288",
-          DEFAULT: "#d18d67",
-          dark: "#ce8860",
-        },
-      },
-      transitionProperty: {
-        background: "background",
+        orange: "#E46B37",
+        beige: "#FFF7E9",
+        blue: '#DFF2F7',
+        grey: '#F7F7F3',
+        green: '#D8ECD8',
+        pink: '#FEEEEF'
       },
     },
   },
