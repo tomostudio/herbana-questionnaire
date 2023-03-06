@@ -12,6 +12,9 @@ module.exports = {
       maisonMono: ["Maison Mono", "sans-serif"],
     },
     extend: {
+      height: {
+        header: '75px'
+      },
       fontSize: {
         opHeading: '4.5rem',
         body: '1.125rem',
@@ -21,6 +24,7 @@ module.exports = {
         qHeadingb: '1.875rem',
         nav: '0.875rem',
         footer: '0.625rem',
+        button: '1rem'
       },
       colors: {
         orange: "#E46B37",

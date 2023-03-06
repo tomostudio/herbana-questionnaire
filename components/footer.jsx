@@ -1,17 +1,42 @@
 import Container from '@/components/container'
+import Image from 'next/image'
+import { DefaultButton } from './utils/buttons'
+import { ArrowLeft } from './utils/svg'
 
 export default function Footer() {
   return (
-    <footer className="mb-4">
+    <footer className={`bg-grey w-full`}>
       <Container>
-        <div className="border-t border-black py-4">
-          <div className="flex flex-wrap text-xs">
-            <div className="flex space-x-1 mb-1 md:mb-0">
-              <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-500 focus:text-gray-500">MIT License</a>
-
-              <span className="block">&bull;</span>
-
-              <span className="block"><a href="https://github.com/tomostudio/next-interactive-starter" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-500 focus:text-gray-500">Github</a></span> </div>
+        <div className="flex justify-between py-4">
+          <DefaultButton className="flex items-center text-footer font-bold font-maisonMono">
+            © HERBANA 2022. Hak Cipta dilindungi undang-undang.
+          </DefaultButton>
+          <div className="flex space-x-8">
+            <div className="flex items-center">
+              <DefaultButton
+                destination="/en"
+                className="text-footer font-bold font-maisonMono pr-2 border-r border-black"
+              >
+                EN
+              </DefaultButton>
+              <DefaultButton
+                destination="/id"
+                className="text-footer font-bold font-maisonMono ml-2"
+              >
+                ID
+              </DefaultButton>
+            </div>
+            <DefaultButton
+              destination="/id"
+              className="text-footer font-bold font-maisonMono ml-2 flex"
+            >
+              <div className="relative w-[14px] h-[14px] mr-2">
+                <Image src="/whatsapp.png" fill style={{
+                  objectFit: 'contain'
+                }}/>
+              </div>
+              0821 2310 0111
+            </DefaultButton>
           </div>
         </div>
       </Container>

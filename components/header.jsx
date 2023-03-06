@@ -1,50 +1,34 @@
-import FancyLink from "@/components/fancyLink";
-import Container from "@/components/container";
+import Container from '@/components/container'
+import Image from 'next/image'
+import { DefaultButton } from './utils/buttons'
+import { ArrowLeft } from './utils/svg'
 
-export default function Header() {
+export default function Header({ background = 'bg-transparent' }) {
   return (
-    <header
-      className="py-4 bg-gray-200 mb-4 md:mb-6 xl:mb-8 fixed top-0 left-0 right-0 w-full z-10"
-      data-scroll
-      data-scroll-sticky
-      data-scroll-target="#scroll-container"
+    <nav
+      className={`${background} fixed top-0 left-0 right-0 w-full z-10 border-b-2 border-black`}
     >
       <Container>
-        <div className="flex flex-wrap">
-          <FancyLink
-            destination="/"
-            a11yText="Navigate to the home page"
-            extraClasses="mb-1 md:mb-0"
-          >
-            Next x Tailwind x Motion x Locomotive
-          </FancyLink>
-
-          <nav className="ml-auto flex space-x-3 w-full text-sm md:text-base md:w-auto">
-            <FancyLink destination="/" a11yText="Navigate to the home page">
-              Home
-            </FancyLink>
-
-            <FancyLink
-              destination="/about"
-              a11yText="Navigate to the about page"
-            >
-              About
-            </FancyLink>
-            <FancyLink
-              destination="/notion-post"
-              a11yText="Navigate to the about page"
-            >
-              Notion Post
-            </FancyLink>
-            <FancyLink
-              destination="/sanity-post"
-              a11yText="Navigate to the about page"
-            >
-              Sanity Post
-            </FancyLink>
-          </nav>
+        <div className="flex justify-between items-center h-header">
+          <DefaultButton className="flex items-center text-nav font-maisonMono">
+            <ArrowLeft className="mb-1 mr-4" />
+            Back to Website
+          </DefaultButton>
+          <DefaultButton destination="/" className="relative">
+            <Image
+              src="/herbana.png"
+              width={180}
+              height={35}
+              style={{
+                objectFit: 'contain',
+              }}
+            />
+          </DefaultButton>
+          <DefaultButton className="text-nav font-maisonMono">
+            Herbana Questionnaire
+          </DefaultButton>
         </div>
       </Container>
-    </header>
-  );
+    </nav>
+  )
 }
