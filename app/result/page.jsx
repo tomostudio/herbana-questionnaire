@@ -15,20 +15,33 @@ import { useState } from 'react'
 export default function Name() {
   const [isOpen, setIsOpen] = useState(false)
 
+  // const variants = {
+  //   open: {
+  //     height: 'auto',
+  //     marginTop: '1rem',
+  //     borderTopWidth: '2px',
+  //     borderColor: '#E46B37',
+  //   },
+  //   closed: {
+  //     height: 0,
+  //     marginTop: 0,
+  //     borderTopWidth: 0,
+  //     borderColor: '#E46B37',
+  //   },
+  // }
+
   const variants = {
     open: {
       height: 'auto',
       marginTop: '1rem',
-      borderTopWidth: '2px',
-      borderColor: '#E46B37',
+      borderTop: '2px solid #E46B37',
     },
     closed: {
       height: 0,
       marginTop: 0,
-      borderTopWidth: 0,
-      borderColor: '#E46B37',
     },
   }
+
   const title =
     "You're one step closer to meet your\npersonalised vitamins. But before that,\nhere's a recap of what you've told us:"
   return (
@@ -38,7 +51,7 @@ export default function Name() {
         <Header background="bg-beige" />
         <HeaderGap />
         <div className="w-full h-full flex flex-col grow">
-          <div className="relative w-full max-h-[65vh] aspect-video">
+          <div className="relative w-full h-[65vh] min-h-[500px] aspect-video">
             <Image
               src="/result.png"
               fill
