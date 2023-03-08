@@ -15,7 +15,6 @@ const TextImageComponent = () => {
             <RoundedButton destination="/">No</RoundedButton>
           </div>
         </div>
-        <div className='w-1/2 h-full'/>
       </Container>
       <div className="absolute top-0 right-0 w-1/2 h-full">
         <Image
