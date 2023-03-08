@@ -26,9 +26,9 @@ export default function Icon() {
       <main className="bg-blue w-full min-h-screen flex flex-col justify-between">
         <Header />
         <HeaderGap />
-        <Container className="w-full h-full flex items-center grow">
+        <div className="relative w-full h-full flex items-center grow">
           <TextImageComponent/>
-        </Container>
+        </div>
         <Footer />
       </main>
     </Layout>

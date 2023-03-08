@@ -1,5 +1,5 @@
 import Wrapper from './wrapper'
-import '@/styles/main.css'
+import '@/styles/main.scss'
 
 const RootLayout = ({ children }) => {
   return (
