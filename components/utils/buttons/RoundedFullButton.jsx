@@ -12,7 +12,7 @@ const RoundedFullButton = ({
 }) => {
   return (
     <DefaultButton
-      className={`py-3 px-6 min-w-[8rem] flex justify-center items-center text-center rounded-full ${bg} ${color} border ${borderColor} font-bold text-button ${className}`}
+      className={`py-3 px-6 min-w-[8rem] flex justify-center items-center text-center rounded-full ${bg} ${color} border ${borderColor} font-bold text-mButton md:text-button ${className}`}
       {...others}
     >
       {children}

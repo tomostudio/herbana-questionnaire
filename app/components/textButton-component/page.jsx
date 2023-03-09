@@ -16,12 +16,12 @@ export default function Icon() {
       <NextSeo title="Home" />
       <main className="bg-blue w-full min-h-screen flex flex-col justify-between">
         <Header />
-        {/* <HeaderGap /> */}
-        <Container className="w-full h-full flex items-center grow">
+        <HeaderGap />
+        <div className="w-full h-full min-h-screen md:min-h-fit flex items-center grow">
           <TextButtonComponent />
-        </Container>
-        <div className="relative w-full grid grid-cols-3 border-y-2 border-black">
-          <DefaultButton className="relative z-20 border-r-2 border-black text-nav font-maisonMono py-3">
+        </div>
+        <div className="relative w-full grid md:grid-cols-3 border-y-2 border-black">
+          <DefaultButton className="relative z-20 md:border-r-2 border-black text-footer md:text-nav font-maisonMono py-3">
             ABOUT YOU
           </DefaultButton>
           <DefaultButton className="relative z-20 border-r-2 border-black text-nav font-maisonMono py-3">

@@ -16,14 +16,16 @@ const ImageButton = ({
 }) => {
   return (
     <DefaultButton
-      className={`w-fit text-center bg-white rounded-lg border border-black text-black ${className}`}
+      className={`${
+        icon ? 'w-[117px] md:w-[150px]' : 'w-[131px] md:w-[205px]'
+      }  text-center bg-white rounded-lg border border-black text-black text-mButton md:text-body ${className}`}
       {...others}
     >
-      <div className="relative flex flex-col w-full">
+      <div className="relative flex flex-col w-full h-full">
         <div
           className={`relative overflow-hidden ${
-            icon ? 'h-[125px]' : 'h-[180px] border-b border-black'
-          } rounded-t-lg flex justify-center items-center h-[125px]`}
+            icon ? 'h-[125px]' : 'h-[125px] md:h-[180px] border-b border-black'
+          } rounded-t-lg flex justify-center items-center`}
         >
           {fill ? (
             <Image src={src} fill={fill} style={style} />
@@ -37,7 +39,13 @@ const ImageButton = ({
             />
           )}
         </div>
-        <div className={`pb-3 ${icon ? 'px-7' : 'px-14 pt-3'} w-full text-center`}>{children}</div>
+        <div
+          className={`pb-4 ${
+            icon ? 'px-4 md:px-3' : 'px-6 md:px-14 pt-4'
+          } w-full text-center grow flex justify-center items-center`}
+        >
+          <span>{children}</span>
+        </div>
       </div>
     </DefaultButton>
   )

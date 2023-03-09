@@ -13,18 +13,24 @@ module.exports = {
     },
     extend: {
       height: {
-        header: '75px'
+        header: '75px',
+        mHeader: '60px'
       },
       fontSize: {
         opHeading: '4.5rem',
         body: '1.125rem',
         heading: '2.5rem',
+        mheading: '1.875rem',
+        mheading1: '1.563rem',
         subHeading: '0.875rem',
         qHeading: '3.25rem',
         qHeadingb: '1.875rem',
         nav: '0.875rem',
         footer: '0.625rem',
-        button: '1rem'
+        button: '1rem',
+        mButton: '0.875rem',
+        mInput: '0.875rem',
+        mNav: '0.75rem'
       },
       colors: {
         orange: "#E46B37",

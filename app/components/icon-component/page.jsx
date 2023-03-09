@@ -21,8 +21,8 @@ export default function Icon() {
       <NextSeo title="Home" />
       <main className="bg-blue w-full min-h-screen flex flex-col justify-between">
         <Header />
-        {/* <HeaderGap /> */}
-        <div className="w-full h-full flex flex-col justify-center items-center grow">
+        <HeaderGap />
+        <div className="w-full h-full min-h-screen md:min-h-fit flex flex-col justify-center items-center grow">
           <IconComponent />
         </div>
         <Footer />

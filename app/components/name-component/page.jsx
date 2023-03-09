@@ -20,8 +20,8 @@ export default function Name() {
       <NextSeo title="Home" />
       <main className="bg-beige w-full min-h-screen flex flex-col justify-between">
         <Header />
-        {/* <HeaderGap /> */}
-        <div className="w-full h-full flex flex-col justify-center items-center grow">
+        <HeaderGap />
+        <div className="w-full h-full min-h-screen md:min-h-fit flex flex-col justify-center items-center grow">
           <NameComponent />
         </div>
         <Footer />
