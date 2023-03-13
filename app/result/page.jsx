@@ -80,7 +80,7 @@ export default function Name() {
               <h2 className="text-mheading1 max-w-xl md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight">
                 {title}
               </h2>
-              <div className="w-full flex flex-col mt-20 space-y-8">
+              <div className="w-full flex flex-col mt-20 space-y-5">
                 <div className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl">
                   <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                     <span>ABOUT YOU</span>
