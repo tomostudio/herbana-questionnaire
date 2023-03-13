@@ -6,7 +6,7 @@ import { ArrowLeft } from './utils/svg'
 export default function Header({ background = 'bg-transparent' }) {
   return (
     <nav
-      className={`${background} fixed top-0 left-0 right-0 w-full z-10 border-b-2 border-black`}
+      className={`${background} fixed top-0 left-0 right-0 w-full z-20 border-b-2 border-black`}
     >
       <Container>
         <div className="flex justify-between items-center h-mHeader md:h-header">
@@ -27,7 +27,7 @@ export default function Header({ background = 'bg-transparent' }) {
               />
             </div>
           </DefaultButton>
-          <DefaultButton className="text-mNav md:text-nav w-28 font-maisonMono text-right tracking-tighter">
+          <DefaultButton className="text-mNav md:text-nav w-28 md:w-fit font-maisonMono text-right tracking-tighter">
             Herbana Questionnaire
           </DefaultButton>
         </div>

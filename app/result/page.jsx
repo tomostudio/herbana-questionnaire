@@ -11,6 +11,7 @@ import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import Container from '@/components/container'
 
 export default function Name() {
   const [isOpen, setIsOpen] = useState(false)
@@ -43,7 +44,8 @@ export default function Name() {
   }
 
   const title =
-    "You're one step closer to meet your\npersonalised vitamins. But before that,\nhere's a recap of what you've told us:"
+    "You're one step closer to meet your personalised vitamins. But before that, here's a recap of what you've told us:"
+  const title2 = 'Thank you for\ncompleting our\nquestionnaire!'
   return (
     <Layout>
       <NextSeo title="Home" />
@@ -51,23 +53,36 @@ export default function Name() {
         <Header background="bg-beige" />
         <HeaderGap />
         <div className="w-full h-full flex flex-col grow">
-          <div className="relative w-full h-[65vh] min-h-[500px] aspect-video">
+          <div className="relative w-full h-[405px] md:h-[521px]">
+            <Container className="relative z-10 text-center h-full flex justify-center items-center">
+              <h1 className='whitespace-pre-wrap uppercase text-mendHeading md:text-endHeading'>{title2}</h1>
+            </Container>
             <Image
               src="/result.png"
               fill
               style={{
                 objectFit: 'cover',
               }}
+              className="hidden md:block"
+            />
+            <Image
+              src="/resultMobile.png"
+              fill
+              style={{
+                objectFit: 'contain',
+                objectPosition: 'center top',
+              }}
+              className="md:hidden"
             />
           </div>
-          <div className="w-full bg-blue flex justify-center">
-            <div className="max-w-3xl w-full mt-20 mb-16 flex flex-col">
-              <h1 className="text-qHeadingb m-0 font-normal text-center whitespace-pre-wrap leading-tight">
+          <div className="w-full bg-blue flex justify-center px-6 md:px-0">
+            <div className="max-w-3xl w-full mt-20 mb-16 flex flex-col items-center">
+              <h2 className="text-mheading1 max-w-xl md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight">
                 {title}
-              </h1>
+              </h2>
               <div className="w-full flex flex-col mt-20 space-y-8">
-                <div className="flex flex-col w-full bg-beige p-10 rounded-xl">
-                  <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-qHeadingb">
+                <div className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl">
+                  <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                     <span>ABOUT YOU</span>
                     <DefaultButton
                       onClick={(e) => {
@@ -83,7 +98,7 @@ export default function Name() {
                     variants={variants}
                     className="overflow-hidden"
                   >
-                    <p className="pt-8">
+                    <p className="pt-8 text-[0.938rem] md:text-body">
                       Praesent tellus ligula, laoreet ac qsuam id, aliquet
                       auctor augue tempor imperdiet. Suspendisse id orci orci,
                       Suspendisseaa felis magna aliquet baami id lorem. Praesent
@@ -93,14 +108,14 @@ export default function Name() {
                     </p>
                   </motion.div>
                 </div>
-                <div className="flex flex-col w-full bg-beige p-10 rounded-xl">
-                  <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-qHeadingb">
+                <div className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl">
+                  <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                     <span>FURTHER GOALS</span>
                     <DefaultButton className="dropdown"></DefaultButton>
                   </div>
                 </div>
-                <div className="flex flex-col w-full bg-beige p-10 rounded-xl">
-                  <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-qHeadingb">
+                <div className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl">
+                  <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                     <span>GENERAL HEALTH</span>
                     <DefaultButton className="dropdown"></DefaultButton>
                   </div>
@@ -108,27 +123,27 @@ export default function Name() {
               </div>
             </div>
           </div>
-          <div className="w-full bg-beige flex justify-center">
-            <div className="w-full max-w-5xl mx-auto py-20">
+          <div className="w-full bg-beige flex justify-center px-6 md:px-0">
+            <div className="w-full max-w-5xl mx-auto py-10 md:py-20">
               <div className="flex flex-col rounded-2xl border-2 border-orange bg-orange overflow-hidden">
-                <div className="h-72 text-left p-12">
-                  <span className="text-white text-qHeadingb">
+                <div className="h-full md:h-72 text-left px-6 pb-12 pt-6 md:p-12">
+                  <span className="text-white text-mheading1 md:text-qHeadingb">
                     To get products we recommend, <br />
                     please fill in your details here:
                   </span>
                 </div>
-                <div className="bg-white rounded-t-2xl p-12 flex justify-between">
-                  <div className="flex flex-col w-1/2">
+                <div className="bg-white rounded-t-2xl p-6 md:p-12 flex flex-col md:flex-row justify-between">
+                  <div className="flex flex-col w-full md:w-1/2">
                     <input
                       placeholder="INSERT EMAIL"
-                      className="border-y-2 border-black py-4 outline-none placeholder:text-black placeholder:opacity-50"
+                      className="border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                     />
                     <input
                       placeholder="INSERT PHONE NUMBER"
-                      className="mt-4 border-b-2 border-black pb-4 outline-none placeholder:text-black placeholder:opacity-50"
+                      className="mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                     />
                   </div>
-                  <div className="flex justify-end items-end w-1/2">
+                  <div className="flex justify-center md:justify-end items-end w-full md:w-1/2 mt-7 md:mt-0">
                     <RoundedFullButton
                       destination="/"
                       icon
@@ -136,7 +151,7 @@ export default function Name() {
                       bg="bg-orange"
                       borderColor="border-orange"
                     >
-                      CHECKOUT HERE
+                      VIEW RESULT
                     </RoundedFullButton>
                   </div>
                 </div>

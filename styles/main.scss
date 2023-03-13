@@ -19,10 +19,7 @@ body {
 }
 
 .dropdown {
-	position: relative;
-	width: 23px;
-	height: 23px;
-	cursor: pointer;
+	@apply relative w-[17px] h-[17px] md:w-[22px] md:h-[22px] cursor-pointer;
 	
 	&.dropdown-active {
 		&:before {
@@ -42,7 +39,7 @@ body {
 		top: 50%; left: 0;
 		transition: .35s;
 		width: 100%;
-		height: 4px;
+		@apply h-[3px] md:h-[4px];
 	}
 	
 	&:before {		
