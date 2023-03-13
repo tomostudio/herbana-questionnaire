@@ -18,36 +18,67 @@ body {
   scroll-behavior: smooth;
 }
 
+.hover-white {
+  &:hover {
+	color: #E46B37 !important;
+    & * {
+      color: white !important;
+    }
+    & svg:not(.fill-hover) * {
+      stroke: white !important;
+    }
+    & svg.fill-hover * {
+      fill: white !important;
+    }
+  }
+}
+
+.hover-orange {
+  &:hover {
+	color: #E46B37 !important;
+    & * {
+      color: #E46B37 !important;
+    }
+    & svg:not(.fill-hover) * {
+      stroke: #E46B37 !important;
+    }
+    & svg.fill-hover * {
+      fill: #E46B37 !important;
+    }
+  }
+}
+
 .dropdown {
-	@apply relative w-[17px] h-[17px] md:w-[22px] md:h-[22px] cursor-pointer;
-	
-	&.dropdown-active {
-		&:before {
-			transform: translatey(-50%) rotate(-90deg);
-			opacity: 0;
-		}
-		&:after {
-			transform: translatey(-50%) rotate(0);
-		}
-	}
-	
-	&:before , &:after {
-		content: "";
-		display: block;
-		background-color: #E46B37;
-		position: absolute;		
-		top: 50%; left: 0;
-		transition: .35s;
-		width: 100%;
-		@apply h-[3px] md:h-[4px];
-	}
-	
-	&:before {		
-		transform: translatey(-50%);
-	}
-	
-	&:after {
-		transform: translatey(-50%) rotate(90deg);
-	}
-	
+  @apply relative w-[17px] h-[17px] md:w-[22px] md:h-[22px] cursor-pointer;
+
+  &.dropdown-active {
+    &:before {
+      transform: translatey(-50%) rotate(-90deg);
+      opacity: 0;
+    }
+    &:after {
+      transform: translatey(-50%) rotate(0);
+    }
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    background-color: #e46b37;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transition: 0.35s;
+    width: 100%;
+    @apply h-[3px] md:h-[4px];
+  }
+
+  &:before {
+    transform: translatey(-50%);
+  }
+
+  &:after {
+    transform: translatey(-50%) rotate(90deg);
+  }
 }

@@ -16,15 +16,16 @@ const ImageButton = ({
 }) => {
   return (
     <DefaultButton
+      hover={false}
       className={`${
         icon ? 'w-[117px] md:w-[150px]' : 'w-[131px] md:w-[205px]'
-      }  text-center bg-white rounded-lg border border-black text-black text-mButton md:text-body ${className}`}
-      {...others}
+      }  text-center bg-white rounded-lg hover:border-orange transition-all duration-300 border-default border-black text-black text-mButton md:text-body ${className}`}
+      {...others} 
     >
       <div className="relative flex flex-col w-full h-full">
         <div
           className={`relative overflow-hidden ${
-            icon ? 'h-[125px]' : 'h-[125px] md:h-[180px] border-b border-black'
+            icon ? 'h-[125px]' : 'h-[125px] md:h-[180px] hover:border-orange transition-all duration-300 border-b-default border-black'
           } rounded-t-lg flex justify-center items-center`}
         >
           {fill ? (

@@ -14,7 +14,7 @@ const TextButtonComponent = () => {
           classNameSubTitle="max-w-xs md:max-w-none"
         />
         <div className="w-full flex flex-wrap justify-center gap-6">
-          <RoundedButton destination="/">HIgh Blood Sugar</RoundedButton>
+          <RoundedButton destination="/">High Blood Sugar</RoundedButton>
           <RoundedButton destination="/">1 to 3</RoundedButton>
           <RoundedButton destination="/">More than 3</RoundedButton>
         </div>

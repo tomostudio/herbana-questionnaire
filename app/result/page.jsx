@@ -148,8 +148,9 @@ export default function Name() {
                       destination="/"
                       icon
                       color="text-white"
-                      bg="bg-orange"
+                      bg="bg-orange hover:bg-white"
                       borderColor="border-orange"
+                      hoverTextIcon="hover-orange"
                     >
                       VIEW RESULT
                     </RoundedFullButton>

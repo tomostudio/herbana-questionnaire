@@ -11,7 +11,7 @@ const IconComponent = () => {
           title="About You"
           subTitle={subTitle}
           subTitleSizeMobile="text-mheading1"
-          classNameSubTitle="max-w-xs"
+          classNameSubTitle="max-w-xs md:max-w-none"
         />
         <div className="w-full flex flex-wrap justify-center gap-6">
           <ImageButton
