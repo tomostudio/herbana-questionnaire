@@ -6,7 +6,7 @@ import Header from '@/components/header'
 import HeaderGap from '@/components/headerGap'
 import Layout from '@/components/layout'
 import IconComponent from '@/components/modules/iconComponent'
-import NameComponent from '@/components/modules/nameComponent'
+import NameComponent from '@/components/modules/fundamentalComponent'
 import TextImageComponent from '@/components/modules/textImageComponent'
 import {
   BorderButton,

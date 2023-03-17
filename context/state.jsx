@@ -1,17 +1,28 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react'
 
-const AppContext = createContext();
+const AppContext = createContext()
 
 export function AppWrapper({ children }) {
-  const [scrollState, setScrollState] = useState(null);
+  const [scrollState, setScrollState] = useState(null)
+  const [currentSection, setCurrentSection] = useState(0)
+  const [currentQuestion, setCurrentQuestion] = useState(0)
 
   return (
-    <AppContext.Provider value={{scrollState, setScrollState}}>
+    <AppContext.Provider
+      value={{
+        scrollState,
+        setScrollState,
+        currentSection,
+        setCurrentSection,
+        currentQuestion,
+        setCurrentQuestion,
+      }}
+    >
       {children}
     </AppContext.Provider>
-  );
+  )
 }
 
 export function useAppContext() {
-  return useContext(AppContext);
+  return useContext(AppContext)
 }

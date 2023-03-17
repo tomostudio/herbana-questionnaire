@@ -4,7 +4,7 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import HeaderGap from '@/components/headerGap'
 import Layout from '@/components/layout'
-import NameComponent from '@/components/modules/nameComponent'
+import NameComponent from '@/components/modules/fundamentalComponent'
 import {
   BorderButton,
   ImageButton,

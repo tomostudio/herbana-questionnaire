@@ -27,7 +27,7 @@ export default function Header({ background = 'bg-transparent' }) {
               />
             </div>
           </DefaultButton>
-          <DefaultButton className="text-mNav md:text-nav w-28 md:w-fit font-maisonMono text-right tracking-tighter">
+          <DefaultButton className="text-mNav md:text-nav w-28 md:w-fit font-maisonMono text-right tracking-tight" destination="/">
             Herbana Questionnaire
           </DefaultButton>
         </div>

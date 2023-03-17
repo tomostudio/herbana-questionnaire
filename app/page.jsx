@@ -5,18 +5,16 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import HeaderGap from '@/components/headerGap'
 import Layout from '@/components/layout'
-import TextImageComponent from '@/components/modules/textImageComponent'
-import { RoundedButton, RoundedFullButton } from '@/components/utils/buttons'
+import { RoundedFullButton } from '@/components/utils/buttons'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 
 export default function Home() {
-  const subTitle = 'When it comes to herbal supplements, \n you are...'
   return (
     <Layout>
       <NextSeo title="Home" />
       <main className="bg-blue w-full min-h-screen flex flex-col justify-between">
-        <Header background='bg-beige' />
+        <Header background="bg-beige" />
         <HeaderGap />
         <div className="relative w-full h-full flex items-center grow">
           <div className="w-full flex flex-col lg:flex-row self-stretch">
@@ -30,7 +28,11 @@ export default function Home() {
                   know more about the best products curated just for you, by
                   filling this simple quiz.
                 </p>
-                <RoundedFullButton icon className="hidden lg:flex w-fit">
+                <RoundedFullButton
+                  icon
+                  className="hidden lg:flex w-fit"
+                  destination="/quiz"
+                >
                   START QUIZ
                 </RoundedFullButton>
               </div>
@@ -53,7 +55,11 @@ export default function Home() {
                   objectFit: 'cover',
                 }}
               />
-              <RoundedFullButton icon className="lg:hidden relative z-20 -top-6 mx-auto w-fit">
+              <RoundedFullButton
+                icon
+                className="lg:hidden relative z-20 -top-6 mx-auto w-fit"
+                destination="/quiz"
+              >
                 START QUIZ
               </RoundedFullButton>
             </div>
