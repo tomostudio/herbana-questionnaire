@@ -12,19 +12,26 @@ module.exports = {
       maisonMono: ["Maison Mono", "sans-serif"],
     },
     extend: {
+      borderWidth: {
+        default: '1.5px'
+      },
       height: {
         header: '75px',
         mHeader: '60px'
       },
       fontSize: {
         opHeading: '4.5rem',
+        mopHeading: '2.813rem',
         body: '1.125rem',
+        endHeading: '3.75rem',
+        mendHeading: '2.063rem',
         heading: '2.5rem',
         mheading: '1.875rem',
         mheading1: '1.563rem',
         subHeading: '0.875rem',
         qHeading: '3.25rem',
         qHeadingb: '1.875rem',
+        mqHeadingb: '1.25rem',
         nav: '0.875rem',
         footer: '0.625rem',
         button: '1rem',

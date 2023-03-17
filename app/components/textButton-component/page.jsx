@@ -21,16 +21,16 @@ export default function Icon() {
           <TextButtonComponent />
         </div>
         <div className="relative w-full grid md:grid-cols-3 border-y-2 border-black">
-          <DefaultButton className="relative z-20 md:border-r-2 border-black text-footer md:text-nav font-maisonMono py-3">
-            ABOUT YOU
-          </DefaultButton>
-          <DefaultButton className="relative z-20 border-r-2 border-black text-nav font-maisonMono py-3">
+          <div className="relative md:border-r-2 border-black text-center text-footer md:text-nav font-maisonMono py-3">
+            <span className='relative z-20'>ABOUT YOU</span>
+            <div className="absolute top-0 left-0 w-1/2 h-full z-10 bg-yellow" />
+          </div>
+          <div className="relative z-20 border-r-2 border-black text-center text-nav font-maisonMono py-3">
             FURTHER GOALS
-          </DefaultButton>
-          <DefaultButton className="relative z-20 text-nav font-maisonMono py-3">
+          </div>
+          <div className="relative z-20 text-center text-nav font-maisonMono py-3">
             GENERAL HEALTH
-          </DefaultButton>
-          <div className="absolute top-0 left-0 w-1/2 h-full z-10 bg-yellow" />
+          </div>
         </div>
         <Footer />
       </main>
