@@ -44,7 +44,7 @@ const dataquestion = {
           inputPlaceholder: '', // FOR STRING
           // RESOLVE SETTING
           resolveSetting: {
-            initialState: '', // HIDDEN ATO SHOWN 
+            initialState: '', // HIDDEN 0 ATO SHOWN 1
             resolveCondition: [ // NEGATE THE INITIAL STATE
               // QA Object
               {
