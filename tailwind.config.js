@@ -44,6 +44,7 @@ module.exports = {
         beige: "#FFF7E9",
         blue: '#DFF2F7',
         grey: '#F7F7F3',
+        greyPickup: '#6C766C',
         green: '#D8ECD8',
         pink: '#FEEEEF',
         yellow: '#FFC645'

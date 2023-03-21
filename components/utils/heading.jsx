@@ -3,6 +3,7 @@ const Heading = ({
   subTitle,
   position = 'text-center',
   subTitleSizeMobile = 'text-mheading',
+  marginSubtitle = true,
   classNameSubTitle = '',
 }) => {
   return (
@@ -13,7 +14,9 @@ const Heading = ({
         {title}
       </span>
       <h1
-        className={`${subTitleSizeMobile} ${classNameSubTitle} md:text-heading tracking-tighter font-maisonMono font-bold leading-tight mb-6 md:mb-7 whitespace-pre-wrap ${position}`}
+        className={`${subTitleSizeMobile} ${classNameSubTitle} md:text-heading tracking-tighter font-maisonMono font-bold leading-tight ${
+          marginSubtitle ? 'mb-6 md:mb-7' : 'm-0'
+        }  whitespace-pre-wrap ${position}`}
       >
         {subTitle}
       </h1>

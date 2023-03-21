@@ -685,7 +685,7 @@
               "ID": 9,
               "type": "multiple",
               "content": {
-                "en": "What should we explore? (Pick 1-3)",
+                "en": "What should we explore?",
                 "id": "id-What should we explore? (Pick 1-3)"
               },
               "answerType": "icon",

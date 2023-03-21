@@ -18,7 +18,7 @@ const DefaultButton = forwardRef(
     return !destination ? (
       <button
         aria-label={a11yText}
-        className={`cursor-pointer ${className} pointer-events-auto ${
+        className={`${className} pointer-events-auto ${
           hover ? 'hover:opacity-50 transition-opacity' : ''
         }`}
         onClick={onClick}

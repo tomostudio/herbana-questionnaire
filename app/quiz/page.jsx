@@ -14,6 +14,7 @@ import { useAppContext } from 'context/state'
 import IconComponent from '@/components/modules/iconComponent'
 import TextImageComponent from '@/components/modules/textImageComponent'
 import TextButtonComponent from '@/components/modules/textButtonComponent'
+import PickupComponent from '@/components/modules/pickupComponent'
 
 export default function Quiz() {
   const appContext = useAppContext()
@@ -36,7 +37,49 @@ export default function Quiz() {
       appContext.setCurrentQuestion(dataQuestionnaire.currentQuestion)
       setLoading(false)
     }
+
+    let totalQuestion = []
+
+    quiz.data.sections
+      .filter((data) => data.type !== 'fundamental')
+      .forEach((data) => {
+        totalQuestion.push(...data.questions)
+      })
+    quiz.data.totalQuestion = totalQuestion.length
   }, [])
+
+  const ProgressIndicator = () => {
+    if (
+      quiz.data.sections[appContext.currentSection].type !== 'fundamental' &&
+      appContext.currentQuestion !== null
+    ) {
+      return (
+        <div className="relative w-full grid md:grid-cols-3 border-y-2 border-black">
+          {quiz.data.sections.map(
+            (data, id) =>
+              data.type !== 'fundamental' && (
+                <div
+                  key={id}
+                  className="relative md:border-r-2 border-black text-center text-footer md:text-nav font-maisonMono py-3"
+                >
+                  <span className="relative z-20 uppercase">
+                    {data.title.en}
+                  </span>
+                </div>
+              ),
+          )}
+          <div
+            className={`absolute top-0 left-0 h-full z-10 bg-yellow`}
+            style={{
+              width: `${
+                (appContext.currentQuestion / quiz.data.totalQuestion) * 100
+              }%`,
+            }}
+          />
+        </div>
+      )
+    }
+  }
 
   return (
     <Layout>
@@ -205,7 +248,32 @@ export default function Quiz() {
                   />
                 )
               ) : (
-                <></>
+                <>
+                  <PickupComponent
+                    nextSection={
+                      quiz.data.sections[appContext.currentSection + 1]
+                    }
+                    nextQuestion={
+                      quiz.data.sections[appContext.currentSection].questions[
+                        appContext.currentQuestion + 1
+                      ]
+                    }
+                    title={
+                      quiz.data.sections[appContext.currentSection].title.en
+                    }
+                    subTitle={
+                      quiz.data.sections[appContext.currentSection].questions[
+                        appContext.currentQuestion
+                      ].content.en
+                    }
+                    answers={
+                      quiz.data.sections[appContext.currentSection].questions[
+                        appContext.currentQuestion
+                      ].answers
+                    }
+                  />
+                  {console.log('pickup')}
+                </>
               )
             ) : (
               <></>
@@ -214,18 +282,7 @@ export default function Quiz() {
             <></>
           )}
         </div>
-        <div className="relative w-full grid md:grid-cols-3 border-y-2 border-black">
-          <div className="relative md:border-r-2 border-black text-center text-footer md:text-nav font-maisonMono py-3">
-            <span className="relative z-20">ABOUT YOU</span>
-            <div className="absolute top-0 left-0 w-1/2 h-full z-10 bg-yellow" />
-          </div>
-          <div className="relative z-20 border-r-2 border-black text-center text-nav font-maisonMono py-3">
-            FURTHER GOALS
-          </div>
-          <div className="relative z-20 text-center text-nav font-maisonMono py-3">
-            GENERAL HEALTH
-          </div>
-        </div>
+        <ProgressIndicator />
         <Footer />
       </main>
     </Layout>
