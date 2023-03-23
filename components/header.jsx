@@ -10,7 +10,7 @@ export default function Header({ background = 'bg-transparent' }) {
     >
       <Container>
         <div className="flex justify-between items-center h-mHeader md:h-header">
-          <DefaultButton className="hidden md:flex items-center text-nav font-maisonMono">
+          <DefaultButton destination="https://herbana.id" className="hidden md:flex items-center text-nav font-maisonMono">
             <ArrowLeft className="mb-1 mr-4" />
             Back to Website
           </DefaultButton>

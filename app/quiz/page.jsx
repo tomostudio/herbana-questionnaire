@@ -15,6 +15,8 @@ import IconComponent from '@/components/modules/iconComponent'
 import TextImageComponent from '@/components/modules/textImageComponent'
 import TextButtonComponent from '@/components/modules/textButtonComponent'
 import PickupComponent from '@/components/modules/pickupComponent'
+import { DefaultButton } from '@/components/utils/buttons'
+import { ArrowLeft } from '@/components/utils/svg'
 
 export default function Quiz() {
   const appContext = useAppContext()
@@ -49,11 +51,15 @@ export default function Quiz() {
   }, [])
 
   const ProgressIndicator = () => {
-    if (
-      quiz.data.sections[appContext.currentSection].type !== 'fundamental' &&
-      appContext.currentQuestion !== null
-    ) {
-      return (
+    return (
+      <div className="flex flex-col w-full">
+        <DefaultButton
+          destination="https://herbana.id"
+          className="hidden md:flex items-center text-nav font-maisonMono mx-6 md:mx-8 mb-3 uppercase"
+        >
+          <ArrowLeft className="mb-1 mr-4" />
+          Back
+        </DefaultButton>
         <div className="relative w-full grid md:grid-cols-3 border-y-2 border-black">
           {quiz.data.sections.map(
             (data, id) =>
@@ -77,8 +83,8 @@ export default function Quiz() {
             }}
           />
         </div>
-      )
-    }
+      </div>
+    )
   }
 
   return (
@@ -282,7 +288,22 @@ export default function Quiz() {
             <></>
           )}
         </div>
-        <ProgressIndicator />
+        {!loading ? (
+          quiz.data.sections[appContext.currentSection].type !==
+            'fundamental' && appContext.currentQuestion !== null ? (
+            <ProgressIndicator />
+          ) : (
+            <DefaultButton
+              destination="https://herbana.id"
+              className="hidden md:flex items-center text-nav font-maisonMono"
+            >
+              <ArrowLeft className="mb-1 mr-4" />
+              Back to Website
+            </DefaultButton>
+          )
+        ) : (
+          <></>
+        )}
         <Footer />
       </main>
     </Layout>

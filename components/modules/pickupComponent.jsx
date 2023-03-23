@@ -3,7 +3,7 @@
 import { useAppContext } from 'context/state'
 import { useState } from 'react'
 import Container from '../container'
-import { ImageButton } from '../utils/buttons'
+import { BorderButton, ImageButton } from '../utils/buttons'
 import Heading from '../utils/heading'
 
 const PickupComponent = ({
@@ -53,6 +53,7 @@ const PickupComponent = ({
             </ImageButton>
           ))}
         </div>
+        <BorderButton className="mt-6 md:mt-7">CONTINUE</BorderButton>
       </div>
     </Container>
   )
