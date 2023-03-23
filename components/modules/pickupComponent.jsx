@@ -14,7 +14,6 @@ const PickupComponent = ({
   answers,
 }) => {
   const appContext = useAppContext();
-  const [test, setTest]= useState([]);
   return (
     <Container className="w-full h-full flex justify-center items-center py-10">
       <div className="w-full max-w-5xl flex flex-col items-center">
@@ -36,7 +35,6 @@ const PickupComponent = ({
               height={70}
               data-target={id}
               onClick={(e) => {
-                setTest([...test, id])
                 const pickupButton = document.querySelector(`[data-target="${id}"]`)
                 if(pickupButton.classList.contains("bg-orange")) {
                     pickupButton.classList.add("bg-white");

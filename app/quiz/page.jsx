@@ -47,6 +47,26 @@ export default function Quiz() {
       .forEach((data) => {
         totalQuestion.push(...data.questions)
       })
+
+    quiz.data.sections = quiz.data.sections.map((data) => {
+      if (data.type !== 'fundamental') {
+        return {
+          ...data,
+          questions: data.questions.map((e) => {
+            return {
+              ...e,
+              current:
+                totalQuestion.indexOf(
+                  totalQuestion.find((f) => f.ID === e.ID),
+                ) + 1,
+            }
+          }),
+        }
+      } else {
+        return data
+      }
+    })
+
     quiz.data.totalQuestion = totalQuestion.length
   }, [])
 
@@ -66,19 +86,23 @@ export default function Quiz() {
               data.type !== 'fundamental' && (
                 <div
                   key={id}
-                  className="relative md:border-r-2 border-black text-center text-footer md:text-nav font-maisonMono py-3"
+                  className="relative md:border-r-2 z-10 border-black text-center text-footer md:text-nav font-maisonMono py-3"
                 >
-                  <span className="relative z-20 uppercase">
+                  <span className="relative uppercase">
                     {data.title.en}
                   </span>
                 </div>
               ),
           )}
           <div
-            className={`absolute top-0 left-0 h-full z-10 bg-yellow`}
+            className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
             style={{
               width: `${
-                (appContext.currentQuestion / quiz.data.totalQuestion) * 100
+                (quiz.data.sections[appContext.currentSection].questions[
+                  appContext.currentQuestion
+                ].current /
+                  quiz.data.totalQuestion) *
+                100
               }%`,
             }}
           />
@@ -294,11 +318,10 @@ export default function Quiz() {
             <ProgressIndicator />
           ) : (
             <DefaultButton
-              destination="https://herbana.id"
-              className="hidden md:flex items-center text-nav font-maisonMono"
+              className="hidden md:flex items-center text-nav font-maisonMono mx-6 md:mx-8 mb-3 uppercase"
             >
               <ArrowLeft className="mb-1 mr-4" />
-              Back to Website
+              Back
             </DefaultButton>
           )
         ) : (
