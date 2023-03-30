@@ -69,157 +69,159 @@ const PickupComponent = ({
         <BorderButton
           className="mt-6 md:mt-7"
           onClick={() => {
-            if (nextQuestion) {
-              setCurrentSection(currentSection)
-              setCurrentQuestion(currentQuestion + 1)
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection,
-                  currentQuestion: currentQuestion + 1,
-                  questionnaireRespond: [
-                    ...dataQuestionnaire.questionnaireRespond,
-                    {
-                      sectionid: sectionId,
-                      responds: [
-                        // RESPOND OBJECT
-                        {
-                          questionID: questionId,
-                          answerID: getAnswer,
-                          answer: null, // FOR FUNDAMENTAL
-                          type: 'multiple', // SELECT, MULTIPLE, STRING
-                        },
-                      ],
-                    },
-                  ],
-                  status: 'progress',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else if (nextSection?.type === 'quiz') {
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(null)
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection + 1,
-                  currentQuestion: null,
-                  questionnaireRespond: [
-                    ...dataQuestionnaire.questionnaireRespond,
-                    {
-                      sectionid: sectionId,
-                      responds: [
-                        // RESPOND OBJECT
-                        {
-                          questionID: questionId,
-                          answerID: getAnswer,
-                          answer: null, // FOR FUNDAMENTAL
-                          type: 'multiple', // SELECT, MULTIPLE, STRING
-                        },
-                      ],
-                    },
-                  ],
-                  status: 'progress',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else if (nextSection?.type === 'fundamental') {
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(0)
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection + 1,
-                  currentQuestion: 0,
-                  questionnaireRespond: [
-                    ...dataQuestionnaire.questionnaireRespond,
-                    {
-                      sectionid: sectionId,
-                      responds: [
-                        // RESPOND OBJECT
-                        {
-                          questionID: questionId,
-                          answerID: getAnswer,
-                          answer: null, // FOR FUNDAMENTAL
-                          type: 'multiple', // SELECT, MULTIPLE, STRING
-                        },
-                      ],
-                    },
-                  ],
-                  status: 'progress',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else if (!nextSection && nextQuestion) {
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(0)
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection + 1,
-                  currentQuestion: 0,
-                  questionnaireRespond: [
-                    ...dataQuestionnaire.questionnaireRespond,
-                    {
-                      sectionid: sectionId,
-                      responds: [
-                        // RESPOND OBJECT
-                        {
-                          questionID: questionId,
-                          answerID: getAnswer,
-                          answer: null, // FOR FUNDAMENTAL
-                          type: 'multiple', // SELECT, MULTIPLE, STRING
-                        },
-                      ],
-                    },
-                  ],
-                  status: 'progress',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else {
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(0)
-              setStatus('finish')
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: null,
-                  currentQuestion: null,
-                  questionnaireRespond: [
-                    ...dataQuestionnaire.questionnaireRespond,
-                    {
-                      sectionid: sectionId,
-                      responds: [
-                        // RESPOND OBJECT
-                        {
-                          questionID: questionId,
-                          answerID: getAnswer,
-                          answer: null, // FOR FUNDAMENTAL
-                          type: 'multiple', // SELECT, MULTIPLE, STRING
-                        },
-                      ],
-                    },
-                  ],
-                  status: 'finish',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
+            if (getAnswer.length > 0) {
+              if (nextQuestion) {
+                setCurrentSection(currentSection)
+                setCurrentQuestion(currentQuestion + 1)
+                const dataQuestionnaire = JSON.parse(
+                  localStorage.getItem('questionnaire'),
+                )
+                localStorage.setItem(
+                  'questionnaire',
+                  JSON.stringify({
+                    currentSection: currentSection,
+                    currentQuestion: currentQuestion + 1,
+                    questionnaireRespond: [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answerID: getAnswer,
+                            answer: null, // FOR FUNDAMENTAL
+                            type: 'multiple', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ],
+                    status: 'progress',
+                    expired: dataQuestionnaire.expired,
+                  }),
+                )
+              } else if (nextSection?.type === 'quiz') {
+                setCurrentSection(currentSection + 1)
+                setCurrentQuestion(null)
+                const dataQuestionnaire = JSON.parse(
+                  localStorage.getItem('questionnaire'),
+                )
+                localStorage.setItem(
+                  'questionnaire',
+                  JSON.stringify({
+                    currentSection: currentSection + 1,
+                    currentQuestion: null,
+                    questionnaireRespond: [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answerID: getAnswer,
+                            answer: null, // FOR FUNDAMENTAL
+                            type: 'multiple', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ],
+                    status: 'progress',
+                    expired: dataQuestionnaire.expired,
+                  }),
+                )
+              } else if (nextSection?.type === 'fundamental') {
+                setCurrentSection(currentSection + 1)
+                setCurrentQuestion(0)
+                const dataQuestionnaire = JSON.parse(
+                  localStorage.getItem('questionnaire'),
+                )
+                localStorage.setItem(
+                  'questionnaire',
+                  JSON.stringify({
+                    currentSection: currentSection + 1,
+                    currentQuestion: 0,
+                    questionnaireRespond: [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answerID: getAnswer,
+                            answer: null, // FOR FUNDAMENTAL
+                            type: 'multiple', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ],
+                    status: 'progress',
+                    expired: dataQuestionnaire.expired,
+                  }),
+                )
+              } else if (!nextSection && nextQuestion) {
+                setCurrentSection(currentSection + 1)
+                setCurrentQuestion(0)
+                const dataQuestionnaire = JSON.parse(
+                  localStorage.getItem('questionnaire'),
+                )
+                localStorage.setItem(
+                  'questionnaire',
+                  JSON.stringify({
+                    currentSection: currentSection + 1,
+                    currentQuestion: 0,
+                    questionnaireRespond: [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answerID: getAnswer,
+                            answer: null, // FOR FUNDAMENTAL
+                            type: 'multiple', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ],
+                    status: 'progress',
+                    expired: dataQuestionnaire.expired,
+                  }),
+                )
+              } else {
+                setCurrentSection(currentSection + 1)
+                setCurrentQuestion(0)
+                setStatus('finish')
+                const dataQuestionnaire = JSON.parse(
+                  localStorage.getItem('questionnaire'),
+                )
+                localStorage.setItem(
+                  'questionnaire',
+                  JSON.stringify({
+                    currentSection: null,
+                    currentQuestion: null,
+                    questionnaireRespond: [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answerID: getAnswer,
+                            answer: null, // FOR FUNDAMENTAL
+                            type: 'multiple', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ],
+                    status: 'finish',
+                    expired: dataQuestionnaire.expired,
+                  }),
+                )
+              }
             }
           }}
         >
