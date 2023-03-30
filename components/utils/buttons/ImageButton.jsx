@@ -5,10 +5,12 @@ const ImageButton = ({
   children,
   className,
   src,
+  src2,
   fill = true,
   style = {
     objectFit: 'contain',
   },
+  pickup = false,
   icon = true,
   height = 0,
   width = 0,
@@ -28,10 +30,28 @@ const ImageButton = ({
             icon
               ? 'h-[125px]'
               : 'h-[125px] md:h-[180px] hover:border-orange transition-all duration-300 border-b-default border-black'
-          } rounded-t-lg flex justify-center items-center`}
+          } rounded-t-lg flex justify-center items-center imgContainer`}
         >
           {fill ? (
             <Image src={src} fill={fill} style={style} />
+          ) : pickup ? (
+            <>
+              <Image
+                src={src}
+                fill={fill}
+                height={height}
+                width={width}
+                style={style}
+              />
+              <Image
+                src={src2}
+                fill={fill}
+                height={height}
+                width={width}
+                style={style}
+                className="hidden"
+              />
+            </>
           ) : (
             <Image
               src={src}

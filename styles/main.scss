@@ -14,6 +14,7 @@
 /* Simple defaults */
 body {
   @apply font-maison tracking-wide font-normal antialiased text-black text-body bg-white;
+  line-height: normal;
   overscroll-behavior: none;
   scroll-behavior: smooth;
 }
@@ -80,5 +81,19 @@ body {
 
   &:after {
     transform: translatey(-50%) rotate(90deg);
+  }
+}
+
+.pickupActive {
+  @apply bg-orange text-white;
+
+  .imgContainer {
+    & > img:first-child {
+      @apply hidden;
+    }
+
+    & > img:last-child {
+      @apply block;
+    }
   }
 }

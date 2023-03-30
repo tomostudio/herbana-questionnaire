@@ -1,5 +1,6 @@
 import { useAppContext } from 'context/state'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import Container from '../container'
 import { RoundedFullButton } from '../utils/buttons'
 import Heading from '../utils/heading'
@@ -12,8 +13,14 @@ const TitleComponent = ({
   nextSection,
   imageLeft,
   imageRight,
+  currentSection,
+  currentQuestion,
+  setCurrentSection,
+  setCurrentQuestion,
+  setStatus,
 }) => {
   const appContext = useAppContext()
+  const router = useRouter()
   return (
     <Container className="w-full h-full flex justify-center items-center">
       <div className="relative w-fit flex flex-col items-center">
@@ -22,45 +29,84 @@ const TitleComponent = ({
           className="uppercase"
           onClick={() => {
             if (nextQuestion || nextQuestion === 0) {
-              appContext.setCurrentSection(appContext.currentSection)
-              appContext.setCurrentQuestion(0)
+              setCurrentSection(currentSection)
+              setCurrentQuestion(0)
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
               localStorage.setItem(
                 'questionnaire',
                 JSON.stringify({
-                  id: dataQuestionnaire.id,
-                  currentSection: appContext.currentSection,
+                  currentSection: currentSection,
                   currentQuestion: 0,
+                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                  status: 'progress',
+                  expired: dataQuestionnaire.expired
                 }),
               )
             } else if (nextSection?.type === 'quiz') {
-              appContext.setCurrentSection(appContext.currentSection + 1)
-              appContext.setCurrentQuestion(null)
+              setCurrentSection(currentSection + 1)
+              setCurrentQuestion(null)
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
               localStorage.setItem(
                 'questionnaire',
                 JSON.stringify({
-                  id: dataQuestionnaire.id,
-                  currentSection: appContext.currentSection + 1,
+                  currentSection: currentSection + 1,
                   currentQuestion: null,
+                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                  status: 'progress',
+                  expired: dataQuestionnaire.expired
+                }),
+              )
+            } else if (nextSection?.type === 'fundamental') {
+              setCurrentSection(currentSection + 1)
+              setCurrentQuestion(0)
+              const dataQuestionnaire = JSON.parse(
+                localStorage.getItem('questionnaire'),
+              )
+              localStorage.setItem(
+                'questionnaire',
+                JSON.stringify({
+                  currentSection: currentSection + 1,
+                  currentQuestion: 0,
+                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                  status: 'progress',
+                  expired: dataQuestionnaire.expired
+                }),
+              )
+            } else if (!nextSection && nextQuestion) {
+              setCurrentSection(currentSection + 1)
+              setCurrentQuestion(0)
+              const dataQuestionnaire = JSON.parse(
+                localStorage.getItem('questionnaire'),
+              )
+              localStorage.setItem(
+                'questionnaire',
+                JSON.stringify({
+                  currentSection: currentSection + 1,
+                  currentQuestion: 0,
+                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                  status: 'progress',
+                  expired: dataQuestionnaire.expired
                 }),
               )
             } else {
-              appContext.setCurrentSection(appContext.currentSection + 1)
-              appContext.setCurrentQuestion(0)
+              setCurrentSection(currentSection + 1)
+              setCurrentQuestion(0)
+              setStatus('finish')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
               localStorage.setItem(
                 'questionnaire',
                 JSON.stringify({
-                  id: dataQuestionnaire.id,
-                  currentSection: appContext.currentSection + 1,
-                  currentQuestion: 0,
+                  currentSection: null,
+                  currentQuestion: null,
+                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                  status: 'finish',
+                  expired: dataQuestionnaire.expired
                 }),
               )
             }

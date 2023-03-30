@@ -1,4 +1,5 @@
 import { useAppContext } from 'context/state'
+import { useRouter } from 'next/navigation'
 import Container from '../container'
 import { ImageButton } from '../utils/buttons'
 import Heading from '../utils/heading'
@@ -9,8 +10,16 @@ const ImageComponent = ({
   nextQuestion,
   nextSection,
   answers,
+  currentSection,
+  currentQuestion,
+  setCurrentSection,
+  setCurrentQuestion,
+  setStatus,
+  sectionId,
+  questionId,
 }) => {
   const appContext = useAppContext()
+  const router = useRouter();
   return (
     <Container className="w-full h-full flex justify-center items-center">
       <div className="w-full max-w-5xl flex flex-col items-center">
@@ -32,45 +41,154 @@ const ImageComponent = ({
               }}
               onClick={() => {
                 if (nextQuestion) {
-                  appContext.setCurrentSection(appContext.currentSection)
-                  appContext.setCurrentQuestion(appContext.currentQuestion + 1)
+                  setCurrentSection(currentSection)
+                  setCurrentQuestion(currentQuestion + 1)
                   const dataQuestionnaire = JSON.parse(
                     localStorage.getItem('questionnaire'),
                   )
                   localStorage.setItem(
                     'questionnaire',
                     JSON.stringify({
-                      id: dataQuestionnaire.id,
-                      currentSection: appContext.currentSection,
-                      currentQuestion: appContext.currentQuestion + 1,
+                      currentSection: currentSection,
+                      currentQuestion: currentQuestion + 1,
+                      questionnaireRespond: [
+                        ...dataQuestionnaire.questionnaireRespond,
+                        {
+                          sectionid: sectionId,
+                          responds: [
+                            // RESPOND OBJECT
+                            {
+                              questionID: questionId,
+                              answerID: [data.ID],
+                              answer: null, // FOR FUNDAMENTAL
+                              type: 'option', // SELECT, MULTIPLE, STRING
+                            },
+                          ],
+                        },
+                      ],
+                      status: 'progress',
+                      expired: dataQuestionnaire.expired
                     }),
                   )
                 } else if (nextSection?.type === 'quiz') {
-                  appContext.setCurrentSection(appContext.currentSection + 1)
-                  appContext.setCurrentQuestion(null)
+                  setCurrentSection(currentSection + 1)
+                  setCurrentQuestion(null)
                   const dataQuestionnaire = JSON.parse(
                     localStorage.getItem('questionnaire'),
                   )
                   localStorage.setItem(
                     'questionnaire',
                     JSON.stringify({
-                      id: dataQuestionnaire.id,
-                      currentSection: appContext.currentSection + 1,
+                      currentSection: currentSection + 1,
                       currentQuestion: null,
+                      questionnaireRespond: [
+                        ...dataQuestionnaire.questionnaireRespond,
+                        {
+                          sectionid: sectionId,
+                          responds: [
+                            // RESPOND OBJECT
+                            {
+                              questionID: questionId,
+                              answerID: [data.ID],
+                              answer: null, // FOR FUNDAMENTAL
+                              type: 'option', // SELECT, MULTIPLE, STRING
+                            },
+                          ],
+                        },
+                      ],
+                      status: 'progress',
+                      expired: dataQuestionnaire.expired
+                    }),
+                  )
+                } else if (nextSection?.type === 'fundamental') {
+                  setCurrentSection(currentSection + 1)
+                  setCurrentQuestion(0)
+                  const dataQuestionnaire = JSON.parse(
+                    localStorage.getItem('questionnaire'),
+                  )
+                  localStorage.setItem(
+                    'questionnaire',
+                    JSON.stringify({
+                      currentSection: currentSection + 1,
+                      currentQuestion: 0,
+                      questionnaireRespond: [
+                        ...dataQuestionnaire.questionnaireRespond,
+                        {
+                          sectionid: sectionId,
+                          responds: [
+                            // RESPOND OBJECT
+                            {
+                              questionID: questionId,
+                              answerID: [data.ID],
+                              answer: null, // FOR FUNDAMENTAL
+                              type: 'option', // SELECT, MULTIPLE, STRING
+                            },
+                          ],
+                        },
+                      ],
+                      status: 'progress',
+                      expired: dataQuestionnaire.expired
+                    }),
+                  )
+                } else if (!nextSection && nextQuestion) {
+                  setCurrentSection(currentSection + 1)
+                  setCurrentQuestion(0)
+                  const dataQuestionnaire = JSON.parse(
+                    localStorage.getItem('questionnaire'),
+                  )
+                  localStorage.setItem(
+                    'questionnaire',
+                    JSON.stringify({
+                      currentSection: currentSection + 1,
+                      currentQuestion: 0,
+                      questionnaireRespond: [
+                        ...dataQuestionnaire.questionnaireRespond,
+                        {
+                          sectionid: sectionId,
+                          responds: [
+                            // RESPOND OBJECT
+                            {
+                              questionID: questionId,
+                              answerID: [data.ID],
+                              answer: null, // FOR FUNDAMENTAL
+                              type: 'option', // SELECT, MULTIPLE, STRING
+                            },
+                          ],
+                        },
+                      ],
+                      status: 'progress',
+                      expired: dataQuestionnaire.expired
                     }),
                   )
                 } else {
-                  appContext.setCurrentSection(appContext.currentSection + 1)
-                  appContext.setCurrentQuestion(0)
+                  setCurrentSection(currentSection + 1)
+                  setCurrentQuestion(0)
+                  setStatus('finish')
                   const dataQuestionnaire = JSON.parse(
                     localStorage.getItem('questionnaire'),
                   )
                   localStorage.setItem(
                     'questionnaire',
                     JSON.stringify({
-                      id: dataQuestionnaire.id,
-                      currentSection: appContext.currentSection + 1,
-                      currentQuestion: 0,
+                      currentSection: null,
+                      currentQuestion: null,
+                      questionnaireRespond: [
+                        ...dataQuestionnaire.questionnaireRespond,
+                        {
+                          sectionid: sectionId,
+                          responds: [
+                            // RESPOND OBJECT
+                            {
+                              questionID: questionId,
+                              answerID: [data.ID],
+                              answer: null, // FOR FUNDAMENTAL
+                              type: 'option', // SELECT, MULTIPLE, STRING
+                            },
+                          ],
+                        },
+                      ],
+                      status: 'finish',
+                      expired: dataQuestionnaire.expired
                     }),
                   )
                 }
