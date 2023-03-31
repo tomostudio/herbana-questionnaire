@@ -34,19 +34,140 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [status, setStatus] = useState('progress')
-  const [isOpen, setIsOpen] = useState(false)
+  const [skipQuestion, setSkipQuestion] = useState(false)
 
-  const variants = {
-    open: {
-      height: 'auto',
-      marginTop: '1rem',
-      borderTop: '2px solid #E46B37',
-    },
-    closed: {
-      height: 0,
-      marginTop: 0,
-    },
-  }
+  let totalQuestion = []
+
+  quiz.data.sections
+    .filter((data) => data.type !== 'fundamental')
+    .forEach((data) => {
+      totalQuestion.push(...data.questions)
+    })
+
+  quiz.data.sections = quiz.data.sections.map((data) => {
+    if (data.type !== 'fundamental') {
+      return {
+        ...data,
+        questions: data.questions.map((e) => {
+          return {
+            ...e,
+            current:
+              totalQuestion.indexOf(totalQuestion.find((f) => f.ID === e.ID)) +
+              1,
+          }
+        }),
+      }
+    } else {
+      return data
+    }
+  })
+
+  quiz.data.totalQuestion = totalQuestion.length
+
+  useEffect(() => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+    if (dataQuestionnaire && dataQuestionnaire.status === 'progress') {
+      if (
+        quiz.data.sections[dataQuestionnaire.currentSection].questions[
+          dataQuestionnaire.currentQuestion
+        ]?.display.state === 0
+      ) {
+        if (
+          quiz.data.sections[dataQuestionnaire.currentSection].questions[
+            dataQuestionnaire.currentQuestion
+          ].display.condition
+            .filter(
+              (e) =>
+                e.questionID ===
+                dataQuestionnaire.questionnaireRespond
+                  .find((f) =>
+                    f.responds.find((g) => g.questionID === e.questionID),
+                  )
+                  .responds.find((h) => h.questionID === e.questionID)
+                  .questionID,
+            )
+            .find((i) =>
+              i.answer.find(
+                (j) =>
+                  j ===
+                  dataQuestionnaire.questionnaireRespond
+                    .find((f) =>
+                      f.responds.find((g) => g.questionID === i.questionID),
+                    )
+                    .responds.find((h) => h.questionID === i.questionID)
+                    .answer.find((k) => k === j),
+              ),
+            )
+        ) {
+          setSkipQuestion(true)
+
+          const nextQuestion =
+            quiz.data.sections[currentSection].questions[currentQuestion + 1]
+          const nextSection = quiz.data.sections[currentSection + 1]
+
+          if (nextQuestion) {
+            setCurrentSection(currentSection)
+            setCurrentQuestion(currentQuestion + 1)
+            setSkipQuestion(false)
+            localStorage.setItem(
+              'questionnaire',
+              JSON.stringify({
+                currentSection: currentSection,
+                currentQuestion: currentQuestion + 1,
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                status: 'progress',
+                expired: dataQuestionnaire.expired,
+              }),
+            )
+          } else if (nextSection?.type === 'quiz') {
+            setCurrentSection(currentSection + 1)
+            setCurrentQuestion(null)
+            setSkipQuestion(false)
+            localStorage.setItem(
+              'questionnaire',
+              JSON.stringify({
+                currentSection: currentSection + 1,
+                currentQuestion: null,
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                status: 'progress',
+                expired: dataQuestionnaire.expired,
+              }),
+            )
+          } else if (nextSection?.type === 'fundamental') {
+            setCurrentSection(currentSection + 1)
+            setCurrentQuestion(0)
+            setSkipQuestion(false)
+            localStorage.setItem(
+              'questionnaire',
+              JSON.stringify({
+                currentSection: currentSection + 1,
+                currentQuestion: 0,
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                status: 'progress',
+                expired: dataQuestionnaire.expired,
+              }),
+            )
+          } else if (!nextSection && nextQuestion) {
+            setCurrentSection(currentSection + 1)
+            setCurrentQuestion(0)
+            setSkipQuestion(false)
+            localStorage.setItem(
+              'questionnaire',
+              JSON.stringify({
+                currentSection: currentSection + 1,
+                currentQuestion: 0,
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                status: 'progress',
+                expired: dataQuestionnaire.expired,
+              }),
+            )
+          }
+        } else {
+          setSkipQuestion(false)
+        }
+      }
+    }
+  }, [currentSection, currentQuestion])
 
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
@@ -68,35 +189,6 @@ export default function Home() {
       setLoading(false)
       setCheckStorage(false)
     }
-
-    let totalQuestion = []
-
-    quiz.data.sections
-      .filter((data) => data.type !== 'fundamental')
-      .forEach((data) => {
-        totalQuestion.push(...data.questions)
-      })
-
-    quiz.data.sections = quiz.data.sections.map((data) => {
-      if (data.type !== 'fundamental') {
-        return {
-          ...data,
-          questions: data.questions.map((e) => {
-            return {
-              ...e,
-              current:
-                totalQuestion.indexOf(
-                  totalQuestion.find((f) => f.ID === e.ID),
-                ) + 1,
-            }
-          }),
-        }
-      } else {
-        return data
-      }
-    })
-
-    quiz.data.totalQuestion = totalQuestion.length
   }, [])
 
   const ProgressIndicator = () => {
@@ -183,7 +275,7 @@ export default function Home() {
         >
           <Header background={color.header} header={quiz.data.headerData} />
           <HeaderGap />
-          <div className="relative w-full h-full flex flex-col grow">
+          <div className="relative w-full h-full flex flex-col grow overflow-hidden">
             <div className="w-full h-full grow flex items-center">
               {!checkStorage ? (
                 <div className="w-full flex flex-col lg:flex-row self-stretch">
@@ -267,7 +359,8 @@ export default function Home() {
                     </RoundedFullButton>
                   </div>
                 </div>
-              ) : quiz.data.sections[currentSection]?.type === 'fundamental' ? (
+              ) : quiz.data.sections[currentSection]?.type === 'fundamental' &&
+                !skipQuestion ? (
                 <FundamentalComponent
                   sectionId={quiz.data.sections[currentSection].ID}
                   questionId={
@@ -298,7 +391,8 @@ export default function Home() {
                   setCurrentQuestion={setCurrentQuestion}
                   setStatus={setStatus}
                 />
-              ) : quiz.data.sections[currentSection]?.type === 'quiz' ? (
+              ) : quiz.data.sections[currentSection]?.type === 'quiz' &&
+                !skipQuestion ? (
                 !currentQuestion && currentQuestion !== 0 ? (
                   <TitleComponent
                     nextSection={quiz.data.sections[currentSection + 1]}

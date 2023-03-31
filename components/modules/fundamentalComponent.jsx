@@ -33,22 +33,45 @@ const FundamentalComponent = ({
               JSON.stringify({
                 currentSection: currentSection,
                 currentQuestion: currentQuestion + 1,
-                status: 'progress',
-                questionnaireRespond: [
-                  ...dataQuestionnaire.questionnaireRespond,
-                  {
-                    sectionid: sectionId,
-                    responds: [
-                      // RESPOND OBJECT
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                  (f) => f.sectionid === sectionId,
+                )
+                  ? [
+                      ...dataQuestionnaire.questionnaireRespond.filter(
+                        (f) => f.sectionid !== sectionId,
+                      ),
                       {
-                        questionID: questionId,
-                        answerID: [],
-                        answer: e.target[0].value, // FOR FUNDAMENTAL
-                        type: 'text', // SELECT, MULTIPLE, STRING
+                        ...dataQuestionnaire.questionnaireRespond.find(
+                          (f) => f.sectionid === sectionId,
+                        ),
+                        responds: [
+                          ...dataQuestionnaire.questionnaireRespond.find(
+                            (f) => f.sectionid === sectionId,
+                          ).responds,
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ]
+                  : [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
                       },
                     ],
-                  },
-                ],
+                status: 'progress',
                 expired: dataQuestionnaire.expired,
               }),
             )
@@ -63,21 +86,44 @@ const FundamentalComponent = ({
               JSON.stringify({
                 currentSection: currentSection + 1,
                 currentQuestion: null,
-                questionnaireRespond: [
-                  ...dataQuestionnaire.questionnaireRespond,
-                  {
-                    sectionid: sectionId,
-                    responds: [
-                      // RESPOND OBJECT
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                  (f) => f.sectionid === sectionId,
+                )
+                  ? [
+                      ...dataQuestionnaire.questionnaireRespond.filter(
+                        (f) => f.sectionid !== sectionId,
+                      ),
                       {
-                        questionID: questionId,
-                        answerID: [],
-                        answer: e.target[0].value, // FOR FUNDAMENTAL
-                        type: 'text', // SELECT, MULTIPLE, STRING
+                        ...dataQuestionnaire.questionnaireRespond.find(
+                          (f) => f.sectionid === sectionId,
+                        ),
+                        responds: [
+                          ...dataQuestionnaire.questionnaireRespond.find(
+                            (f) => f.sectionid === sectionId,
+                          ).responds,
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ]
+                  : [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
                       },
                     ],
-                  },
-                ],
                 status: 'progress',
                 expired: dataQuestionnaire.expired,
               }),
@@ -93,21 +139,44 @@ const FundamentalComponent = ({
               JSON.stringify({
                 currentSection: currentSection + 1,
                 currentQuestion: 0,
-                questionnaireRespond: [
-                  ...dataQuestionnaire.questionnaireRespond,
-                  {
-                    sectionid: sectionId,
-                    responds: [
-                      // RESPOND OBJECT
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                  (f) => f.sectionid === sectionId,
+                )
+                  ? [
+                      ...dataQuestionnaire.questionnaireRespond.filter(
+                        (f) => f.sectionid !== sectionId,
+                      ),
                       {
-                        questionID: questionId,
-                        answerID: [],
-                        answer: e.target[0].value, // FOR FUNDAMENTAL
-                        type: 'text', // SELECT, MULTIPLE, STRING
+                        ...dataQuestionnaire.questionnaireRespond.find(
+                          (f) => f.sectionid === sectionId,
+                        ),
+                        responds: [
+                          ...dataQuestionnaire.questionnaireRespond.find(
+                            (f) => f.sectionid === sectionId,
+                          ).responds,
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ]
+                  : [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
                       },
                     ],
-                  },
-                ],
                 status: 'progress',
                 expired: dataQuestionnaire.expired,
               }),
@@ -123,21 +192,44 @@ const FundamentalComponent = ({
               JSON.stringify({
                 currentSection: currentSection + 1,
                 currentQuestion: 0,
-                questionnaireRespond: [
-                  ...dataQuestionnaire.questionnaireRespond,
-                  {
-                    sectionid: sectionId,
-                    responds: [
-                      // RESPOND OBJECT
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                  (f) => f.sectionid === sectionId,
+                )
+                  ? [
+                      ...dataQuestionnaire.questionnaireRespond.filter(
+                        (f) => f.sectionid !== sectionId,
+                      ),
                       {
-                        questionID: questionId,
-                        answerID: [],
-                        answer: e.target[0].value, // FOR FUNDAMENTAL
-                        type: 'text', // SELECT, MULTIPLE, STRING
+                        ...dataQuestionnaire.questionnaireRespond.find(
+                          (f) => f.sectionid === sectionId,
+                        ),
+                        responds: [
+                          ...dataQuestionnaire.questionnaireRespond.find(
+                            (f) => f.sectionid === sectionId,
+                          ).responds,
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ]
+                  : [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
                       },
                     ],
-                  },
-                ],
                 status: 'progress',
                 expired: dataQuestionnaire.expired,
               }),
@@ -154,21 +246,44 @@ const FundamentalComponent = ({
               JSON.stringify({
                 currentSection: null,
                 currentQuestion: null,
-                questionnaireRespond: [
-                  ...dataQuestionnaire.questionnaireRespond,
-                  {
-                    sectionid: sectionId,
-                    responds: [
-                      // RESPOND OBJECT
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                  (f) => f.sectionid === sectionId,
+                )
+                  ? [
+                      ...dataQuestionnaire.questionnaireRespond.filter(
+                        (f) => f.sectionid !== sectionId,
+                      ),
                       {
-                        questionID: questionId,
-                        answerID: [],
-                        answer: e.target[0].value, // FOR FUNDAMENTAL
-                        type: 'text', // SELECT, MULTIPLE, STRING
+                        ...dataQuestionnaire.questionnaireRespond.find(
+                          (f) => f.sectionid === sectionId,
+                        ),
+                        responds: [
+                          ...dataQuestionnaire.questionnaireRespond.find(
+                            (f) => f.sectionid === sectionId,
+                          ).responds,
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
+                      },
+                    ]
+                  : [
+                      ...dataQuestionnaire.questionnaireRespond,
+                      {
+                        sectionid: sectionId,
+                        responds: [
+                          // RESPOND OBJECT
+                          {
+                            questionID: questionId,
+                            answer: [e.target[0].value], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                            type: 'text', // SELECT, MULTIPLE, STRING
+                          },
+                        ],
                       },
                     ],
-                  },
-                ],
                 status: 'finish',
                 expired: dataQuestionnaire.expired,
               }),

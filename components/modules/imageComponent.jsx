@@ -10,6 +10,7 @@ const ImageComponent = ({
   nextQuestion,
   nextSection,
   answers,
+  display,
   currentSection,
   currentQuestion,
   setCurrentSection,
@@ -19,7 +20,7 @@ const ImageComponent = ({
   questionId,
 }) => {
   const appContext = useAppContext()
-  const router = useRouter();
+  const router = useRouter()
   return (
     <Container className="w-full h-full flex justify-center items-center">
       <div className="w-full max-w-5xl flex flex-col items-center">
@@ -51,23 +52,46 @@ const ImageComponent = ({
                     JSON.stringify({
                       currentSection: currentSection,
                       currentQuestion: currentQuestion + 1,
-                      questionnaireRespond: [
-                        ...dataQuestionnaire.questionnaireRespond,
-                        {
-                          sectionid: sectionId,
-                          responds: [
-                            // RESPOND OBJECT
+                      questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                        (f) => f.sectionid === sectionId,
+                      )
+                        ? [
+                            ...dataQuestionnaire.questionnaireRespond.filter(
+                              (f) => f.sectionid !== sectionId,
+                            ),
                             {
-                              questionID: questionId,
-                              answerID: [data.ID],
-                              answer: null, // FOR FUNDAMENTAL
-                              type: 'option', // SELECT, MULTIPLE, STRING
+                              ...dataQuestionnaire.questionnaireRespond.find(
+                                (f) => f.sectionid === sectionId,
+                              ),
+                              responds: [
+                                ...dataQuestionnaire.questionnaireRespond.find(
+                                  (f) => f.sectionid === sectionId,
+                                ).responds,
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
+                            },
+                          ]
+                        : [
+                            ...dataQuestionnaire.questionnaireRespond,
+                            {
+                              sectionid: sectionId,
+                              responds: [
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
                             },
                           ],
-                        },
-                      ],
                       status: 'progress',
-                      expired: dataQuestionnaire.expired
+                      expired: dataQuestionnaire.expired,
                     }),
                   )
                 } else if (nextSection?.type === 'quiz') {
@@ -81,23 +105,46 @@ const ImageComponent = ({
                     JSON.stringify({
                       currentSection: currentSection + 1,
                       currentQuestion: null,
-                      questionnaireRespond: [
-                        ...dataQuestionnaire.questionnaireRespond,
-                        {
-                          sectionid: sectionId,
-                          responds: [
-                            // RESPOND OBJECT
+                      questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                        (f) => f.sectionid === sectionId,
+                      )
+                        ? [
+                            ...dataQuestionnaire.questionnaireRespond.filter(
+                              (f) => f.sectionid !== sectionId,
+                            ),
                             {
-                              questionID: questionId,
-                              answerID: [data.ID],
-                              answer: null, // FOR FUNDAMENTAL
-                              type: 'option', // SELECT, MULTIPLE, STRING
+                              ...dataQuestionnaire.questionnaireRespond.find(
+                                (f) => f.sectionid === sectionId,
+                              ),
+                              responds: [
+                                ...dataQuestionnaire.questionnaireRespond.find(
+                                  (f) => f.sectionid === sectionId,
+                                ).responds,
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
+                            },
+                          ]
+                        : [
+                            ...dataQuestionnaire.questionnaireRespond,
+                            {
+                              sectionid: sectionId,
+                              responds: [
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
                             },
                           ],
-                        },
-                      ],
                       status: 'progress',
-                      expired: dataQuestionnaire.expired
+                      expired: dataQuestionnaire.expired,
                     }),
                   )
                 } else if (nextSection?.type === 'fundamental') {
@@ -111,23 +158,46 @@ const ImageComponent = ({
                     JSON.stringify({
                       currentSection: currentSection + 1,
                       currentQuestion: 0,
-                      questionnaireRespond: [
-                        ...dataQuestionnaire.questionnaireRespond,
-                        {
-                          sectionid: sectionId,
-                          responds: [
-                            // RESPOND OBJECT
+                      questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                        (f) => f.sectionid === sectionId,
+                      )
+                        ? [
+                            ...dataQuestionnaire.questionnaireRespond.filter(
+                              (f) => f.sectionid !== sectionId,
+                            ),
                             {
-                              questionID: questionId,
-                              answerID: [data.ID],
-                              answer: null, // FOR FUNDAMENTAL
-                              type: 'option', // SELECT, MULTIPLE, STRING
+                              ...dataQuestionnaire.questionnaireRespond.find(
+                                (f) => f.sectionid === sectionId,
+                              ),
+                              responds: [
+                                ...dataQuestionnaire.questionnaireRespond.find(
+                                  (f) => f.sectionid === sectionId,
+                                ).responds,
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
+                            },
+                          ]
+                        : [
+                            ...dataQuestionnaire.questionnaireRespond,
+                            {
+                              sectionid: sectionId,
+                              responds: [
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
                             },
                           ],
-                        },
-                      ],
                       status: 'progress',
-                      expired: dataQuestionnaire.expired
+                      expired: dataQuestionnaire.expired,
                     }),
                   )
                 } else if (!nextSection && nextQuestion) {
@@ -141,23 +211,46 @@ const ImageComponent = ({
                     JSON.stringify({
                       currentSection: currentSection + 1,
                       currentQuestion: 0,
-                      questionnaireRespond: [
-                        ...dataQuestionnaire.questionnaireRespond,
-                        {
-                          sectionid: sectionId,
-                          responds: [
-                            // RESPOND OBJECT
+                      questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                        (f) => f.sectionid === sectionId,
+                      )
+                        ? [
+                            ...dataQuestionnaire.questionnaireRespond.filter(
+                              (f) => f.sectionid !== sectionId,
+                            ),
                             {
-                              questionID: questionId,
-                              answerID: [data.ID],
-                              answer: null, // FOR FUNDAMENTAL
-                              type: 'option', // SELECT, MULTIPLE, STRING
+                              ...dataQuestionnaire.questionnaireRespond.find(
+                                (f) => f.sectionid === sectionId,
+                              ),
+                              responds: [
+                                ...dataQuestionnaire.questionnaireRespond.find(
+                                  (f) => f.sectionid === sectionId,
+                                ).responds,
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
+                            },
+                          ]
+                        : [
+                            ...dataQuestionnaire.questionnaireRespond,
+                            {
+                              sectionid: sectionId,
+                              responds: [
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
                             },
                           ],
-                        },
-                      ],
                       status: 'progress',
-                      expired: dataQuestionnaire.expired
+                      expired: dataQuestionnaire.expired,
                     }),
                   )
                 } else {
@@ -172,23 +265,46 @@ const ImageComponent = ({
                     JSON.stringify({
                       currentSection: null,
                       currentQuestion: null,
-                      questionnaireRespond: [
-                        ...dataQuestionnaire.questionnaireRespond,
-                        {
-                          sectionid: sectionId,
-                          responds: [
-                            // RESPOND OBJECT
+                      questionnaireRespond: dataQuestionnaire.questionnaireRespond.find(
+                        (f) => f.sectionid === sectionId,
+                      )
+                        ? [
+                            ...dataQuestionnaire.questionnaireRespond.filter(
+                              (f) => f.sectionid !== sectionId,
+                            ),
                             {
-                              questionID: questionId,
-                              answerID: [data.ID],
-                              answer: null, // FOR FUNDAMENTAL
-                              type: 'option', // SELECT, MULTIPLE, STRING
+                              ...dataQuestionnaire.questionnaireRespond.find(
+                                (f) => f.sectionid === sectionId,
+                              ),
+                              responds: [
+                                ...dataQuestionnaire.questionnaireRespond.find(
+                                  (f) => f.sectionid === sectionId,
+                                ).responds,
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
+                            },
+                          ]
+                        : [
+                            ...dataQuestionnaire.questionnaireRespond,
+                            {
+                              sectionid: sectionId,
+                              responds: [
+                                // RESPOND OBJECT
+                                {
+                                  questionID: questionId,
+                                  answer: [data.label.en], // STRING OR ARRAY OR NULL (FOR QUESTION THAT IS SKIPPED)
+                                  type: 'option', // SELECT, MULTIPLE, STRING
+                                },
+                              ],
                             },
                           ],
-                        },
-                      ],
                       status: 'finish',
-                      expired: dataQuestionnaire.expired
+                      expired: dataQuestionnaire.expired,
                     }),
                   )
                 }
