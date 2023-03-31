@@ -83,7 +83,7 @@ export default function Home() {
                   .find((f) =>
                     f.responds.find((g) => g.questionID === e.questionID),
                   )
-                  .responds.find((h) => h.questionID === e.questionID)
+                  ?.responds.find((h) => h.questionID === e.questionID)
                   .questionID,
             )
             .find((i) =>
@@ -94,7 +94,7 @@ export default function Home() {
                     .find((f) =>
                       f.responds.find((g) => g.questionID === i.questionID),
                     )
-                    .responds.find((h) => h.questionID === i.questionID)
+                    ?.responds.find((h) => h.questionID === i.questionID)
                     .answer.find((k) => k === j),
               ),
             )
@@ -161,6 +161,21 @@ export default function Home() {
                 expired: dataQuestionnaire.expired,
               }),
             )
+          } else {
+            setCurrentSection(null)
+            setCurrentQuestion(null)
+            setStatus('finish')
+            setSkipQuestion(false)
+            localStorage.setItem(
+              'questionnaire',
+              JSON.stringify({
+                currentSection: null,
+                currentQuestion: null,
+                questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+                status: 'finish',
+                expired: dataQuestionnaire.expired,
+              }),
+            )
           }
         } else {
           setSkipQuestion(false)
@@ -201,7 +216,11 @@ export default function Home() {
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
-              dataQuestionnaire.questionnaireRespond.pop()
+              dataQuestionnaire.questionnaireRespond
+                .find(
+                  (e) => e.sectionid === quiz.data.sections[currentSection].ID,
+                )
+                .responds.pop()
               localStorage.setItem(
                 'questionnaire',
                 JSON.stringify({
@@ -217,6 +236,12 @@ export default function Home() {
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
+              dataQuestionnaire.questionnaireRespond
+                .find(
+                  (e) =>
+                    e.sectionid === quiz.data.sections[currentSection - 1].ID,
+                )
+                .responds.pop()
               dataQuestionnaire.questionnaireRespond.pop()
               localStorage.setItem(
                 'questionnaire',
