@@ -65,6 +65,7 @@ export default function Home() {
   quiz.data.totalQuestion = totalQuestion.length
 
   useEffect(() => {
+    setLoading(true);
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     if (dataQuestionnaire && dataQuestionnaire.status === 'progress') {
       if (
@@ -100,6 +101,7 @@ export default function Home() {
             )
         ) {
           setSkipQuestion(true)
+          setLoading(false);
 
           const nextQuestion =
             quiz.data.sections[currentSection].questions[currentQuestion + 1]
