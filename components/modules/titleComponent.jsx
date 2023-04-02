@@ -1,6 +1,6 @@
-import { useAppContext } from 'context/state'
+'use client'
+
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import Container from '../container'
 import { RoundedFullButton } from '../utils/buttons'
 import Heading from '../utils/heading'
@@ -14,13 +14,10 @@ const TitleComponent = ({
   imageLeft,
   imageRight,
   currentSection,
-  currentQuestion,
   setCurrentSection,
   setCurrentQuestion,
-  setStatus,
+  setStatus
 }) => {
-  const appContext = useAppContext()
-  const router = useRouter()
   return (
     <Container className="w-full h-full flex justify-center items-center">
       <div className="relative w-fit flex flex-col items-center">
@@ -31,6 +28,7 @@ const TitleComponent = ({
             if (nextQuestion || nextQuestion === 0) {
               setCurrentSection(currentSection)
               setCurrentQuestion(0)
+              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -41,12 +39,13 @@ const TitleComponent = ({
                   currentQuestion: 0,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
                   status: 'progress',
-                  expired: dataQuestionnaire.expired
+                  expired: dataQuestionnaire.expired,
                 }),
               )
             } else if (nextSection?.type === 'quiz') {
               setCurrentSection(currentSection + 1)
               setCurrentQuestion(null)
+              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -57,12 +56,13 @@ const TitleComponent = ({
                   currentQuestion: null,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
                   status: 'progress',
-                  expired: dataQuestionnaire.expired
+                  expired: dataQuestionnaire.expired,
                 }),
               )
             } else if (nextSection?.type === 'fundamental') {
               setCurrentSection(currentSection + 1)
               setCurrentQuestion(0)
+              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -73,12 +73,13 @@ const TitleComponent = ({
                   currentQuestion: 0,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
                   status: 'progress',
-                  expired: dataQuestionnaire.expired
+                  expired: dataQuestionnaire.expired,
                 }),
               )
             } else if (!nextSection && nextQuestion) {
               setCurrentSection(currentSection + 1)
               setCurrentQuestion(0)
+              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -89,13 +90,13 @@ const TitleComponent = ({
                   currentQuestion: 0,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
                   status: 'progress',
-                  expired: dataQuestionnaire.expired
+                  expired: dataQuestionnaire.expired,
                 }),
               )
             } else {
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(0)
-              setStatus('finish')
+              setCurrentSection(null)
+              setCurrentQuestion(null)
+              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -106,7 +107,7 @@ const TitleComponent = ({
                   currentQuestion: null,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
                   status: 'finish',
-                  expired: dataQuestionnaire.expired
+                  expired: dataQuestionnaire.expired,
                 }),
               )
             }

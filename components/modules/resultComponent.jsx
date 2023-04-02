@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import Container from '../container'
 import { DefaultButton, RoundedFullButton } from '../utils/buttons'
