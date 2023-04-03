@@ -1,8 +1,10 @@
-export default function Container({ children, className }) {
+export default function Container({
+  children,
+  className,
+  maxWidth = 'max-w-screen-xl',
+}) {
   return (
-    <div
-      className={`px-6 max-w-screen-xl mx-auto w-full md:px-8 ${className}`}
-    >
+    <div className={`px-6 ${maxWidth} mx-auto w-full md:px-8 ${className}`}>
       {children}
     </div>
   )

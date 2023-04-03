@@ -183,7 +183,10 @@ const TitleComponent = ({
   }
 
   return (
-    <Container className="w-full h-full flex justify-center items-center">
+    <Container
+      className="w-full h-full flex justify-center items-center"
+      maxWidth="max-w-2xl"
+    >
       <div className="relative w-fit flex flex-col items-center">
         <Heading title={title} subTitle={subTitle} letterSpacing={true} />
         <RoundedFullButton
@@ -192,7 +195,7 @@ const TitleComponent = ({
         >
           {button}
         </RoundedFullButton>
-        <div className="absolute -left-[18%] md:left-auto md:right-full top-32 md:top-1/2 md:-translate-y-1/2">
+        <div className="absolute left-1/2 -translate-x-[138%] rotate-[-60deg] md:translate-x-0 md:rotate-0 md:left-auto md:right-full top-full -translate-y-[25%] md:top-1/2 md:-translate-y-1/2">
           <div className="relative w-44 h-44 md:w-72 md:h-72">
             <Image
               src={imageLeft}
@@ -203,7 +206,7 @@ const TitleComponent = ({
             />
           </div>
         </div>
-        <div className="absolute -right-[18%] md:right-auto md:left-full -top-32 md:top-1/2 md:-translate-y-1/2">
+        <div className="absolute left-1/2 translate-x-[24%] rotate-[120deg] md:rotate-0 md:translate-x-0 md:right-auto md:left-full bottom-full md:bottom-auto translate-y-[12%] md:top-1/2 md:-translate-y-1/2">
           <div className="relative w-44 h-44 md:w-72 md:h-72">
             <Image
               src={imageRight}
