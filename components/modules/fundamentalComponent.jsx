@@ -15,7 +15,7 @@ const FundamentalComponent = ({
   setCurrentSection,
   setCurrentQuestion,
   questionId,
-  setStatus
+  setStatus,
 }) => {
   const title = section.title.en
   const sectionId = section.ID
@@ -67,7 +67,10 @@ const FundamentalComponent = ({
           ? 0
           : null,
         questionnaireRespond: updatedResponds,
-        status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+        status:
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
         expired: dataQuestionnaire.expired,
       }),
     )
@@ -116,14 +119,21 @@ const FundamentalComponent = ({
           currentSection: currentSection,
           currentQuestion: currentQuestion + 2,
           questionnaireRespond: updatedResponds,
-          status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
 
       setCurrentSection(currentSection)
       setCurrentQuestion(currentQuestion + 2)
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     } else {
       localStorage.setItem(
         'questionnaire',
@@ -131,7 +141,10 @@ const FundamentalComponent = ({
           currentSection: currentSection + 1,
           currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
           questionnaireRespond: updatedResponds,
-          status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -146,7 +159,11 @@ const FundamentalComponent = ({
           ? 0
           : null,
       )
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     }
   }
 
@@ -187,7 +204,11 @@ const FundamentalComponent = ({
             ? 0
             : null,
         )
-        setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+        setStatus(
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
+        )
       }
     } else {
       updateQuestionnaire(e.target[0].value)
@@ -201,7 +222,11 @@ const FundamentalComponent = ({
           ? 0
           : null,
       )
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     }
   }
 

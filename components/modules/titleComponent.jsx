@@ -26,9 +26,11 @@ const TitleComponent = ({
           className="uppercase"
           onClick={() => {
             if (nextQuestion || nextQuestion === 0) {
+              console.log(nextSection === null);
+              console.log(nextQuestion)
               setCurrentSection(currentSection)
               setCurrentQuestion(0)
-              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -38,14 +40,16 @@ const TitleComponent = ({
                   currentSection: currentSection,
                   currentQuestion: 0,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: 'progress',
+                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
                   expired: dataQuestionnaire.expired,
                 }),
               )
             } else if (nextSection?.type === 'quiz') {
+              console.log(nextSection);
+              console.log(nextQuestion)
               setCurrentSection(currentSection + 1)
               setCurrentQuestion(null)
-              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -55,14 +59,14 @@ const TitleComponent = ({
                   currentSection: currentSection + 1,
                   currentQuestion: null,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: 'progress',
+                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
                   expired: dataQuestionnaire.expired,
                 }),
               )
             } else if (nextSection?.type === 'fundamental') {
               setCurrentSection(currentSection + 1)
               setCurrentQuestion(0)
-              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -72,14 +76,14 @@ const TitleComponent = ({
                   currentSection: currentSection + 1,
                   currentQuestion: 0,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: 'progress',
+                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
                   expired: dataQuestionnaire.expired,
                 }),
               )
             } else if (!nextSection && nextQuestion) {
               setCurrentSection(currentSection + 1)
               setCurrentQuestion(0)
-              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )
@@ -89,14 +93,14 @@ const TitleComponent = ({
                   currentSection: currentSection + 1,
                   currentQuestion: 0,
                   questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: 'progress',
+                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
                   expired: dataQuestionnaire.expired,
                 }),
               )
             } else {
               setCurrentSection(null)
               setCurrentQuestion(null)
-              setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
               const dataQuestionnaire = JSON.parse(
                 localStorage.getItem('questionnaire'),
               )

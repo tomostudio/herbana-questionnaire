@@ -71,7 +71,7 @@ const PickupComponent = ({
           ? 0
           : null,
         questionnaireRespond: updatedResponds,
-        status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+        status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
         expired: dataQuestionnaire.expired,
       }),
     )
@@ -120,14 +120,14 @@ const PickupComponent = ({
           currentSection: currentSection,
           currentQuestion: currentQuestion + 2,
           questionnaireRespond: updatedResponds,
-          status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
 
       setCurrentSection(currentSection)
       setCurrentQuestion(currentQuestion + 2)
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     } else {
       localStorage.setItem(
         'questionnaire',
@@ -135,7 +135,7 @@ const PickupComponent = ({
           currentSection: currentSection + 1,
           currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
           questionnaireRespond: updatedResponds,
-          status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -150,7 +150,7 @@ const PickupComponent = ({
           ? 0
           : null,
       )
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 
@@ -190,7 +190,7 @@ const PickupComponent = ({
             ? 0
             : null,
         )
-        setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+        setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
       }
     } else {
       updateQuestionnaire()
@@ -204,7 +204,7 @@ const PickupComponent = ({
           ? 0
           : null,
       )
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 

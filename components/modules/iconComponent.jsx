@@ -68,7 +68,7 @@ const IconComponent = ({
           ? 0
           : null,
         questionnaireRespond: updatedResponds,
-        status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+        status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
         expired: dataQuestionnaire.expired,
       }),
     )
@@ -117,14 +117,14 @@ const IconComponent = ({
           currentSection: currentSection,
           currentQuestion: currentQuestion + 2,
           questionnaireRespond: updatedResponds,
-          status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
 
       setCurrentSection(currentSection)
       setCurrentQuestion(currentQuestion + 2)
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     } else {
       localStorage.setItem(
         'questionnaire',
@@ -132,7 +132,7 @@ const IconComponent = ({
           currentSection: currentSection + 1,
           currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
           questionnaireRespond: updatedResponds,
-          status: !nextQuestion && !nextSection ? 'finish' : 'progress',
+          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -147,7 +147,7 @@ const IconComponent = ({
           ? 0
           : null,
       )
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 
@@ -187,7 +187,7 @@ const IconComponent = ({
             ? 0
             : null,
         )
-        setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+        setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
       }
     } else {
       updateQuestionnaire(data)
@@ -201,7 +201,7 @@ const IconComponent = ({
           ? 0
           : null,
       )
-      setStatus(!nextQuestion && !nextSection ? 'finish' : 'progress')
+      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 

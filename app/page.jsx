@@ -137,6 +137,7 @@ export default function Home() {
                 <ProgressIndicator
                   currentSection={currentSection}
                   currentQuestion={currentQuestion}
+                  setCurrentSection={setCurrentSection}
                   setCurrentQuestion={setCurrentQuestion}
                   sections={quiz.sections}
                   totalQuestion={quiz.totalQuestion}
