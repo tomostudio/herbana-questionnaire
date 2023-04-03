@@ -659,40 +659,6 @@
         ]
       },
       {
-        "ID": 1,
-        "type": "fundamental",
-        "title": {
-          "en": "Let's get to know you",
-          "id": "id-Let's get to know you"
-        },
-        "cover": {
-
-        },
-        "bgColor": "#fff7e9",
-        "questions": [
-          {
-            "ID": 1,
-            "type": "text",
-            "content": {
-              "en": "What is your name?",
-              "id": "id-What is your name?",
-              "placeholder": {
-                "en": "type your name",
-                "id": "id - type your name"
-              }
-            },
-            "answerType": null,
-            "answers": null,
-            "display": {
-              "state": 1,
-              "condition": [
-
-              ]
-            }
-          }
-        ]
-      },
-      {
         "ID": 3,
         "type": "quiz",
         "title": {

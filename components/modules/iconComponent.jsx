@@ -63,12 +63,17 @@ const IconComponent = ({
           ? currentSection + 1
           : null,
         currentQuestion: nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
         questionnaireRespond: updatedResponds,
-        status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+        status:
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
         expired: dataQuestionnaire.expired,
       }),
     )
@@ -117,14 +122,21 @@ const IconComponent = ({
           currentSection: currentSection,
           currentQuestion: currentQuestion + 2,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
 
       setCurrentSection(currentSection)
       setCurrentQuestion(currentQuestion + 2)
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     } else {
       localStorage.setItem(
         'questionnaire',
@@ -132,7 +144,10 @@ const IconComponent = ({
           currentSection: currentSection + 1,
           currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -140,14 +155,12 @@ const IconComponent = ({
       setCurrentSection(
         nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
       )
-      setCurrentQuestion(
-        nextQuestion
-          ? currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
+      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 
@@ -182,12 +195,18 @@ const IconComponent = ({
         )
         setCurrentQuestion(
           nextQuestion
-            ? currentQuestion + 1
+            ? currentQuestion === null
+              ? 0
+              : currentQuestion + 1
             : nextSection?.type === 'fundamental'
             ? 0
             : null,
         )
-        setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+        setStatus(
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
+        )
       }
     } else {
       updateQuestionnaire(data)
@@ -196,12 +215,18 @@ const IconComponent = ({
       )
       setCurrentQuestion(
         nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     }
   }
 
@@ -214,7 +239,7 @@ const IconComponent = ({
           subTitleSizeMobile="text-mheading1"
           classNameSubTitle="max-w-xs md:max-w-none"
         />
-        <div className="w-full max-w-4xl flex flex-wrap justify-center gap-4">
+        <div className="w-full max-w-4xl flex flex-wrap justify-center gap-6">
           {answers?.map((data, id) => (
             <ImageButton
               key={id}

@@ -63,12 +63,17 @@ const TextButtonComponent = ({
           ? currentSection + 1
           : null,
         currentQuestion: nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
         questionnaireRespond: updatedResponds,
-        status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+        status:
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
         expired: dataQuestionnaire.expired,
       }),
     )
@@ -117,14 +122,21 @@ const TextButtonComponent = ({
           currentSection: currentSection,
           currentQuestion: currentQuestion + 2,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
 
       setCurrentSection(currentSection)
       setCurrentQuestion(currentQuestion + 2)
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     } else {
       localStorage.setItem(
         'questionnaire',
@@ -132,7 +144,10 @@ const TextButtonComponent = ({
           currentSection: currentSection + 1,
           currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -140,14 +155,12 @@ const TextButtonComponent = ({
       setCurrentSection(
         nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
       )
-      setCurrentQuestion(
-        nextQuestion
-          ? currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
+      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 
@@ -182,12 +195,18 @@ const TextButtonComponent = ({
         )
         setCurrentQuestion(
           nextQuestion
-            ? currentQuestion + 1
+            ? currentQuestion === null
+              ? 0
+              : currentQuestion + 1
             : nextSection?.type === 'fundamental'
             ? 0
             : null,
         )
-        setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+        setStatus(
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
+        )
       }
     } else {
       updateQuestionnaire(data)
@@ -196,12 +215,18 @@ const TextButtonComponent = ({
       )
       setCurrentQuestion(
         nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     }
   }
 

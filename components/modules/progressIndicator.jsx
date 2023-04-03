@@ -1,5 +1,6 @@
 'use client'
 
+import Container from '../container'
 import { DefaultButton } from '../utils/buttons'
 import { ArrowLeft } from '../utils/svg'
 
@@ -121,13 +122,15 @@ const ProgressIndicator = ({
 
   return (
     <div className="relative flex flex-col w-full">
-      <DefaultButton
-        className="absolute -top-6 left-0 hidden w-fit md:flex items-center text-nav font-maisonMono mx-6 md:mx-8 uppercase"
-        onClick={handleBackClick}
-      >
-        <ArrowLeft className="mr-4" />
-        Back
-      </DefaultButton>
+      <Container className="absolute -top-8 left-1/2 -translate-x-1/2">
+        <DefaultButton
+          className="hidden w-fit md:flex items-center text-nav font-maisonMono uppercase"
+          onClick={handleBackClick}
+        >
+          <ArrowLeft className="mr-4" />
+          Back
+        </DefaultButton>
+      </Container>
       <div className="relative w-full grid md:grid-cols-3 border-y-2 border-black">
         {sections.map(
           (data, id) =>

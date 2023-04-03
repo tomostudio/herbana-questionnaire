@@ -5,16 +5,19 @@ const Heading = ({
   subTitleSizeMobile = 'text-mheading',
   marginSubtitle = true,
   classNameSubTitle = '',
+  letterSpacing = false,
 }) => {
   return (
     <>
       <span
-        className={`text-subHeading text-orange font-bold uppercase mb-6 md:mb-9 ${position}`}
+        className={`text-subHeading text-orange font-bold uppercase mb-6 md:mb-9 tracking-default ${position}`}
       >
         {title}
       </span>
       <h1
-        className={`${subTitleSizeMobile} ${classNameSubTitle} md:text-heading tracking-tighter font-maisonMono font-bold leading-tight ${
+        className={`${subTitleSizeMobile} ${classNameSubTitle} md:text-heading ${
+          letterSpacing ? 'tracking-wider' : ''
+        } font-maison font-bold leading-tight ${
           marginSubtitle ? 'mb-6 md:mb-7' : 'm-0'
         }  whitespace-pre-wrap ${position}`}
       >

@@ -16,7 +16,7 @@ const PickupComponent = ({
   setCurrentSection,
   setCurrentQuestion,
   questionId,
-  setStatus
+  setStatus,
 }) => {
   const title = section.title.en
   const sectionId = section.ID
@@ -66,12 +66,17 @@ const PickupComponent = ({
           ? currentSection + 1
           : null,
         currentQuestion: nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
         questionnaireRespond: updatedResponds,
-        status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+        status:
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
         expired: dataQuestionnaire.expired,
       }),
     )
@@ -120,14 +125,21 @@ const PickupComponent = ({
           currentSection: currentSection,
           currentQuestion: currentQuestion + 2,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
 
       setCurrentSection(currentSection)
       setCurrentQuestion(currentQuestion + 2)
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     } else {
       localStorage.setItem(
         'questionnaire',
@@ -135,7 +147,10 @@ const PickupComponent = ({
           currentSection: currentSection + 1,
           currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -143,14 +158,12 @@ const PickupComponent = ({
       setCurrentSection(
         nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
       )
-      setCurrentQuestion(
-        nextQuestion
-          ? currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
+      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 
@@ -185,12 +198,18 @@ const PickupComponent = ({
         )
         setCurrentQuestion(
           nextQuestion
-            ? currentQuestion + 1
+            ? currentQuestion === null
+              ? 0
+              : currentQuestion + 1
             : nextSection?.type === 'fundamental'
             ? 0
             : null,
         )
-        setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+        setStatus(
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
+        )
       }
     } else {
       updateQuestionnaire()
@@ -199,12 +218,18 @@ const PickupComponent = ({
       )
       setCurrentQuestion(
         nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     }
   }
 
@@ -221,7 +246,7 @@ const PickupComponent = ({
         <span className="mb-6 md:mb-7 text-greyPickup md:text-mqHeadingb font-bold">
           (PICK UP TO 3)
         </span>
-        <div className="w-full max-w-4xl flex flex-wrap justify-center gap-4">
+        <div className="w-full max-w-4xl flex flex-wrap justify-center gap-6">
           {answers?.map((data, id) => (
             <ImageButton
               key={id}

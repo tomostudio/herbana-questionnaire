@@ -63,13 +63,7 @@ const TitleComponent = ({
       setCurrentSection(
         nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
       )
-      setCurrentQuestion(
-        nextQuestion
-          ? currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
-      )
+      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
       setStatus(
         nextQuestion !== undefined || nextSection !== undefined
           ? 'progress'
@@ -79,10 +73,8 @@ const TitleComponent = ({
   }
 
   const handleOnClick = () => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     if (nextQuestion?.display.state === 0) {
-      const dataQuestionnaire = JSON.parse(
-        localStorage.getItem('questionnaire'),
-      )
       const checkSkip = nextQuestion.display.condition.find((i) =>
         i.answer.find(
           (j) =>
@@ -99,6 +91,30 @@ const TitleComponent = ({
       if (checkSkip) {
         skipQuestion()
       } else {
+        localStorage.setItem(
+          'questionnaire',
+          JSON.stringify({
+            currentSection: nextQuestion
+              ? currentSection
+              : nextSection
+              ? currentSection + 1
+              : null,
+            currentQuestion: nextQuestion
+              ? currentQuestion === null
+                ? 0
+                : currentQuestion + 1
+              : nextSection?.type === 'fundamental'
+              ? 0
+              : null,
+            questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+            status:
+              nextQuestion !== undefined || nextSection !== undefined
+                ? 'progress'
+                : 'finish',
+            expired: dataQuestionnaire.expired,
+          }),
+        )
+
         setCurrentSection(
           nextQuestion
             ? currentSection
@@ -108,7 +124,9 @@ const TitleComponent = ({
         )
         setCurrentQuestion(
           nextQuestion
-            ? currentQuestion + 1
+            ? currentQuestion === null
+              ? 0
+              : currentQuestion + 1
             : nextSection?.type === 'fundamental'
             ? 0
             : null,
@@ -120,12 +138,38 @@ const TitleComponent = ({
         )
       }
     } else {
+      localStorage.setItem(
+        'questionnaire',
+        JSON.stringify({
+          currentSection: nextQuestion
+            ? currentSection
+            : nextSection
+            ? currentSection + 1
+            : null,
+          currentQuestion: nextQuestion
+            ? currentQuestion === null
+              ? 0
+              : currentQuestion + 1
+            : nextSection?.type === 'fundamental'
+            ? 0
+            : null,
+          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
+          expired: dataQuestionnaire.expired,
+        }),
+      )
+
       setCurrentSection(
         nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
       )
       setCurrentQuestion(
         nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
@@ -141,8 +185,11 @@ const TitleComponent = ({
   return (
     <Container className="w-full h-full flex justify-center items-center">
       <div className="relative w-fit flex flex-col items-center">
-        <Heading title={title} subTitle={subTitle} />
-        <RoundedFullButton className="uppercase" onClick={handleOnClick}>
+        <Heading title={title} subTitle={subTitle} letterSpacing={true} />
+        <RoundedFullButton
+          className="uppercase tracking-default"
+          onClick={handleOnClick}
+        >
           {button}
         </RoundedFullButton>
         <div className="absolute -left-[18%] md:left-auto md:right-full top-32 md:top-1/2 md:-translate-y-1/2">

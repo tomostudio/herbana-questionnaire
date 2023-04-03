@@ -12,6 +12,9 @@ module.exports = {
       maisonMono: ["Maison Mono", "sans-serif"],
     },
     extend: {
+      letterSpacing: {
+        default: '0.1em'
+      },
       borderWidth: {
         default: '1.5px'
       },

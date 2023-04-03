@@ -22,6 +22,7 @@ const ShowComponent = ({
   setCurrentSection,
   currentQuestion,
   setCurrentQuestion,
+  setColor,
 }) => {
   const section = quiz.sections[currentSection]
   const question = section?.questions[currentQuestion]
@@ -36,7 +37,7 @@ const ShowComponent = ({
             <h1 className="uppercase text-mopHeading max-w-md md:max-w-lg lg:max-w-none text-center lg:text-left lg:text-opHeading m-0 leading-none mb-6">
               {quiz.coverPage.title.en}
             </h1>
-            <p className="max-w-sm md:max-w-md lg:max-w-lg lg:mb-12 text-center lg:text-left">
+            <p className="max-w-sm md:max-w-md lg:mb-12 text-center lg:text-left">
               {quiz.coverPage.description.en}
             </p>
             <RoundedFullButton
@@ -53,10 +54,12 @@ const ShowComponent = ({
                     expired: new Date(Date.now() + 86400 * 1000).getTime(),
                   }),
                 )
-                // setColor({
-                //   header: '#FFF7E9',
-                //   bg: '#FFF7E9',
-                // })
+                setColor({
+                  header: section.bgColor,
+                  bg: section.bgColor,
+                })
+                setCurrentSection(0)
+                setCurrentQuestion(0)
                 setCheckStorage(true)
               }}
             >
@@ -163,38 +166,40 @@ const ShowComponent = ({
                 />
               )
             } else if (question.answerType === 'text') {
-              return (
-                <TextButtonComponent
-                  section={section}
-                  questionId={question.ID}
-                  nextSection={nextSection}
-                  nextQuestion={nextQuestion}
-                  subTitle={question.content.en}
-                  answers={question.answers}
-                  currentSection={currentSection}
-                  currentQuestion={currentQuestion}
-                  setCurrentSection={setCurrentSection}
-                  setCurrentQuestion={setCurrentQuestion}
-                  setStatus={setStatus}
-                />
-              )
-            } else if (question.content.image) {
-              return (
-                <TextImageComponent
-                  section={section}
-                  questionId={question.ID}
-                  nextSection={nextSection}
-                  nextQuestion={nextQuestion}
-                  subTitle={question.content.en}
-                  answers={question.answers}
-                  image={question.content.image}
-                  currentSection={currentSection}
-                  currentQuestion={currentQuestion}
-                  setCurrentSection={setCurrentSection}
-                  setCurrentQuestion={setCurrentQuestion}
-                  setStatus={setStatus}
-                />
-              )
+              if (question.content.image) {
+                return (
+                  <TextImageComponent
+                    section={section}
+                    questionId={question.ID}
+                    nextSection={nextSection}
+                    nextQuestion={nextQuestion}
+                    subTitle={question.content.en}
+                    answers={question.answers}
+                    image={question.content.image}
+                    currentSection={currentSection}
+                    currentQuestion={currentQuestion}
+                    setCurrentSection={setCurrentSection}
+                    setCurrentQuestion={setCurrentQuestion}
+                    setStatus={setStatus}
+                  />
+                )
+              } else {
+                return (
+                  <TextButtonComponent
+                    section={section}
+                    questionId={question.ID}
+                    nextSection={nextSection}
+                    nextQuestion={nextQuestion}
+                    subTitle={question.content.en}
+                    answers={question.answers}
+                    currentSection={currentSection}
+                    currentQuestion={currentQuestion}
+                    setCurrentSection={setCurrentSection}
+                    setCurrentQuestion={setCurrentQuestion}
+                    setStatus={setStatus}
+                  />
+                )
+              }
             } else {
               return (
                 <ImageComponent

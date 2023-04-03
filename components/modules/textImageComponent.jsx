@@ -17,7 +17,7 @@ const TextImageComponent = ({
   setCurrentSection,
   setCurrentQuestion,
   questionId,
-  setStatus
+  setStatus,
 }) => {
   const title = section.title.en
   const sectionId = section.ID
@@ -65,12 +65,17 @@ const TextImageComponent = ({
           ? currentSection + 1
           : null,
         currentQuestion: nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
         questionnaireRespond: updatedResponds,
-        status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+        status:
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
         expired: dataQuestionnaire.expired,
       }),
     )
@@ -119,14 +124,21 @@ const TextImageComponent = ({
           currentSection: currentSection,
           currentQuestion: currentQuestion + 2,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
 
       setCurrentSection(currentSection)
       setCurrentQuestion(currentQuestion + 2)
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     } else {
       localStorage.setItem(
         'questionnaire',
@@ -134,7 +146,10 @@ const TextImageComponent = ({
           currentSection: currentSection + 1,
           currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
           questionnaireRespond: updatedResponds,
-          status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -142,14 +157,12 @@ const TextImageComponent = ({
       setCurrentSection(
         nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
       )
-      setCurrentQuestion(
-        nextQuestion
-          ? currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
+      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
     }
   }
 
@@ -184,12 +197,18 @@ const TextImageComponent = ({
         )
         setCurrentQuestion(
           nextQuestion
-            ? currentQuestion + 1
+            ? currentQuestion === null
+              ? 0
+              : currentQuestion + 1
             : nextSection?.type === 'fundamental'
             ? 0
             : null,
         )
-        setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+        setStatus(
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
+        )
       }
     } else {
       updateQuestionnaire(data)
@@ -198,12 +217,18 @@ const TextImageComponent = ({
       )
       setCurrentQuestion(
         nextQuestion
-          ? currentQuestion + 1
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
           : nextSection?.type === 'fundamental'
           ? 0
           : null,
       )
-      setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
     }
   }
 
@@ -218,7 +243,7 @@ const TextImageComponent = ({
             position="text-center lg:text-left"
             subTitleSizeMobile="text-mheading1"
           />
-          <div className="w-full flex justify-center lg:justify-start space-x-6">
+          <div className="w-full flex justify-center lg:justify-start gap-6">
             {answers?.map((data, id) => (
               <RoundedButton key={id} onClick={() => handleOnClick(data)}>
                 {data.label.en}

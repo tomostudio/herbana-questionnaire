@@ -51,6 +51,26 @@ const QuestionnairePage = () => {
   quiz.totalQuestion = totalQuestion.length
 
   useEffect(() => {
+    // console.log(currentSection)
+    // console.log(quizData.data.sections[currentSection])
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+    if (dataQuestionnaire) {
+      if (currentSection === undefined || currentSection === null) {
+        setColor({
+          header: '#FFF7E9',
+          bg: '#DFF2F7',
+        })
+      } else {
+        console.log(quizData.data.sections[currentSection])
+        setColor({
+          header: quizData.data.sections[currentSection].bgColor,
+          bg: quizData.data.sections[currentSection].bgColor,
+        })
+      }
+    }
+  }, [currentSection])
+
+  useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     if (dataQuestionnaire) {
       if (Date.now() > dataQuestionnaire.expired) {
@@ -78,10 +98,18 @@ const QuestionnairePage = () => {
           backgroundColor: color.bg,
         }}
       >
-        <Header background={color.header} header={quiz.headerData} />
-        <HeaderGap />
         <div className="relative w-full h-full flex flex-col grow overflow-hidden">
-          <div className="w-full h-full grow flex items-center">
+          <Header
+            background={color.header}
+            header={quiz.headerData}
+            setCheckStorage={setCheckStorage}
+            setStatus={setStatus}
+            setColor={setColor}
+            setCurrentSection={setCurrentSection}
+            setCurrentQuestion={setCurrentQuestion}
+          />
+          <HeaderGap />
+          <div className="relative w-full h-full grow flex items-center">
             <ShowComponent
               quiz={quiz}
               checkStorage={checkStorage}
@@ -92,6 +120,7 @@ const QuestionnairePage = () => {
               setCurrentSection={setCurrentSection}
               currentQuestion={currentQuestion}
               setCurrentQuestion={setCurrentQuestion}
+              setColor={setColor}
             />
           </div>
 
@@ -102,7 +131,13 @@ const QuestionnairePage = () => {
                 onClick={() => {
                   if (currentSection === 0) {
                     localStorage.removeItem('questionnaire')
+                    setCurrentSection(0)
+                    setCurrentQuestion(0)
                     setCheckStorage(false)
+                    setColor({
+                      header: '#FFF7E9',
+                      bg: '#DFF2F7',
+                    })
                   } else {
                     const dataQuestionnaire = JSON.parse(
                       localStorage.getItem('questionnaire'),
@@ -125,6 +160,10 @@ const QuestionnairePage = () => {
                     setCurrentQuestion(
                       quiz.sections[currentSection - 1].questions.length - 1,
                     )
+                    setColor({
+                      header: quizData.data.sections[currentSection].bgColor,
+                      bg: quizData.data.sections[currentSection].bgColor,
+                    })
                   }
                 }}
               >

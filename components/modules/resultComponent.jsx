@@ -48,8 +48,7 @@ const ResultComponent = ({
           src={coverImage}
           fill
           style={{
-            objectFit: 'contain',
-            objectPosition: 'center top',
+            objectFit: 'cover',
           }}
           className="md:hidden"
         />
