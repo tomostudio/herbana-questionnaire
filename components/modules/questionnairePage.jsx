@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import quizData from '../../app/sample-data.json'
 import ProgressIndicator from '@/components/modules/progressIndicator'
 import ShowComponent from '@/components/modules/showComponent'
+import Container from '../container'
 
 const QuestionnairePage = () => {
   const quiz = quizData.data
@@ -126,50 +127,52 @@ const QuestionnairePage = () => {
 
           {checkStorage && status === 'progress' ? (
             quiz.sections[currentSection].type === 'fundamental' ? (
-              <DefaultButton
-                className="absolute bottom-0 left-0 w-fit hidden md:flex items-center text-nav font-maisonMono mx-6 md:mx-8 mb-3 uppercase"
-                onClick={() => {
-                  if (currentSection === 0) {
-                    localStorage.removeItem('questionnaire')
-                    setCurrentSection(0)
-                    setCurrentQuestion(0)
-                    setCheckStorage(false)
-                    setColor({
-                      header: '#FFF7E9',
-                      bg: '#DFF2F7',
-                    })
-                  } else {
-                    const dataQuestionnaire = JSON.parse(
-                      localStorage.getItem('questionnaire'),
-                    )
-                    dataQuestionnaire.questionnaireRespond.pop()
-                    localStorage.setItem(
-                      'questionnaire',
-                      JSON.stringify({
-                        currentSection: currentSection - 1,
-                        currentQuestion:
-                          quiz.sections[currentSection - 1].questions.length -
-                          1,
-                        questionnaireRespond:
-                          dataQuestionnaire.questionnaireRespond,
-                        status: 'progress',
-                        expired: dataQuestionnaire.expired,
-                      }),
-                    )
-                    setCurrentSection(currentSection - 1)
-                    setCurrentQuestion(
-                      quiz.sections[currentSection - 1].questions.length - 1,
-                    )
-                    setColor({
-                      header: quizData.data.sections[currentSection].bgColor,
-                      bg: quizData.data.sections[currentSection].bgColor,
-                    })
-                  }
-                }}
-              >
-                <ArrowLeft className="mr-4" />
-                BACK
-              </DefaultButton>
+              <Container className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                <DefaultButton
+                  className="hidden w-fit md:flex items-center text-nav font-maisonMono uppercase"
+                  onClick={() => {
+                    if (currentSection === 0) {
+                      localStorage.removeItem('questionnaire')
+                      setCurrentSection(0)
+                      setCurrentQuestion(0)
+                      setCheckStorage(false)
+                      setColor({
+                        header: '#FFF7E9',
+                        bg: '#DFF2F7',
+                      })
+                    } else {
+                      const dataQuestionnaire = JSON.parse(
+                        localStorage.getItem('questionnaire'),
+                      )
+                      dataQuestionnaire.questionnaireRespond.pop()
+                      localStorage.setItem(
+                        'questionnaire',
+                        JSON.stringify({
+                          currentSection: currentSection - 1,
+                          currentQuestion:
+                            quiz.sections[currentSection - 1].questions.length -
+                            1,
+                          questionnaireRespond:
+                            dataQuestionnaire.questionnaireRespond,
+                          status: 'progress',
+                          expired: dataQuestionnaire.expired,
+                        }),
+                      )
+                      setCurrentSection(currentSection - 1)
+                      setCurrentQuestion(
+                        quiz.sections[currentSection - 1].questions.length - 1,
+                      )
+                      setColor({
+                        header: quizData.data.sections[currentSection].bgColor,
+                        bg: quizData.data.sections[currentSection].bgColor,
+                      })
+                    }
+                  }}
+                >
+                  <ArrowLeft className="mr-4" />
+                  BACK
+                </DefaultButton>
+              </Container>
             ) : currentQuestion !== null ? (
               <ProgressIndicator
                 currentSection={currentSection}
