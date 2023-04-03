@@ -14,109 +14,135 @@ const TitleComponent = ({
   imageLeft,
   imageRight,
   currentSection,
+  currentQuestion,
   setCurrentSection,
   setCurrentQuestion,
-  setStatus
+  setStatus,
 }) => {
+  const skipQuestion = () => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+
+    const skip = section.questions[currentQuestion + 2]
+    if (skip) {
+      localStorage.setItem(
+        'questionnaire',
+        JSON.stringify({
+          currentSection: currentSection,
+          currentQuestion: currentQuestion + 2,
+          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
+          expired: dataQuestionnaire.expired,
+        }),
+      )
+
+      setCurrentSection(currentSection)
+      setCurrentQuestion(currentQuestion + 2)
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
+    } else {
+      localStorage.setItem(
+        'questionnaire',
+        JSON.stringify({
+          currentSection: currentSection + 1,
+          currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
+          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+          status:
+            nextQuestion !== undefined || nextSection !== undefined
+              ? 'progress'
+              : 'finish',
+          expired: dataQuestionnaire.expired,
+        }),
+      )
+
+      setCurrentSection(
+        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
+      )
+      setCurrentQuestion(
+        nextQuestion
+          ? currentQuestion + 1
+          : nextSection?.type === 'fundamental'
+          ? 0
+          : null,
+      )
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
+    }
+  }
+
+  const handleOnClick = () => {
+    if (nextQuestion?.display.state === 0) {
+      const dataQuestionnaire = JSON.parse(
+        localStorage.getItem('questionnaire'),
+      )
+      const checkSkip = nextQuestion.display.condition.find((i) =>
+        i.answer.find(
+          (j) =>
+            j ===
+            dataQuestionnaire.questionnaireRespond
+              .find((f) =>
+                f.responds.find((g) => g.questionID === i.questionID),
+              )
+              ?.responds.find((h) => h.questionID === i.questionID)
+              .answer.find((k) => k === j),
+        ),
+      )
+
+      if (checkSkip) {
+        skipQuestion()
+      } else {
+        setCurrentSection(
+          nextQuestion
+            ? currentSection
+            : nextSection
+            ? currentSection + 1
+            : null,
+        )
+        setCurrentQuestion(
+          nextQuestion
+            ? currentQuestion + 1
+            : nextSection?.type === 'fundamental'
+            ? 0
+            : null,
+        )
+        setStatus(
+          nextQuestion !== undefined || nextSection !== undefined
+            ? 'progress'
+            : 'finish',
+        )
+      }
+    } else {
+      setCurrentSection(
+        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
+      )
+      setCurrentQuestion(
+        nextQuestion
+          ? currentQuestion + 1
+          : nextSection?.type === 'fundamental'
+          ? 0
+          : null,
+      )
+      setStatus(
+        nextQuestion !== undefined || nextSection !== undefined
+          ? 'progress'
+          : 'finish',
+      )
+    }
+  }
+
   return (
     <Container className="w-full h-full flex justify-center items-center">
       <div className="relative w-fit flex flex-col items-center">
         <Heading title={title} subTitle={subTitle} />
-        <RoundedFullButton
-          className="uppercase"
-          onClick={() => {
-            if (nextQuestion || nextQuestion === 0) {
-              console.log(nextSection === null);
-              console.log(nextQuestion)
-              setCurrentSection(currentSection)
-              setCurrentQuestion(0)
-              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection,
-                  currentQuestion: 0,
-                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else if (nextSection?.type === 'quiz') {
-              console.log(nextSection);
-              console.log(nextQuestion)
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(null)
-              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection + 1,
-                  currentQuestion: null,
-                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else if (nextSection?.type === 'fundamental') {
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(0)
-              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection + 1,
-                  currentQuestion: 0,
-                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else if (!nextSection && nextQuestion) {
-              setCurrentSection(currentSection + 1)
-              setCurrentQuestion(0)
-              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: currentSection + 1,
-                  currentQuestion: 0,
-                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            } else {
-              setCurrentSection(null)
-              setCurrentQuestion(null)
-              setStatus(nextQuestion !== undefined || nextSection !== undefined ? 'progress' : 'finish')
-              const dataQuestionnaire = JSON.parse(
-                localStorage.getItem('questionnaire'),
-              )
-              localStorage.setItem(
-                'questionnaire',
-                JSON.stringify({
-                  currentSection: null,
-                  currentQuestion: null,
-                  questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                  status: 'finish',
-                  expired: dataQuestionnaire.expired,
-                }),
-              )
-            }
-          }}
-        >
+        <RoundedFullButton className="uppercase" onClick={handleOnClick}>
           {button}
         </RoundedFullButton>
         <div className="absolute -left-[18%] md:left-auto md:right-full top-32 md:top-1/2 md:-translate-y-1/2">

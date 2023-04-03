@@ -131,7 +131,7 @@ const ShowComponent = ({
           return (
             <TitleComponent
               nextSection={nextSection}
-              nextQuestion={0}
+              nextQuestion={section?.questions[0]}
               title={section.title.en}
               subTitle={section.cover.title.en}
               button={section.cover.button.en}
