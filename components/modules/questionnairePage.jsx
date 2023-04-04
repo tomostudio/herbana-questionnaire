@@ -188,9 +188,6 @@ const QuestionnairePage = () => {
                     }
                   }}
                 >
-                  {
-                    console.log("hei")
-                  }
                   <ArrowLeft className="mr-3 md:mr-4 w-[23px] md:w-auto" />
                   BACK
                 </DefaultButton>

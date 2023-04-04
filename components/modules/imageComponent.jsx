@@ -180,9 +180,6 @@ const ImageComponent = ({
         ),
       )
 
-      console.log('disini')
-      console.log(checkSkip)
-
       if (!checkSkip) {
         skipQuestion(data)
       } else {
