@@ -4,181 +4,23 @@ import Image from 'next/image'
 import Container from '../container'
 import { RoundedFullButton } from '../utils/buttons'
 import Heading from '../utils/heading'
+import quizUpdate from '../utils/quizUpdate'
 
 const TitleComponent = ({
-  title = '',
-  subTitle = '',
-  button = '',
+  section,
   nextQuestion,
   nextSection,
-  imageLeft,
-  imageRight,
   currentSection,
   currentQuestion,
   setCurrentSection,
   setCurrentQuestion,
   setStatus,
 }) => {
-  const skipQuestion = () => {
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-
-    const skip = section.questions[currentQuestion + 2]
-    if (skip) {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection,
-          currentQuestion: currentQuestion + 2,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-
-      setCurrentSection(currentSection)
-      setCurrentQuestion(currentQuestion + 2)
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    } else {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection + 1,
-          currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-
-      setCurrentSection(currentSection + 1)
-      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    }
-  }
-
-  const handleOnClick = () => {
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    if (nextQuestion?.display.state === 0) {
-      const checkSkip = nextQuestion.display.condition.find((i) =>
-        i.answer.find(
-          (j) =>
-            j ===
-            dataQuestionnaire.questionnaireRespond
-              .find((f) =>
-                f.responds.find((g) => g.questionID === i.questionID),
-              )
-              ?.responds.find((h) => h.questionID === i.questionID)
-              .answer.find((k) => k === j),
-        ),
-      )
-
-      if (!checkSkip) {
-        skipQuestion()
-      } else {
-        localStorage.setItem(
-          'questionnaire',
-          JSON.stringify({
-            currentSection: nextQuestion
-              ? currentSection
-              : nextSection
-              ? currentSection + 1
-              : null,
-            currentQuestion: nextQuestion
-              ? currentQuestion === null
-                ? 0
-                : currentQuestion + 1
-              : nextSection?.type === 'fundamental'
-              ? 0
-              : null,
-            questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-            status:
-              nextQuestion !== undefined || nextSection !== undefined
-                ? 'progress'
-                : 'finish',
-            expired: dataQuestionnaire.expired,
-          }),
-        )
-
-        setCurrentSection(
-          nextQuestion
-            ? currentSection
-            : nextSection
-            ? currentSection + 1
-            : null,
-        )
-        setCurrentQuestion(
-          nextQuestion
-            ? currentQuestion === null
-              ? 0
-              : currentQuestion + 1
-            : nextSection?.type === 'fundamental'
-            ? 0
-            : null,
-        )
-        setStatus(
-          nextQuestion !== undefined || nextSection !== undefined
-            ? 'progress'
-            : 'finish',
-        )
-      }
-    } else {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: nextQuestion
-            ? currentSection
-            : nextSection
-            ? currentSection + 1
-            : null,
-          currentQuestion: nextQuestion
-            ? currentQuestion === null
-              ? 0
-              : currentQuestion + 1
-            : nextSection?.type === 'fundamental'
-            ? 0
-            : null,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-
-      setCurrentSection(
-        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-      )
-      setCurrentQuestion(
-        nextQuestion
-          ? currentQuestion === null
-            ? 0
-            : currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
-      )
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    }
-  }
+  const title = section.title.en
+  const subTitle = section.cover.title.en
+  const button = section.cover.button.en
+  const imageLeft = section.cover.image.left
+  const imageRight = section.cover.image.right
 
   return (
     <Container
@@ -194,7 +36,21 @@ const TitleComponent = ({
         />
         <RoundedFullButton
           className="uppercase tracking-default"
-          onClick={handleOnClick}
+          onClick={() => {
+            quizUpdate(
+              null,
+              null,
+              null,
+              section,
+              nextSection,
+              nextQuestion,
+              currentSection,
+              currentQuestion,
+              setCurrentSection,
+              setCurrentQuestion,
+              setStatus,
+            )
+          }}
         >
           {button}
         </RoundedFullButton>

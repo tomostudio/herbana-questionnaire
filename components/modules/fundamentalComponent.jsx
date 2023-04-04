@@ -3,6 +3,7 @@
 import Container from '../container'
 import { BorderButton } from '../utils/buttons'
 import Heading from '../utils/heading'
+import quizUpdate from '../utils/quizUpdate'
 
 const FundamentalComponent = ({
   section,
@@ -18,220 +19,26 @@ const FundamentalComponent = ({
   setStatus,
 }) => {
   const title = section.title.en
-  const sectionId = section.ID
-
-  const updateQuestionnaire = (answer) => {
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    const sectionExists = dataQuestionnaire.questionnaireRespond.find(
-      (f) => f.sectionid === sectionId,
-    )
-    const sectionFilter = dataQuestionnaire.questionnaireRespond.filter(
-      (f) => f.sectionid !== sectionId,
-    )
-
-    const newRespond = {
-      questionID: questionId,
-      answer: answer,
-      type: 'text', // SELECT, MULTIPLE, STRING
-    }
-    const newSection = {
-      sectionid: sectionId,
-      responds: [newRespond],
-    }
-
-    const updatedResponds = sectionExists
-      ? [
-          ...sectionFilter,
-          {
-            sectionid: sectionExists.sectionid,
-            responds: [
-              ...sectionExists.responds,
-              // RESPOND OBJECT
-              newRespond,
-            ],
-          },
-        ]
-      : [...dataQuestionnaire.questionnaireRespond, newSection]
-
-    localStorage.setItem(
-      'questionnaire',
-      JSON.stringify({
-        currentSection: nextQuestion
-          ? currentSection
-          : nextSection
-          ? currentSection + 1
-          : null,
-        currentQuestion: nextQuestion
-          ? currentQuestion === null
-            ? 0
-            : currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
-        questionnaireRespond: updatedResponds,
-        status:
-          nextQuestion !== undefined || nextSection !== undefined
-            ? 'progress'
-            : 'finish',
-        expired: dataQuestionnaire.expired,
-      }),
-    )
-  }
-
-  const skipQuestion = (answer) => {
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-
-    const sectionExists = dataQuestionnaire.questionnaireRespond.find(
-      (f) => f.sectionid === sectionId,
-    )
-    const sectionFilter = dataQuestionnaire.questionnaireRespond.filter(
-      (f) => f.sectionid !== sectionId,
-    )
-
-    const newRespond = {
-      questionID: questionId,
-      answer: answer,
-      type: 'text', // SELECT, MULTIPLE, STRING
-    }
-
-    const newSection = {
-      sectionid: sectionId,
-      responds: [newRespond],
-    }
-
-    const updatedResponds = sectionExists
-      ? [
-          ...sectionFilter,
-          {
-            sectionid: sectionExists.sectionid,
-            responds: [
-              ...sectionExists.responds,
-              // RESPOND OBJECT
-              newRespond,
-            ],
-          },
-        ]
-      : [...dataQuestionnaire.questionnaireRespond, newSection]
-
-    const skip = section.questions[currentQuestion + 2]
-    if (skip) {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection,
-          currentQuestion: currentQuestion + 2,
-          questionnaireRespond: updatedResponds,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-
-      setCurrentSection(currentSection)
-      setCurrentQuestion(currentQuestion + 2)
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    } else {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection + 1,
-          currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
-          questionnaireRespond: updatedResponds,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-
-      setCurrentSection(currentSection + 1)
-      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    }
-  }
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
-    if (nextQuestion?.display.state === 0) {
-      const dataQuestionnaire = JSON.parse(
-        localStorage.getItem('questionnaire'),
-      )
-      const checkSkip = nextQuestion.display.condition.find((i) =>
-        i.answer.find(
-          (j) =>
-            j ===
-            dataQuestionnaire.questionnaireRespond
-              .find((f) =>
-                f.responds.find((g) => g.questionID === i.questionID),
-              )
-              ?.responds.find((h) => h.questionID === i.questionID)
-              .answer.find((k) => k === j),
-        ),
-      )
-
-      if (!checkSkip) {
-        skipQuestion(e.target[0].value)
-      } else {
-        updateQuestionnaire(e.target[0].value)
-        setCurrentSection(
-          nextQuestion
-            ? currentSection
-            : nextSection
-            ? currentSection + 1
-            : null,
-        )
-        setCurrentQuestion(
-          nextQuestion
-            ? currentQuestion === null
-              ? 0
-              : currentQuestion + 1
-            : nextSection?.type === 'fundamental'
-            ? 0
-            : null,
-        )
-        setStatus(
-          nextQuestion !== undefined || nextSection !== undefined
-            ? 'progress'
-            : 'finish',
-        )
-      }
-    } else {
-      updateQuestionnaire(e.target[0].value)
-      setCurrentSection(
-        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-      )
-      setCurrentQuestion(
-        nextQuestion
-          ? currentQuestion === null
-            ? 0
-            : currentQuestion + 1
-          : nextSection?.type === 'fundamental'
-          ? 0
-          : null,
-      )
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    }
-  }
 
   return (
     <Container className="w-full h-full flex justify-center items-center py-10">
       <form
-        onSubmit={handleFormSubmit}
+        onSubmit={(e) => {
+          e.preventDefault()
+          quizUpdate(
+            e.target[0].value,
+            'text',
+            questionId,
+            section,
+            nextSection,
+            nextQuestion,
+            currentSection,
+            currentQuestion,
+            setCurrentSection,
+            setCurrentQuestion,
+            setStatus,
+          )
+        }}
         className="w-full md:max-w-lg lg:max-w-4xl flex flex-col items-center"
       >
         <Heading title={title} subTitle={subTitle} />

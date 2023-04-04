@@ -135,13 +135,9 @@ const ShowComponent = ({
         if (currentQuestion === null) {
           return (
             <TitleComponent
+              section={section}
               nextSection={nextSection}
               nextQuestion={section?.questions[0]}
-              title={section.title.en}
-              subTitle={section.cover.title.en}
-              button={section.cover.button.en}
-              imageLeft={section.cover.image.left}
-              imageRight={section.cover.image.right}
               currentSection={currentSection}
               currentQuestion={currentQuestion}
               setCurrentSection={setCurrentSection}
