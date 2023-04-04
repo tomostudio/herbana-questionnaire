@@ -29,7 +29,7 @@ const ProgressIndicator = ({
           ),
         )
 
-        if (checkSkip) {
+        if (!checkSkip) {
           if (currentQuestion - 2 > 0) {
             const dataQuestionnaire = JSON.parse(
               localStorage.getItem('questionnaire'),

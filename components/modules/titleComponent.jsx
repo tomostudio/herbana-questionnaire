@@ -60,9 +60,7 @@ const TitleComponent = ({
         }),
       )
 
-      setCurrentSection(
-        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-      )
+      setCurrentSection(currentSection + 1)
       setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
       setStatus(
         nextQuestion !== undefined || nextSection !== undefined
@@ -88,7 +86,7 @@ const TitleComponent = ({
         ),
       )
 
-      if (checkSkip) {
+      if (!checkSkip) {
         skipQuestion()
       } else {
         localStorage.setItem(
@@ -188,7 +186,12 @@ const TitleComponent = ({
       maxWidth="max-w-2xl"
     >
       <div className="relative w-fit flex flex-col items-center">
-        <Heading title={title} subTitle={subTitle} letterSpacing={true} subTitleSizeMobile='text-mheading' />
+        <Heading
+          title={title}
+          subTitle={subTitle}
+          letterSpacing={true}
+          subTitleSizeMobile="text-mheading"
+        />
         <RoundedFullButton
           className="uppercase tracking-default"
           onClick={handleOnClick}

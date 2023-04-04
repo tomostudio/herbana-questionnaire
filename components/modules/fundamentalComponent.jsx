@@ -151,9 +151,7 @@ const FundamentalComponent = ({
         }),
       )
 
-      setCurrentSection(
-        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-      )
+      setCurrentSection(currentSection + 1)
       setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
       setStatus(
         nextQuestion !== undefined || nextSection !== undefined
@@ -182,7 +180,7 @@ const FundamentalComponent = ({
         ),
       )
 
-      if (checkSkip) {
+      if (!checkSkip) {
         skipQuestion(e.target[0].value)
       } else {
         updateQuestionnaire(e.target[0].value)

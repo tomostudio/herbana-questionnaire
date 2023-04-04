@@ -152,9 +152,7 @@ const TextButtonComponent = ({
         }),
       )
 
-      setCurrentSection(
-        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-      )
+      setCurrentSection(currentSection + 1)
       setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
       setStatus(
         nextQuestion !== undefined || nextSection !== undefined
@@ -182,7 +180,7 @@ const TextButtonComponent = ({
         ),
       )
 
-      if (checkSkip) {
+      if (!checkSkip) {
         skipQuestion(data)
       } else {
         updateQuestionnaire(data)

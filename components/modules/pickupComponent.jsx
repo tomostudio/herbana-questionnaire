@@ -155,9 +155,7 @@ const PickupComponent = ({
         }),
       )
 
-      setCurrentSection(
-        nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-      )
+      setCurrentSection(currentSection + 1)
       setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
       setStatus(
         nextQuestion !== undefined || nextSection !== undefined
@@ -185,7 +183,7 @@ const PickupComponent = ({
         ),
       )
 
-      if (checkSkip) {
+      if (!checkSkip) {
         skipQuestion()
       } else {
         updateQuestionnaire()
