@@ -52,8 +52,6 @@ const QuestionnairePage = () => {
   quiz.totalQuestion = totalQuestion.length
 
   useEffect(() => {
-    // console.log(currentSection)
-    // console.log(quizData.data.sections[currentSection])
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     if (dataQuestionnaire) {
       if (currentSection === undefined || currentSection === null) {
@@ -62,10 +60,9 @@ const QuestionnairePage = () => {
           bg: '#DFF2F7',
         })
       } else {
-        console.log(quizData.data.sections[currentSection])
         setColor({
-          header: quizData.data.sections[currentSection].bgColor,
-          bg: quizData.data.sections[currentSection].bgColor,
+          header: quiz.sections[currentSection].bgColor,
+          bg: quiz.sections[currentSection].bgColor,
         })
       }
     }
@@ -110,6 +107,28 @@ const QuestionnairePage = () => {
             setCurrentQuestion={setCurrentQuestion}
           />
           <HeaderGap />
+          {checkStorage && status === 'progress' && currentQuestion !== null && quiz.sections[currentSection].type !== 'fundamental' ? (
+            <div className="relative md:hidden w-full border-b-default border-black">
+              <div className="relative z-10 text-center text-footer font-maisonMono py-3">
+                <span className="relative uppercase">
+                  {quiz.sections[currentSection].title.en}
+                </span>
+              </div>
+              <div
+                className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
+                style={{
+                  width: `${
+                    (quiz.sections[currentSection].questions[currentQuestion]
+                      .current /
+                      quiz.totalQuestion) *
+                    100
+                  }%`,
+                }}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="relative w-full h-full grow flex items-center">
             <ShowComponent
               quiz={quiz}
@@ -129,7 +148,7 @@ const QuestionnairePage = () => {
             quiz.sections[currentSection].type === 'fundamental' ? (
               <Container className="absolute bottom-3 left-1/2 -translate-x-1/2">
                 <DefaultButton
-                  className="hidden w-fit md:flex items-center text-nav font-maisonMono uppercase"
+                  className="w-fit flex items-center text-footer md:text-nav font-maisonMono uppercase"
                   onClick={() => {
                     if (currentSection === 0) {
                       localStorage.removeItem('questionnaire')
@@ -163,13 +182,16 @@ const QuestionnairePage = () => {
                         quiz.sections[currentSection - 1].questions.length - 1,
                       )
                       setColor({
-                        header: quizData.data.sections[currentSection].bgColor,
-                        bg: quizData.data.sections[currentSection].bgColor,
+                        header: quiz.sections[currentSection].bgColor,
+                        bg: quiz.sections[currentSection].bgColor,
                       })
                     }
                   }}
                 >
-                  <ArrowLeft className="mr-4" />
+                  {
+                    console.log("hei")
+                  }
+                  <ArrowLeft className="mr-3 md:mr-4 w-[23px] md:w-auto" />
                   BACK
                 </DefaultButton>
               </Container>

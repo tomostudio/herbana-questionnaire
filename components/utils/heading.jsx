@@ -2,7 +2,7 @@ const Heading = ({
   title,
   subTitle,
   position = 'text-center',
-  subTitleSizeMobile = 'text-mheading',
+  subTitleSizeMobile = 'text-mheading1',
   marginSubtitle = true,
   classNameSubTitle = '',
   letterSpacing = false,
@@ -16,7 +16,7 @@ const Heading = ({
       </span>
       <h1
         className={`${subTitleSizeMobile} ${classNameSubTitle} md:text-heading ${
-          letterSpacing ? 'tracking-wider' : ''
+          letterSpacing ? 'md:tracking-wider' : ''
         } font-maison font-bold leading-tight ${
           marginSubtitle ? 'mb-6 md:mb-7' : 'm-0'
         }  whitespace-pre-wrap ${position}`}

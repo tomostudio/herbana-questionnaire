@@ -87,7 +87,7 @@ const ShowComponent = ({
           />
           <RoundedFullButton
             icon
-            className="lg:hidden relative z-20 -top-6 mx-auto w-fit"
+            className="lg:hidden relative z-20 -top-5 mx-auto w-fit"
             onClick={() => {
               localStorage.setItem(
                 'questionnaire',
@@ -99,10 +99,12 @@ const ShowComponent = ({
                   expired: new Date(Date.now() + 86400 * 1000).getTime(),
                 }),
               )
-              // setColor({
-              //   header: '#FFF7E9',
-              //   bg: '#FFF7E9',
-              // })
+              setColor({
+                header: section.bgColor,
+                bg: section.bgColor,
+              })
+              setCurrentSection(0)
+              setCurrentQuestion(0)
               setCheckStorage(true)
             }}
           >

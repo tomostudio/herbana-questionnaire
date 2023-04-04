@@ -59,23 +59,24 @@ const ResultComponent = ({
             {description}
           </h2>
           <div className="w-full flex flex-col mt-20 space-y-5">
-            <div className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl">
+            <DefaultButton
+              hover={false}
+              onClick={(e) => {
+                setIsOpen([!isOpen[0], false, false])
+                const dropdown = document.getElementsByClassName('dropdown')
+                if (!dropdown[0].classList.contains('dropdown-active')) {
+                  dropdown[0].classList.add('dropdown-active')
+                  dropdown[1].classList.remove('dropdown-active')
+                  dropdown[2].classList.remove('dropdown-active')
+                } else {
+                  dropdown[0].classList.remove('dropdown-active')
+                }
+              }}
+              className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
+            >
               <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                 <span>ABOUT YOU</span>
-                <DefaultButton
-                  onClick={(e) => {
-                    setIsOpen([!isOpen[0], false, false])
-                    const dropdown = document.getElementsByClassName('dropdown')
-                    if (!dropdown[0].classList.contains('dropdown-active')) {
-                      dropdown[0].classList.add('dropdown-active')
-                      dropdown[1].classList.remove('dropdown-active')
-                      dropdown[2].classList.remove('dropdown-active')
-                    } else {
-                      dropdown[0].classList.remove('dropdown-active')
-                    }
-                  }}
-                  className="dropdown"
-                ></DefaultButton>
+                <div className="dropdown"></div>
               </div>
               <motion.div
                 initial={{ height: 0 }}
@@ -83,7 +84,7 @@ const ResultComponent = ({
                 variants={variants}
                 className="overflow-hidden"
               >
-                <p className="pt-8 text-[0.938rem] md:text-body">
+                <p className="pt-8 text-[0.938rem] md:text-body text-left">
                   Praesent tellus ligula, laoreet ac qsuam id, aliquet auctor
                   augue tempor imperdiet. Suspendisse id orci orci,
                   Suspendisseaa felis magna aliquet baami id lorem. Praesent
@@ -92,24 +93,25 @@ const ResultComponent = ({
                   felis magna aliquet baami id lorem.
                 </p>
               </motion.div>
-            </div>
-            <div className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl">
+            </DefaultButton>
+            <DefaultButton
+              hover={false}
+              onClick={(e) => {
+                setIsOpen([false, !isOpen[1], false])
+                const dropdown = document.getElementsByClassName('dropdown')
+                if (!dropdown[1].classList.contains('dropdown-active')) {
+                  dropdown[0].classList.remove('dropdown-active')
+                  dropdown[1].classList.add('dropdown-active')
+                  dropdown[2].classList.remove('dropdown-active')
+                } else {
+                  dropdown[1].classList.remove('dropdown-active')
+                }
+              }}
+              className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
+            >
               <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                 <span>FURTHER GOALS</span>
-                <DefaultButton
-                  onClick={(e) => {
-                    setIsOpen([false, !isOpen[1], false])
-                    const dropdown = document.getElementsByClassName('dropdown')
-                    if (!dropdown[1].classList.contains('dropdown-active')) {
-                      dropdown[0].classList.remove('dropdown-active')
-                      dropdown[1].classList.add('dropdown-active')
-                      dropdown[2].classList.remove('dropdown-active')
-                    } else {
-                      dropdown[1].classList.remove('dropdown-active')
-                    }
-                  }}
-                  className="dropdown"
-                ></DefaultButton>
+                <div className="dropdown"></div>
               </div>
               <motion.div
                 initial={{ height: 0 }}
@@ -117,7 +119,7 @@ const ResultComponent = ({
                 variants={variants}
                 className="overflow-hidden"
               >
-                <p className="pt-8 text-[0.938rem] md:text-body">
+                <p className="pt-8 text-[0.938rem] md:text-body text-left">
                   Praesent tellus ligula, laoreet ac qsuam id, aliquet auctor
                   augue tempor imperdiet. Suspendisse id orci orci,
                   Suspendisseaa felis magna aliquet baami id lorem. Praesent
@@ -126,24 +128,25 @@ const ResultComponent = ({
                   felis magna aliquet baami id lorem.
                 </p>
               </motion.div>
-            </div>
-            <div className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl">
+            </DefaultButton>
+            <DefaultButton
+              hover={false}
+              onClick={(e) => {
+                setIsOpen([false, false, !isOpen[2]])
+                const dropdown = document.getElementsByClassName('dropdown')
+                if (!dropdown[2].classList.contains('dropdown-active')) {
+                  dropdown[0].classList.remove('dropdown-active')
+                  dropdown[1].classList.remove('dropdown-active')
+                  dropdown[2].classList.add('dropdown-active')
+                } else {
+                  dropdown[2].classList.remove('dropdown-active')
+                }
+              }}
+              className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
+            >
               <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                 <span>GENERAL HEALTH</span>
-                <DefaultButton
-                  onClick={(e) => {
-                    setIsOpen([false, false, !isOpen[2]])
-                    const dropdown = document.getElementsByClassName('dropdown')
-                    if (!dropdown[2].classList.contains('dropdown-active')) {
-                      dropdown[0].classList.remove('dropdown-active')
-                      dropdown[1].classList.remove('dropdown-active')
-                      dropdown[2].classList.add('dropdown-active')
-                    } else {
-                      dropdown[2].classList.remove('dropdown-active')
-                    }
-                  }}
-                  className="dropdown"
-                ></DefaultButton>
+                <div className="dropdown"></div>
               </div>
               <motion.div
                 initial={{ height: 0 }}
@@ -151,7 +154,7 @@ const ResultComponent = ({
                 variants={variants}
                 className="overflow-hidden"
               >
-                <p className="pt-8 text-[0.938rem] md:text-body">
+                <p className="pt-8 text-[0.938rem] md:text-body text-left">
                   Praesent tellus ligula, laoreet ac qsuam id, aliquet auctor
                   augue tempor imperdiet. Suspendisse id orci orci,
                   Suspendisseaa felis magna aliquet baami id lorem. Praesent
@@ -160,15 +163,15 @@ const ResultComponent = ({
                   felis magna aliquet baami id lorem.
                 </p>
               </motion.div>
-            </div>
+            </DefaultButton>
           </div>
         </div>
       </div>
       <div className="w-full bg-beige flex justify-center px-6 md:px-0">
         <div className="w-full max-w-5xl mx-auto py-10 md:py-20">
           <div className="flex flex-col rounded-2xl border-2 border-orange bg-orange overflow-hidden">
-            <div className="h-full md:h-72 text-left px-6 pb-12 pt-6 md:p-12">
-              <span className="text-white text-mheading1 md:text-qHeadingb whitespace-pre">
+            <div className="h-full md:h-72 text-left px-6 pb-16 pt-6 md:p-12">
+              <span className="text-white text-mheading1 md:text-qHeadingb whitespace-pre-wrap">
                 {formTitle}
               </span>
             </div>
@@ -218,7 +221,7 @@ const ResultComponent = ({
                   borderColor="border-orange"
                   hoverTextIcon="hover-orange"
                 >
-                  {buttonText}
+                  <span className="mr-3 md:mr-0">{buttonText}</span>
                 </RoundedFullButton>
               </div>
             </form>

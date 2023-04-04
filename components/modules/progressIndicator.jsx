@@ -124,14 +124,14 @@ const ProgressIndicator = ({
     <div className="relative flex flex-col w-full">
       <Container className="absolute -top-8 left-1/2 -translate-x-1/2">
         <DefaultButton
-          className="hidden w-fit md:flex items-center text-nav font-maisonMono uppercase"
+          className="w-fit flex items-center text-footer md:text-nav font-maisonMono uppercase"
           onClick={handleBackClick}
         >
-          <ArrowLeft className="mr-4" />
+          <ArrowLeft className="mr-3 md:mr-4 w-[23px] md:w-auto" />
           Back
         </DefaultButton>
       </Container>
-      <div className="relative w-full grid md:grid-cols-3 border-y-2 border-black">
+      <div className="hidden relative w-full md:grid md:grid-cols-3 border-y-2 border-black">
         {sections.map(
           (data, id) =>
             data.type !== 'fundamental' && (

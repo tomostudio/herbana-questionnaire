@@ -188,7 +188,7 @@ const TitleComponent = ({
       maxWidth="max-w-2xl"
     >
       <div className="relative w-fit flex flex-col items-center">
-        <Heading title={title} subTitle={subTitle} letterSpacing={true} />
+        <Heading title={title} subTitle={subTitle} letterSpacing={true} subTitleSizeMobile='text-mheading' />
         <RoundedFullButton
           className="uppercase tracking-default"
           onClick={handleOnClick}

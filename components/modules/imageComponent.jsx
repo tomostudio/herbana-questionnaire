@@ -231,7 +231,7 @@ const ImageComponent = ({
   }
 
   return (
-    <Container className="w-full h-full flex justify-center items-center">
+    <Container className="w-full h-full flex justify-center items-center py-24 md:py-10">
       <div className="w-full max-w-5xl flex flex-col items-center">
         <Heading
           title={title}

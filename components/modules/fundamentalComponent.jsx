@@ -231,7 +231,7 @@ const FundamentalComponent = ({
   }
 
   return (
-    <Container className="w-full h-full flex justify-center items-center">
+    <Container className="w-full h-full flex justify-center items-center py-10">
       <form
         onSubmit={handleFormSubmit}
         className="w-full md:max-w-lg lg:max-w-4xl flex flex-col items-center"

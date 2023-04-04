@@ -14,7 +14,7 @@ export default function Header({
 }) {
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 w-full z-20 border-b-2 border-black`}
+      className={`fixed top-0 left-0 right-0 w-full z-20 border-b-default md:border-b-2 border-black`}
       style={{
         backgroundColor: background,
       }}
@@ -29,7 +29,7 @@ export default function Header({
             {header.backButton.en}
           </DefaultButton>
           <DefaultButton
-            destination="/"
+            destination="https://herbana.id"
             className="relative flex items-center w-fit h-fit"
           >
             <ArrowLeft className="md:hidden mr-3" />
