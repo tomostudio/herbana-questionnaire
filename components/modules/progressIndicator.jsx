@@ -12,6 +12,7 @@ const ProgressIndicator = ({
   totalQuestion,
 }) => {
   const handleBackClick = () => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'));
     if (currentQuestion > 0) {
       if (sections[currentSection].questions[currentQuestion - 1]) {
         const checkSkip = sections[currentSection].questions[
@@ -31,9 +32,6 @@ const ProgressIndicator = ({
 
         if (!checkSkip) {
           if (currentQuestion - 2 > 0) {
-            const dataQuestionnaire = JSON.parse(
-              localStorage.getItem('questionnaire')
-            );
             dataQuestionnaire.questionnaireRespond
               .find((e) => e.sectionid === sections[currentSection].ID)
               .responds.pop();
@@ -49,9 +47,6 @@ const ProgressIndicator = ({
             );
             setCurrentQuestion(currentQuestion - 2);
           } else {
-            const dataQuestionnaire = JSON.parse(
-              localStorage.getItem('questionnaire')
-            );
             localStorage.setItem(
               'questionnaire',
               JSON.stringify({
@@ -65,9 +60,6 @@ const ProgressIndicator = ({
             setCurrentQuestion(null);
           }
         } else {
-          const dataQuestionnaire = JSON.parse(
-            localStorage.getItem('questionnaire')
-          );
           dataQuestionnaire.questionnaireRespond
             .find((e) => e.sectionid === sections[currentSection].ID)
             .responds.pop();
@@ -84,9 +76,6 @@ const ProgressIndicator = ({
           setCurrentQuestion(currentQuestion - 1);
         }
       } else {
-        const dataQuestionnaire = JSON.parse(
-          localStorage.getItem('questionnaire')
-        );
         dataQuestionnaire.questionnaireRespond
           .find((e) => e.sectionid === sections[currentSection].ID)
           .responds.pop();
@@ -103,9 +92,6 @@ const ProgressIndicator = ({
         setCurrentQuestion(currentQuestion - 1);
       }
     } else {
-      const dataQuestionnaire = JSON.parse(
-        localStorage.getItem('questionnaire')
-      );
       localStorage.setItem(
         'questionnaire',
         JSON.stringify({
