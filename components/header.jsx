@@ -14,7 +14,7 @@ export default function Header({
 }) {
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 w-full z-20 border-b-default md:border-b-2 border-black`}
+      className={`fixed top-0 left-0 right-0 w-full z-20 border-b-default md:border-b-default  border-black`}
       style={{
         backgroundColor: background,
       }}
