@@ -11,112 +11,64 @@ const ProgressIndicator = ({
   sections,
   totalQuestion,
 }) => {
+  const updateQuestionnaire = (updateQuestion) => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+    localStorage.setItem(
+      'questionnaire',
+      JSON.stringify({
+        currentSection: currentSection,
+        currentQuestion: updateQuestion,
+        questionnaireRespond: dataQuestionnaire.questionnaireRespond,
+        status: 'progress',
+        expired: dataQuestionnaire.expired,
+      }),
+    )
+    setCurrentQuestion(updateQuestion)
+  }
+
   const handleBackClick = () => {
     if (currentQuestion > 0) {
-      if (sections[currentSection].questions[currentQuestion - 1]) {
-        const checkSkip = sections[currentSection].questions[
-          currentQuestion - 1
-        ].display.condition.find((i) =>
-          i.answer.find(
-            (j) =>
-              j ===
-              dataQuestionnaire.questionnaireRespond
-                .find((f) =>
-                  f.responds.find((g) => g.questionID === i.questionID),
-                )
-                ?.responds.find((h) => h.questionID === i.questionID)
-                .answer.find((k) => k === j),
-          ),
-        )
-
-        if (!checkSkip) {
-          if (currentQuestion - 2 > 0) {
-            const dataQuestionnaire = JSON.parse(
-              localStorage.getItem('questionnaire'),
-            )
+      const dataQuestionnaire = JSON.parse(
+        localStorage.getItem('questionnaire'),
+      )
+      const checkSkip = sections[currentSection].questions[
+        currentQuestion - 1
+      ].display.condition.find((i) =>
+        i.answer.find(
+          (j) =>
+            j ===
             dataQuestionnaire.questionnaireRespond
-              .find((e) => e.sectionid === sections[currentSection].ID)
-              .responds.pop()
-            localStorage.setItem(
-              'questionnaire',
-              JSON.stringify({
-                currentSection: currentSection,
-                currentQuestion: currentQuestion - 2,
-                questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                status: 'progress',
-                expired: dataQuestionnaire.expired,
-              }),
-            )
-            setCurrentQuestion(currentQuestion - 2)
-          } else {
-            const dataQuestionnaire = JSON.parse(
-              localStorage.getItem('questionnaire'),
-            )
-            localStorage.setItem(
-              'questionnaire',
-              JSON.stringify({
-                currentSection: currentSection,
-                currentQuestion: null,
-                questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-                status: 'progress',
-                expired: dataQuestionnaire.expired,
-              }),
-            )
-            setCurrentQuestion(null)
-          }
-        } else {
-          const dataQuestionnaire = JSON.parse(
-            localStorage.getItem('questionnaire'),
-          )
-          dataQuestionnaire.questionnaireRespond
-            .find((e) => e.sectionid === sections[currentSection].ID)
-            .responds.pop()
-          localStorage.setItem(
-            'questionnaire',
-            JSON.stringify({
-              currentSection: currentSection,
-              currentQuestion: currentQuestion - 1,
-              questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-              status: 'progress',
-              expired: dataQuestionnaire.expired,
-            }),
-          )
-          setCurrentQuestion(currentQuestion - 1)
-        }
-      } else {
+              .find((f) =>
+                f.responds.find((g) => g.questionID === i.questionID),
+              )
+              ?.responds.find((h) => h.questionID === i.questionID)
+              .answer.find((k) => k === j),
+        ),
+      )
+
+      if (checkSkip) {
         const dataQuestionnaire = JSON.parse(
           localStorage.getItem('questionnaire'),
         )
         dataQuestionnaire.questionnaireRespond
           .find((e) => e.sectionid === sections[currentSection].ID)
           .responds.pop()
-        localStorage.setItem(
-          'questionnaire',
-          JSON.stringify({
-            currentSection: currentSection,
-            currentQuestion: currentQuestion - 1,
-            questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-            status: 'progress',
-            expired: dataQuestionnaire.expired,
-          }),
+
+        updateQuestionnaire(
+          sections[currentSection].questions[currentQuestion - 2]
+            ? currentQuestion - 2
+            : null,
         )
-        setCurrentQuestion(currentQuestion - 1)
+        setCurrentQuestion(
+          sections[currentSection].questions[currentQuestion - 2]
+            ? currentQuestion - 2
+            : null,
+        )
+      } else {
+        updateQuestionnaire(currentQuestion - 1)
       }
     } else {
-      const dataQuestionnaire = JSON.parse(
-        localStorage.getItem('questionnaire'),
-      )
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection,
-          currentQuestion: null,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status: 'progress',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-      setCurrentQuestion(null)
+      updateQuestionnaire(null)
     }
   }
 
