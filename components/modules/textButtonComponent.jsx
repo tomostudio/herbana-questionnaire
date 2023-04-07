@@ -36,7 +36,6 @@ const TextButtonComponent = ({
               onClick={() =>
                 quizUpdate(
                   [data.label.en],
-                  'option',
                   questionId,
                   section,
                   nextSection,

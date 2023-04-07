@@ -26,8 +26,7 @@ const FundamentalComponent = ({
         onSubmit={(e) => {
           e.preventDefault()
           quizUpdate(
-            e.target[0].value,
-            'text',
+            [e.target[0].value],
             questionId,
             section,
             nextSection,

@@ -40,7 +40,6 @@ const TextImageComponent = ({
                 onClick={() =>
                   quizUpdate(
                     [data.label.en],
-                    'option',
                     questionId,
                     section,
                     nextSection,

@@ -72,7 +72,6 @@ const PickupComponent = ({
             if (getAnswer.length > 0) {
               quizUpdate(
                 getAnswer,
-                'multiple',
                 questionId,
                 section,
                 nextSection,

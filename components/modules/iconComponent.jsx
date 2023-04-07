@@ -40,7 +40,6 @@ const IconComponent = ({
               onClick={() =>
                 quizUpdate(
                   [data.label.en],
-                  'option',
                   questionId,
                   section,
                   nextSection,

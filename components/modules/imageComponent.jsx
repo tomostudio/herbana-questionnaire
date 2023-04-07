@@ -42,7 +42,6 @@ const ImageComponent = ({
               onClick={() =>
                 quizUpdate(
                   [data.label.en],
-                  'option',
                   questionId,
                   section,
                   nextSection,

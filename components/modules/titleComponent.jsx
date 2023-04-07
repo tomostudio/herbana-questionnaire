@@ -40,7 +40,6 @@ const TitleComponent = ({
             quizUpdate(
               null,
               null,
-              null,
               section,
               nextSection,
               nextQuestion,
