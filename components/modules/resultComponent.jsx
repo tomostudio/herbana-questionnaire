@@ -177,25 +177,31 @@ const ResultComponent = ({
             </div>
             <form
               onSubmit={(e) => {
+                e.preventDefault()
                 const dataQuestionnaire = JSON.parse(
                   localStorage.getItem('questionnaire'),
                 )
-                localStorage.setItem(
-                  'questionnaire',
-                  JSON.stringify({
-                    currentSection: dataQuestionnaire.currentSection,
-                    currentQuestion: dataQuestionnaire.currentQuestion,
-                    questionnaireRespond:
-                      dataQuestionnaire.questionnaireRespond,
-                    endFormRespond: {
-                      email: e.target[0].value,
-                      phoneNumber: e.target[1].value,
-                    },
-                    language: 'en',
-                    status: dataQuestionnaire.status,
-                    expired: dataQuestionnaire.expired,
+
+                fetch('https://demo.herbana.id/quiz-api.php', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  body: JSON.stringify({
+                    session: Date.now(),
+                    email: e.target[0].value,
+                    phone: e.target[1].value,
+                    answers: dataQuestionnaire.questionnaireRespond,
                   }),
-                )
+                })
+                  .then((res) => res.json())
+                  .then((res) => {
+                    if (res.status === 1) {
+                      window.location = `https://demo.herbana.id/quiz-result.php?s=${res.data}`
+                    } else {
+                      console.log(res)
+                    }
+                  })
               }}
               className="bg-white rounded-t-2xl p-6 md:p-12 flex flex-col md:flex-row justify-between"
             >
