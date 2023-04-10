@@ -13,6 +13,7 @@ const quizUpdate = (
   const updateQuestionnaire = (updateSection, updateQuestion, status) => {
     if (answer) {
       const newRespond = {
+        sectionID: sections[currentSection].ID,
         questionID: questionId,
         answer: answer,
       }
@@ -79,16 +80,26 @@ const quizUpdate = (
   const loopSkip = () => {
     if (newQuestion !== null) {
       if (sections[newSection].questions[newQuestion + 1]) {
-        const showQuiz = sections[newSection].questions[
+        const findQuestion = sections[newSection].questions[
           newQuestion + 1
-        ].display.condition.find((i) =>
-          i.answer.find(
-            (j) =>
-              j ===
-              dataQuestionnaire.questionnaireRespond
-                .find((h) => h.questionID === i.questionID)
-                ?.answer.find((k) => k === j),
-          ),
+        ].display.condition.find(
+          (i) =>
+            i.questionID ===
+            (currentQuestion === newQuestion
+              ? sections[currentSection].questions[currentQuestion].ID
+              : dataQuestionnaire.questionnaireRespond.find(
+                  (h) => h.questionID === i.questionID,
+                )?.questionID),
+        )
+
+        const showQuiz = findQuestion?.answer.find(
+          (i) =>
+            i ===
+            (currentQuestion === newQuestion
+              ? answer?.find((k) => k === i)
+              : dataQuestionnaire.questionnaireRespond
+                  .find((h) => h.questionID === findQuestion.questionID)
+                  ?.answer.find((k) => k === i)),
         )
 
         if (!showQuiz) {

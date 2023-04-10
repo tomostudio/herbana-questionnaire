@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Container from '../container'
 import { DefaultButton, RoundedFullButton } from '../utils/buttons'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import quizData from '../../app/sample-data.json'
 
 const ResultComponent = ({
   title = '',
@@ -15,7 +16,13 @@ const ResultComponent = ({
   buttonText = '',
   coverImage,
 }) => {
+  const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])
+
+  useEffect(() => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+    setResultData(dataQuestionnaire.questionnaireRespond)
+  }, [])
 
   const variants = {
     open: {
@@ -59,111 +66,66 @@ const ResultComponent = ({
             {description}
           </h2>
           <div className="w-full flex flex-col mt-20 space-y-5">
-            <DefaultButton
-              hover={false}
-              onClick={(e) => {
-                setIsOpen([!isOpen[0], false, false])
-                const dropdown = document.getElementsByClassName('dropdown')
-                if (!dropdown[0].classList.contains('dropdown-active')) {
-                  dropdown[0].classList.add('dropdown-active')
-                  dropdown[1].classList.remove('dropdown-active')
-                  dropdown[2].classList.remove('dropdown-active')
-                } else {
-                  dropdown[0].classList.remove('dropdown-active')
-                }
-              }}
-              className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
-            >
-              <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
-                <span>ABOUT YOU</span>
-                <div className="dropdown"></div>
-              </div>
-              <motion.div
-                initial={{ height: 0 }}
-                animate={isOpen[0] ? 'open' : 'closed'}
-                variants={variants}
-                className="overflow-hidden"
-              >
-                <p className="pt-8 text-[0.938rem] md:text-body text-left">
-                  Praesent tellus ligula, laoreet ac qsuam id, aliquet auctor
-                  augue tempor imperdiet. Suspendisse id orci orci,
-                  Suspendisseaa felis magna aliquet baami id lorem. Praesent
-                  tellus ligula, laoreet ac qsuam id, aliquet auctor augue
-                  tempor imperdiet. Suspendisse id orci orci, Suspendisseaa
-                  felis magna aliquet baami id lorem.
-                </p>
-              </motion.div>
-            </DefaultButton>
-            <DefaultButton
-              hover={false}
-              onClick={(e) => {
-                setIsOpen([false, !isOpen[1], false])
-                const dropdown = document.getElementsByClassName('dropdown')
-                if (!dropdown[1].classList.contains('dropdown-active')) {
-                  dropdown[0].classList.remove('dropdown-active')
-                  dropdown[1].classList.add('dropdown-active')
-                  dropdown[2].classList.remove('dropdown-active')
-                } else {
-                  dropdown[1].classList.remove('dropdown-active')
-                }
-              }}
-              className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
-            >
-              <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
-                <span>FURTHER GOALS</span>
-                <div className="dropdown"></div>
-              </div>
-              <motion.div
-                initial={{ height: 0 }}
-                animate={isOpen[1] ? 'open' : 'closed'}
-                variants={variants}
-                className="overflow-hidden"
-              >
-                <p className="pt-8 text-[0.938rem] md:text-body text-left">
-                  Praesent tellus ligula, laoreet ac qsuam id, aliquet auctor
-                  augue tempor imperdiet. Suspendisse id orci orci,
-                  Suspendisseaa felis magna aliquet baami id lorem. Praesent
-                  tellus ligula, laoreet ac qsuam id, aliquet auctor augue
-                  tempor imperdiet. Suspendisse id orci orci, Suspendisseaa
-                  felis magna aliquet baami id lorem.
-                </p>
-              </motion.div>
-            </DefaultButton>
-            <DefaultButton
-              hover={false}
-              onClick={(e) => {
-                setIsOpen([false, false, !isOpen[2]])
-                const dropdown = document.getElementsByClassName('dropdown')
-                if (!dropdown[2].classList.contains('dropdown-active')) {
-                  dropdown[0].classList.remove('dropdown-active')
-                  dropdown[1].classList.remove('dropdown-active')
-                  dropdown[2].classList.add('dropdown-active')
-                } else {
-                  dropdown[2].classList.remove('dropdown-active')
-                }
-              }}
-              className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
-            >
-              <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
-                <span>GENERAL HEALTH</span>
-                <div className="dropdown"></div>
-              </div>
-              <motion.div
-                initial={{ height: 0 }}
-                animate={isOpen[2] ? 'open' : 'closed'}
-                variants={variants}
-                className="overflow-hidden"
-              >
-                <p className="pt-8 text-[0.938rem] md:text-body text-left">
-                  Praesent tellus ligula, laoreet ac qsuam id, aliquet auctor
-                  augue tempor imperdiet. Suspendisse id orci orci,
-                  Suspendisseaa felis magna aliquet baami id lorem. Praesent
-                  tellus ligula, laoreet ac qsuam id, aliquet auctor augue
-                  tempor imperdiet. Suspendisse id orci orci, Suspendisseaa
-                  felis magna aliquet baami id lorem.
-                </p>
-              </motion.div>
-            </DefaultButton>
+            {quizData.data.sections
+              .filter((e) => e.type !== 'fundamental')
+              .map((data, index) => (
+                <DefaultButton
+                  hover={false}
+                  onClick={(e) => {
+                    let dataOpen = []
+                    quizData.data.sections
+                      .filter((e) => e.type !== 'fundamental')
+                      .forEach((_, id) => {
+                        if (id === index) {
+                          dataOpen.push(!isOpen[id])
+                        } else {
+                          dataOpen.push(false)
+                        }
+                      })
+                    setIsOpen(dataOpen)
+                    const dropdown = document.getElementsByClassName('dropdown')
+                    if (
+                      !dropdown[index].classList.contains('dropdown-active')
+                    ) {
+                      quizData.data.sections
+                        .filter((e) => e.type !== 'fundamental')
+                        .forEach((_, id) => {
+                          if (id === index) {
+                            dropdown[id].classList.add('dropdown-active')
+                          } else {
+                            dropdown[id].classList.remove('dropdown-active')
+                            dropdown[id].classList.remove('dropdown-active')
+                          }
+                        })
+                    } else {
+                      dropdown[index].classList.remove('dropdown-active')
+                    }
+                  }}
+                  className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
+                >
+                  <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
+                    <span className="uppercase">{data.title.en}</span>
+                    <div className="dropdown"></div>
+                  </div>
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={isOpen[index] ? 'open' : 'closed'}
+                    variants={variants}
+                    className="overflow-hidden w-full"
+                  >
+                    <p className="pt-8 text-[0.938rem] md:text-body text-left">
+                      {resultData
+                        .filter((f) => f.sectionID === data.ID)
+                        .map((f) => (
+                          <>
+                            {f.answer.toString()}
+                            <br />
+                          </>
+                        ))}
+                    </p>
+                  </motion.div>
+                </DefaultButton>
+              ))}
           </div>
         </div>
       </div>
