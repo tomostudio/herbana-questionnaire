@@ -1,9 +1,7 @@
 const quizUpdate = (
   answer,
   questionId,
-  section,
-  nextSection,
-  nextQuestion,
+  sections,
   currentSection,
   currentQuestion,
   setCurrentSection,
@@ -12,7 +10,7 @@ const quizUpdate = (
 ) => {
   const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
 
-  const updateQuestionnaire = (updateSection, updateQuestion) => {
+  const updateQuestionnaire = (updateSection, updateQuestion, status) => {
     if (answer) {
       const newRespond = {
         questionID: questionId,
@@ -31,10 +29,7 @@ const quizUpdate = (
           currentSection: updateSection,
           currentQuestion: updateQuestion,
           questionnaireRespond: updatedResponds,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
+          status: status,
           expired: dataQuestionnaire.expired,
         }),
       )
@@ -45,40 +40,145 @@ const quizUpdate = (
           currentSection: updateSection,
           currentQuestion: updateQuestion,
           questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
+          status: status,
           expired: dataQuestionnaire.expired,
         }),
       )
     }
 
-    setStatus('loading')
+    setCurrentSection(updateSection)
+    setCurrentQuestion(updateQuestion)
+    setStatus(status)
   }
 
-  updateQuestionnaire(
-    nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-    nextQuestion
-      ? currentQuestion === null
+  let newSection = currentSection
+  let newQuestion = currentQuestion
+
+  const skipQuestion = () => {
+    const skipQuiz = sections[newSection].questions[newQuestion + 2]
+    if (skipQuiz) {
+      newQuestion = newQuestion + 2
+      updateQuestionnaire(
+        newSection,
+        newQuestion,
+        newSection !== undefined || newQuestion !== undefined
+          ? 'progress'
+          : 'finish',
+      )
+    } else {
+      newSection = newSection + 1
+      newQuestion = sections[newSection]?.type === 'fundamental' ? 0 : null
+      updateQuestionnaire(
+        newSection,
+        newQuestion,
+        newSection || newQuestion !== undefined ? 'progress' : 'finish',
+      )
+    }
+  }
+
+  const loopSkip = () => {
+    if (newQuestion !== null) {
+      if (sections[newSection].questions[newQuestion + 1]) {
+        const showQuiz = sections[newSection].questions[
+          newQuestion + 1
+        ].display.condition.find((i) =>
+          i.answer.find(
+            (j) =>
+              j ===
+              dataQuestionnaire.questionnaireRespond
+                .find((h) => h.questionID === i.questionID)
+                ?.answer.find((k) => k === j),
+          ),
+        )
+
+        if (!showQuiz) {
+          skipQuestion()
+          return true
+        } else {
+          updateQuestionnaire(
+            sections[newSection].questions[newQuestion + 1]
+              ? newSection
+              : sections[newSection + 1]
+              ? newSection + 1
+              : null,
+            sections[newSection].questions[newQuestion + 1]
+              ? newQuestion === null
+                ? 0
+                : newQuestion + 1
+              : sections[newSection + 1]?.type === 'fundamental'
+              ? 0
+              : null,
+            sections[newSection + 1] ||
+              sections[newSection].questions[newQuestion + 1] !== undefined
+              ? 'progress'
+              : 'finish',
+          )
+
+          return false
+        }
+      } else {
+        updateQuestionnaire(
+          sections[newSection].questions[newQuestion + 1]
+            ? newSection
+            : sections[newSection + 1]
+            ? newSection + 1
+            : null,
+          sections[newSection].questions[newQuestion + 1]
+            ? newQuestion === null
+              ? 0
+              : newQuestion + 1
+            : sections[newSection + 1]?.type === 'fundamental'
+            ? 0
+            : null,
+          sections[newSection + 1] ||
+            sections[newSection].questions[newQuestion + 1] !== undefined
+            ? 'progress'
+            : 'finish',
+        )
+
+        return false
+      }
+    } else {
+      updateQuestionnaire(
+        newSection,
+        null,
+        newSection || newQuestion !== undefined ? 'progress' : 'finish',
+      )
+
+      return false
+    }
+  }
+
+  if (
+    sections[currentSection].questions[
+      currentQuestion === null ? 0 : currentQuestion + 1
+    ]?.display.state === 0
+  ) {
+    while (true) {
+      if (loopSkip() === false) {
+        break
+      }
+    }
+  } else {
+    updateQuestionnaire(
+      sections[currentSection].questions[currentQuestion + 1]
+        ? currentSection
+        : sections[currentSection + 1]
+        ? currentSection + 1
+        : null,
+      sections[currentSection].questions[currentQuestion + 1]
+        ? currentQuestion === null
+          ? 0
+          : currentQuestion + 1
+        : sections[currentSection + 1]?.type === 'fundamental'
         ? 0
-        : currentQuestion + 1
-      : nextSection?.type === 'fundamental'
-      ? 0
-      : null,
-  )
-  setCurrentSection(
-    nextQuestion ? currentSection : nextSection ? currentSection + 1 : null,
-  )
-  setCurrentQuestion(
-    nextQuestion
-      ? currentQuestion === null
-        ? 0
-        : currentQuestion + 1
-      : nextSection?.type === 'fundamental'
-      ? 0
-      : null,
-  )
+        : null,
+      sections[currentSection + 1] ||
+        sections[currentSection].questions[currentQuestion + 1] !== undefined
+        ? 'progress'
+        : 'finish',
+    )
+  }
 }
 
 export default quizUpdate

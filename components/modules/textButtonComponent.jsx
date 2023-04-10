@@ -6,10 +6,8 @@ import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 
 const TextButtonComponent = ({
-  section,
+  sections,
   subTitle = '',
-  nextQuestion,
-  nextSection,
   answers,
   currentSection,
   currentQuestion,
@@ -18,7 +16,7 @@ const TextButtonComponent = ({
   questionId,
   setStatus,
 }) => {
-  const title = section.title.en
+  const title = sections[currentSection].title.en
 
   return (
     <Container className="w-full h-full flex justify-center items-center py-24 md:py-10">
@@ -37,9 +35,7 @@ const TextButtonComponent = ({
                 quizUpdate(
                   [data.label.en],
                   questionId,
-                  section,
-                  nextSection,
-                  nextQuestion,
+                  sections,
                   currentSection,
                   currentQuestion,
                   setCurrentSection,

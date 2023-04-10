@@ -7,20 +7,18 @@ import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 
 const TitleComponent = ({
-  section,
-  nextQuestion,
-  nextSection,
+  sections,
   currentSection,
   currentQuestion,
   setCurrentSection,
   setCurrentQuestion,
   setStatus,
 }) => {
-  const title = section.title.en
-  const subTitle = section.cover.title.en
-  const button = section.cover.button.en
-  const imageLeft = section.cover.image.left
-  const imageRight = section.cover.image.right
+  const title = sections[currentSection].title.en
+  const subTitle = sections[currentSection].cover.title.en
+  const button = sections[currentSection].cover.button.en
+  const imageLeft = sections[currentSection].cover.image.left
+  const imageRight = sections[currentSection].cover.image.right
 
   return (
     <Container
@@ -40,9 +38,7 @@ const TitleComponent = ({
             quizUpdate(
               null,
               null,
-              section,
-              nextSection,
-              nextQuestion,
+              sections,
               currentSection,
               currentQuestion,
               setCurrentSection,

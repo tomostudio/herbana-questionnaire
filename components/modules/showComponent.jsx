@@ -118,7 +118,7 @@ const ShowComponent = ({
       if (section.type === 'fundamental') {
         return (
           <FundamentalComponent
-            section={section}
+            sections={quiz.sections}
             questionId={question.ID}
             nextSection={nextSection}
             nextQuestion={nextQuestion}
@@ -135,7 +135,7 @@ const ShowComponent = ({
         if (currentQuestion === null) {
           return (
             <TitleComponent
-              section={section}
+              sections={quiz.sections}
               nextSection={nextSection}
               nextQuestion={section?.questions[0]}
               currentSection={currentSection}
@@ -150,7 +150,7 @@ const ShowComponent = ({
             if (question.answerType === 'icon') {
               return (
                 <IconComponent
-                  section={section}
+                  sections={quiz.sections}
                   questionId={question.ID}
                   nextSection={nextSection}
                   nextQuestion={nextQuestion}
@@ -167,7 +167,7 @@ const ShowComponent = ({
               if (question.content.image) {
                 return (
                   <TextImageComponent
-                    section={section}
+                    sections={quiz.sections}
                     questionId={question.ID}
                     nextSection={nextSection}
                     nextQuestion={nextQuestion}
@@ -184,7 +184,7 @@ const ShowComponent = ({
               } else {
                 return (
                   <TextButtonComponent
-                    section={section}
+                    sections={quiz.sections}
                     questionId={question.ID}
                     nextSection={nextSection}
                     nextQuestion={nextQuestion}
@@ -201,7 +201,7 @@ const ShowComponent = ({
             } else {
               return (
                 <ImageComponent
-                  section={section}
+                  sections={quiz.sections}
                   questionId={question.ID}
                   nextSection={nextSection}
                   nextQuestion={nextQuestion}
@@ -218,7 +218,7 @@ const ShowComponent = ({
           } else {
             return (
               <PickupComponent
-                section={section}
+                sections={quiz.sections}
                 questionId={question.ID}
                 nextSection={nextSection}
                 nextQuestion={nextQuestion}

@@ -7,11 +7,9 @@ import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 
 const TextImageComponent = ({
-  section,
+  sections,
   subTitle = '',
   answers,
-  nextSection,
-  nextQuestion,
   image,
   currentSection,
   currentQuestion,
@@ -20,7 +18,7 @@ const TextImageComponent = ({
   questionId,
   setStatus,
 }) => {
-  const title = section.title.en
+  const title = sections[currentSection].title.en
 
   return (
     <div className="w-full flex flex-col-reverse lg:flex-row self-stretch">
@@ -41,9 +39,7 @@ const TextImageComponent = ({
                   quizUpdate(
                     [data.label.en],
                     questionId,
-                    section,
-                    nextSection,
-                    nextQuestion,
+                    sections,
                     currentSection,
                     currentQuestion,
                     setCurrentSection,

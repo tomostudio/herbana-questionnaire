@@ -7,10 +7,8 @@ import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 
 const PickupComponent = ({
-  section,
+  sections,
   subTitle = '',
-  nextQuestion,
-  nextSection,
   answers,
   currentSection,
   currentQuestion,
@@ -19,7 +17,7 @@ const PickupComponent = ({
   questionId,
   setStatus,
 }) => {
-  const title = section.title.en
+  const title = sections[currentSection].title.en
   const [getAnswer, setAnswer] = useState([])
 
   return (
@@ -73,9 +71,7 @@ const PickupComponent = ({
               quizUpdate(
                 getAnswer,
                 questionId,
-                section,
-                nextSection,
-                nextQuestion,
+                sections,
                 currentSection,
                 currentQuestion,
                 setCurrentSection,

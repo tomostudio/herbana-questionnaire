@@ -7,14 +7,15 @@ import { ArrowLeft } from '../utils/svg'
 const ProgressIndicator = ({
   currentSection,
   currentQuestion,
+  setCurrentSection,
   setCurrentQuestion,
   sections,
   totalQuestion,
   setStatus,
 }) => {
-  const updateQuestionnaire = (updateQuestion) => {
+  const updateQuestionnaire = (updateSection, updateQuestion) => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    if (sections[currentSection].questions[currentQuestion - 1]) {
+    if (sections[currentSection].questions[updateQuestion]) {
       dataQuestionnaire.questionnaireRespond.pop()
     }
     localStorage.setItem(
@@ -27,15 +28,69 @@ const ProgressIndicator = ({
         expired: dataQuestionnaire.expired,
       }),
     )
+
+    setCurrentSection(updateSection)
     setCurrentQuestion(updateQuestion)
-    setStatus('back')
+    setStatus('progress')
+  }
+
+  let newQuestion = currentQuestion
+
+  const skipQuestion = () => {
+    const skipQuiz = sections[currentSection].questions[newQuestion - 2]
+    if (skipQuiz) {
+      newQuestion = newQuestion - 2
+      updateQuestionnaire(currentSection, newQuestion)
+    } else {
+      newQuestion = null
+      updateQuestionnaire(currentSection, null)
+    }
+  }
+
+  const loopSkip = () => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+    if (sections[currentSection].questions[newQuestion - 1]) {
+      const showQuiz = sections[currentSection].questions[
+        newQuestion - 1
+      ].display.condition.find((i) =>
+        i.answer.find(
+          (j) =>
+            j ===
+            dataQuestionnaire.questionnaireRespond
+              .find((h) => h.questionID === i.questionID)
+              ?.answer.find((k) => k === j),
+        ),
+      )
+
+      if (!showQuiz) {
+        skipQuestion()
+        return true
+      } else {
+        updateQuestionnaire(currentSection, null)
+        return false
+      }
+    } else {
+      updateQuestionnaire(currentSection, null)
+      return false
+    }
   }
 
   const handleBackClick = () => {
     if (currentQuestion > 0) {
-      updateQuestionnaire(currentQuestion - 1)
+      if (
+        sections[currentSection].questions[currentQuestion - 1]?.display
+          .state === 0
+      ) {
+        while (true) {
+          if (loopSkip() === false) {
+            break
+          }
+        }
+      } else {
+        updateQuestionnaire(currentSection, currentQuestion - 1)
+      }
     } else {
-      updateQuestionnaire(null)
+      updateQuestionnaire(currentSection, null)
     }
   }
 

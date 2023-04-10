@@ -50,97 +50,6 @@ const QuestionnairePage = () => {
 
   quiz.totalQuestion = totalQuestion.length
 
-  const skipNextQuestion = () => {
-    const ifHasQuestion =
-      quiz.sections[currentSection].questions[currentQuestion + 1]
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    const nextSection = quiz.sections[currentSection + 1]
-    const nextQuestion =
-      quiz.sections[currentSection].questions[currentQuestion + 1]
-
-    if (ifHasQuestion) {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection,
-          currentQuestion: currentQuestion + 1,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-      setCurrentSection(currentSection)
-      setCurrentQuestion(currentQuestion + 1)
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    } else {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection + 1,
-          currentQuestion: nextSection?.type === 'fundamental' ? 0 : null,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status:
-            nextQuestion !== undefined || nextSection !== undefined
-              ? 'progress'
-              : 'finish',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-
-      setCurrentSection(currentSection + 1)
-      setCurrentQuestion(nextSection?.type === 'fundamental' ? 0 : null)
-      setStatus(
-        nextQuestion !== undefined || nextSection !== undefined
-          ? 'progress'
-          : 'finish',
-      )
-    }
-  }
-
-  const skipBackQuestion = () => {
-    const ifHasQuestion =
-      quiz.sections[currentSection].questions[currentQuestion - 1]
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-
-    if (ifHasQuestion) {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection,
-          currentQuestion: currentQuestion - 1,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status: 'progress',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-      setCurrentSection(currentSection)
-      setCurrentQuestion(currentQuestion - 1)
-      setStatus('back')
-    } else {
-      localStorage.setItem(
-        'questionnaire',
-        JSON.stringify({
-          currentSection: currentSection,
-          currentQuestion: null,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-          status: 'progress',
-          expired: dataQuestionnaire.expired,
-        }),
-      )
-
-      setCurrentSection(currentSection)
-      setCurrentQuestion(null)
-      setStatus('back')
-    }
-  }
-
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     if (dataQuestionnaire) {
@@ -149,46 +58,14 @@ const QuestionnairePage = () => {
           header: '#FFF7E9',
           bg: '#DFF2F7',
         })
-        setStatus(dataQuestionnaire.status)
       } else {
         setColor({
           header: quiz.sections[currentSection].bgColor,
           bg: quiz.sections[currentSection].bgColor,
         })
-
-        if (
-          quiz.sections[currentSection].questions[currentQuestion]?.display
-            .state === 0
-        ) {
-          const showQuiz = quiz.sections[currentSection].questions[
-            currentQuestion
-          ]?.display.condition.find((i) =>
-            i.answer.find(
-              (j) =>
-                j ===
-                dataQuestionnaire.questionnaireRespond
-                  .find((h) => h.questionID === i.questionID)
-                  ?.answer.find((k) => k === j),
-            ),
-          )
-          if (showQuiz) {
-            setStatus(dataQuestionnaire.status)
-          } else {
-            if (status === 'back') {
-              skipBackQuestion()
-            } else {
-              skipNextQuestion()
-            }
-          }
-        } else {
-          setStatus(dataQuestionnaire.status)
-        }
       }
-    } else {
-      setStatus('progress')
-      setCheckStorage(false)
     }
-  }, [currentSection, currentQuestion])
+  }, [currentSection])
 
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
@@ -207,15 +84,8 @@ const QuestionnairePage = () => {
     }
   }, [])
 
-  if (status === 'loading' || status === 'back') {
-    return (
-      <main
-        style={{
-          backgroundColor: color.bg,
-        }}
-        className="w-full h-screen"
-      />
-    )
+  if (status === 'loading') {
+    return <></>
   } else {
     return (
       <main
