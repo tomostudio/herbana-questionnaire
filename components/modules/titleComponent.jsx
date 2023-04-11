@@ -22,10 +22,10 @@ const TitleComponent = ({
 
   return (
     <Container
-      className="w-full h-full flex justify-center items-center"
-      maxWidth="max-w-2xl"
+      className="relative w-full h-full flex justify-center items-center"
+      // maxWidth="max-w-2xl"
     >
-      <div className="relative w-fit flex flex-col items-center">
+      <div className="relative z-10 w-fit flex flex-col items-center">
         <Heading
           title={title}
           subTitle={subTitle}
@@ -49,7 +49,8 @@ const TitleComponent = ({
         >
           {button}
         </RoundedFullButton>
-        <div className="absolute left-1/2 -translate-x-[138%] rotate-[-60deg] md:translate-x-0 md:rotate-0 md:left-auto md:right-full top-full -translate-y-[25%] md:top-1/2 md:-translate-y-1/2">
+      </div>
+        <div className="absolute left-1/2 -translate-x-[138%] md:translate-x-0 md:left-0 top-full md:top-1/2 -translate-y-[25%] md:-translate-y-1/2 rotate-[-60deg] md:rotate-0">
           <div className="relative w-44 h-44 md:w-72 md:h-72">
             <Image
               src={imageLeft}
@@ -60,7 +61,7 @@ const TitleComponent = ({
             />
           </div>
         </div>
-        <div className="absolute left-1/2 translate-x-[24%] rotate-[120deg] md:rotate-0 md:translate-x-0 md:right-auto md:left-full bottom-full md:bottom-auto translate-y-[12%] md:top-1/2 md:-translate-y-1/2">
+        <div className="absolute left-1/2 md:left-auto translate-x-[24%] md:translate-x-0 bottom-full md:bottom-auto translate-y-[12%] md:right-0 md:top-1/2 md:-translate-y-1/2 rotate-[120deg] md:rotate-0">
           <div className="relative w-44 h-44 md:w-72 md:h-72">
             <Image
               src={imageRight}
@@ -71,7 +72,6 @@ const TitleComponent = ({
             />
           </div>
         </div>
-      </div>
     </Container>
   )
 }
