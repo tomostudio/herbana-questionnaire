@@ -3,6 +3,13 @@ module.exports = {
     appDir: true,
   },
   images: {
-    domains: ['placehold.co'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
