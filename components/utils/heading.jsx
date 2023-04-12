@@ -18,7 +18,7 @@ const Heading = ({
         className={`${subTitleSizeMobile} ${classNameSubTitle} md:text-heading ${
           letterSpacing ? 'md:tracking-wider' : ''
         } font-maison font-bold leading-tight ${
-          marginSubtitle ? 'mb-6 md:mb-7' : 'm-0'
+          marginSubtitle ? 'mb-8' : 'm-0'
         }  whitespace-pre-wrap ${position}`}
       >
         {subTitle}

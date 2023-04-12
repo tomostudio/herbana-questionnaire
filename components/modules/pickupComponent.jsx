@@ -30,7 +30,7 @@ const PickupComponent = ({
           classNameSubTitle="max-w-xs md:max-w-none"
           marginSubtitle={false}
         />
-        <span className="mb-6 md:mb-7 text-greyPickup md:text-mqHeadingb font-bold">
+        <span className="mb-8 text-greyPickup md:text-mqHeadingb font-bold">
           (PICK UP TO 3)
         </span>
         <div className="w-full max-w-4xl flex flex-wrap justify-center gap-6">
