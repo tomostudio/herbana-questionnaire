@@ -45,7 +45,6 @@ const PickupComponent = ({
               data-target={id}
               pickup={true}
               onClick={(e) => {
-                if (getAnswer.length < 3) {
                   const pickupButton = document.querySelector(
                     `[data-target="${id}"]`,
                   )
@@ -56,10 +55,11 @@ const PickupComponent = ({
                     setAnswer(filterAnswer)
                     pickupButton.classList.remove('pickupActive')
                   } else {
-                    setAnswer([...getAnswer, data.label.en])
-                    pickupButton.classList.add('pickupActive')
+                    if(getAnswer.length < 3) {
+                      setAnswer([...getAnswer, data.label.en])
+                      pickupButton.classList.add('pickupActive')
+                    }
                   }
-                }
               }}
             >
               {data.label.en}
