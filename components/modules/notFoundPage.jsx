@@ -20,11 +20,21 @@ const NotFoundPage = () => {
         <HeaderGap />
         <div className="relative w-full h-full grow flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
-            <Image src="/icons/informed.svg" width={105} height={105} />
-            <span className="text-qHeading uppercase font-bold text-orange mt-6">
+            <div className="relative w-[70px] h-[70px] md:w-[105px] md:h-[105px]">
+              <Image
+                src="/icons/informed.svg"
+                fill
+                style={{
+                  objectFit: 'contain',
+                }}
+              />
+            </div>
+            <span className="text-mheading md:text-qHeading uppercase font-bold text-orange mt-6">
               404 Error
             </span>
-            <span className="text-[2.188rem] mt-2">Sorry, page not found</span>
+            <span className="text-mheading1 md:text-[2.188rem] mt-2">
+              Sorry, page not found
+            </span>
           </div>
         </div>
       </div>
