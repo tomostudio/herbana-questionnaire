@@ -45,18 +45,20 @@ const PickupComponent = ({
               data-target={id}
               pickup={true}
               onClick={(e) => {
-                const pickupButton = document.querySelector(
-                  `[data-target="${id}"]`,
-                )
-                if (pickupButton.classList.contains('pickupActive')) {
-                  let filterAnswer = getAnswer.filter(
-                    (e) => e !== data.label.en,
+                if (getAnswer.length < 3) {
+                  const pickupButton = document.querySelector(
+                    `[data-target="${id}"]`,
                   )
-                  setAnswer(filterAnswer)
-                  pickupButton.classList.remove('pickupActive')
-                } else {
-                  setAnswer([...getAnswer, data.label.en])
-                  pickupButton.classList.add('pickupActive')
+                  if (pickupButton.classList.contains('pickupActive')) {
+                    let filterAnswer = getAnswer.filter(
+                      (e) => e !== data.label.en,
+                    )
+                    setAnswer(filterAnswer)
+                    pickupButton.classList.remove('pickupActive')
+                  } else {
+                    setAnswer([...getAnswer, data.label.en])
+                    pickupButton.classList.add('pickupActive')
+                  }
                 }
               }}
             >
