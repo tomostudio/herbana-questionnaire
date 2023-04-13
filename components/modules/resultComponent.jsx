@@ -8,12 +8,12 @@ import Image from 'next/image'
 
 const ResultComponent = ({ quiz }) => {
   const title = quiz.beforeResult.title.en
-  description = quiz.beforeResult.description.en
-  formTitle = quiz.beforeResult.formTitle.en
-  emailPlaceholder = quiz.beforeResult.emailPlaceholder.en
-  phonePlaceholder = quiz.beforeResult.phonePlaceholder.en
-  buttonText = quiz.beforeResult.buttonText.en
-  coverImage = quiz.beforeResult.coverImage
+  const description = quiz.beforeResult.description.en
+  const formTitle = quiz.beforeResult.formTitle.en
+  const emailPlaceholder = quiz.beforeResult.emailPlaceholder.en
+  const phonePlaceholder = quiz.beforeResult.phonePlaceholder.en
+  const buttonText = quiz.beforeResult.buttonText.en
+  const coverImage = quiz.beforeResult.coverImage
 
   const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])

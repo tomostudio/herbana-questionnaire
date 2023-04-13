@@ -56,22 +56,38 @@ const QuestionnairePage = () => {
       quizData.data.totalQuestion = totalQuestion.length
 
       setQuiz(quizData.data)
+
+      const dataQuestionnaire = JSON.parse(
+        localStorage.getItem('questionnaire'),
+      )
+      if (dataQuestionnaire) {
+        if (dataQuestionnaire.currentSection !== null) {
+          setColor({
+            header:
+              quizData.data.sections[dataQuestionnaire.currentSection].bgColor,
+            bg:
+              quizData.data.sections[dataQuestionnaire.currentSection].bgColor,
+          })
+        }
+      }
     }
   }, [quizData])
 
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     if (dataQuestionnaire) {
-      if (currentSection === undefined || currentSection === null) {
+      if (dataQuestionnaire.currentSection === null) {
         setColor({
           header: '#FFF7E9',
           bg: '#DFF2F7',
         })
       } else {
-        setColor({
-          header: quiz.sections[currentSection].bgColor,
-          bg: quiz.sections[currentSection].bgColor,
-        })
+        if (quiz.length > 0) {
+          setColor({
+            header: quiz.sections[dataQuestionnaire.currentSection].bgColor,
+            bg: quiz.sections[dataQuestionnaire.currentSection].bgColor,
+          })
+        }
       }
     }
   }, [currentSection])

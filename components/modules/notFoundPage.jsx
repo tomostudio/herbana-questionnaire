@@ -21,8 +21,6 @@ const NotFoundPage = () => {
   if (quiz.length === 0) {
     return <></>
   } else {
-    // console.log(quizData.data)
-    console.log(quiz)
     return (
       <main
         className="w-full  flex flex-col justify-between"
