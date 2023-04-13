@@ -6,13 +6,14 @@ import HeaderGap from '@/components/headerGap'
 import { DefaultButton } from '@/components/utils/buttons'
 import { ArrowLeft } from '@/components/utils/svg'
 import { useEffect, useState } from 'react'
-import quizData from '../../app/sample-data.json'
 import ProgressIndicator from '@/components/modules/progressIndicator'
 import ShowComponent from '@/components/modules/showComponent'
 import Container from '../container'
+import useSWR from 'swr'
+import fetcher from '../utils/fetcher'
 
 const QuestionnairePage = () => {
-  const quiz = quizData.data
+  const quizData = useSWR('https://demo.herbana.id/quiz-api.php', fetcher)
   const [checkStorage, setCheckStorage] = useState(true)
   const [color, setColor] = useState({
     header: '#FFF7E9',
@@ -20,35 +21,43 @@ const QuestionnairePage = () => {
   })
   const [currentSection, setCurrentSection] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [status, setStatus] = useState('loading')
+  const [status, setStatus] = useState('progress')
+  const [quiz, setQuiz] = useState([])
 
-  let totalQuestion = []
+  useEffect(() => {
+    if (quizData.data) {
+      let totalQuestion = []
 
-  quiz.sections
-    .filter((data) => data.type !== 'fundamental')
-    .forEach((data) => {
-      totalQuestion.push(...data.questions)
-    })
+      quizData.data.sections
+        .filter((data) => data.type !== 'fundamental')
+        .forEach((data) => {
+          totalQuestion.push(...data.questions)
+        })
 
-  quiz.sections = quiz.sections.map((data) => {
-    if (data.type !== 'fundamental') {
-      return {
-        ...data,
-        questions: data.questions.map((e) => {
+      quizData.data.sections = quizData.data.sections.map((data) => {
+        if (data.type !== 'fundamental') {
           return {
-            ...e,
-            current:
-              totalQuestion.indexOf(totalQuestion.find((f) => f.ID === e.ID)) +
-              1,
+            ...data,
+            questions: data.questions.map((e) => {
+              return {
+                ...e,
+                current:
+                  totalQuestion.indexOf(
+                    totalQuestion.find((f) => f.ID === e.ID),
+                  ) + 1,
+              }
+            }),
           }
-        }),
-      }
-    } else {
-      return data
-    }
-  })
+        } else {
+          return data
+        }
+      })
 
-  quiz.totalQuestion = totalQuestion.length
+      quizData.data.totalQuestion = totalQuestion.length
+
+      setQuiz(quizData.data)
+    }
+  }, [quizData])
 
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
@@ -84,7 +93,7 @@ const QuestionnairePage = () => {
     }
   }, [])
 
-  if (status === 'loading') {
+  if (quiz.length === 0) {
     return <></>
   } else {
     return (

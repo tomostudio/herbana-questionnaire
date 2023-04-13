@@ -31,7 +31,7 @@ const IconComponent = ({
           {answers?.map((data, id) => (
             <ImageButton
               key={id}
-              src="/icons/informed1.png"
+              src={data.image}
               fill={false}
               width={70}
               height={70}

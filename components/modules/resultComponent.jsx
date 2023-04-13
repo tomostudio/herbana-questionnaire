@@ -5,17 +5,16 @@ import Container from '../container'
 import { DefaultButton, RoundedFullButton } from '../utils/buttons'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import quizData from '../../app/sample-data.json'
 
-const ResultComponent = ({
-  title = '',
-  description = '',
-  formTitle = '',
-  emailPlaceholder = '',
-  phonePlaceholder = '',
-  buttonText = '',
-  coverImage,
-}) => {
+const ResultComponent = ({ quiz }) => {
+  const title = quiz.beforeResult.title.en
+  description = quiz.beforeResult.description.en
+  formTitle = quiz.beforeResult.formTitle.en
+  emailPlaceholder = quiz.beforeResult.emailPlaceholder.en
+  phonePlaceholder = quiz.beforeResult.phonePlaceholder.en
+  buttonText = quiz.beforeResult.buttonText.en
+  coverImage = quiz.beforeResult.coverImage
+
   const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])
 
@@ -66,14 +65,14 @@ const ResultComponent = ({
             {description}
           </h2>
           <div className="w-full flex flex-col mt-20 space-y-5">
-            {quizData.data.sections
+            {quiz.sections
               .filter((e) => e.type !== 'fundamental')
               .map((data, index) => (
                 <DefaultButton
                   hover={false}
                   onClick={(e) => {
                     let dataOpen = []
-                    quizData.data.sections
+                    quiz.sections
                       .filter((e) => e.type !== 'fundamental')
                       .forEach((_, id) => {
                         if (id === index) {
@@ -87,7 +86,7 @@ const ResultComponent = ({
                     if (
                       !dropdown[index].classList.contains('dropdown-active')
                     ) {
-                      quizData.data.sections
+                      quiz.sections
                         .filter((e) => e.type !== 'fundamental')
                         .forEach((_, id) => {
                           if (id === index) {

@@ -235,17 +235,7 @@ const ShowComponent = ({
         }
       }
     } else {
-      return (
-        <ResultComponent
-          title={quiz.beforeResult.title.en}
-          description={quiz.beforeResult.description.en}
-          formTitle={quiz.beforeResult.formTitle.en}
-          emailPlaceholder={quiz.beforeResult.emailPlaceholder.en}
-          phonePlaceholder={quiz.beforeResult.phonePlaceholder.en}
-          buttonText={quiz.beforeResult.buttonText.en}
-          coverImage={quiz.beforeResult.coverImage}
-        />
-      )
+      return <ResultComponent quiz={quiz} />
     }
   }
 }
