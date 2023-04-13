@@ -23,9 +23,9 @@ const TitleComponent = ({
   return (
     <Container
       className='relative w-full h-full flex justify-center items-center'
-      // maxWidth="max-w-2xl"
+      // maxWidth=""
     >
-      <div className='relative z-10 w-fit flex flex-col items-center'>
+      <div className='relative max-w-xl z-10 w-fit flex flex-col items-center'>
         <Heading
           title={title}
           subTitle={subTitle}
