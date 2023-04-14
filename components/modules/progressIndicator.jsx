@@ -106,7 +106,11 @@ const ProgressIndicator = ({
         </DefaultButton>
       </Container>
       <div className=" relative w-full ">
-        <div className="hidden relative md:grid md:grid-cols-3">
+        <div
+          className={`hidden relative md:grid md:grid-cols-${
+            sections.length > 3 ? 3 : sections.length
+          }`}
+        >
           {sections.map(
             (data, id) =>
               data.type !== 'fundamental' && (

@@ -16,7 +16,7 @@ const NotFoundPage = () => {
     if (quizData.data) {
       setQuiz(quizData.data)
     }
-  }, [quizData])
+  }, [quizData.data])
 
   if (quiz.length === 0) {
     return <></>

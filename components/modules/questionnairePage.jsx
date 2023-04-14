@@ -9,11 +9,8 @@ import { useEffect, useState } from 'react'
 import ProgressIndicator from '@/components/modules/progressIndicator'
 import ShowComponent from '@/components/modules/showComponent'
 import Container from '../container'
-import useSWR from 'swr'
-import fetcher from '../utils/fetcher'
 
 const QuestionnairePage = () => {
-  const quizData = useSWR('https://demo.herbana.id/quiz-api.php', fetcher)
   const [checkStorage, setCheckStorage] = useState(true)
   const [color, setColor] = useState({
     header: '#FFF7E9',
@@ -22,58 +19,60 @@ const QuestionnairePage = () => {
   const [currentSection, setCurrentSection] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [status, setStatus] = useState('progress')
-  const [quiz, setQuiz] = useState([])
+  const [quiz, setQuiz] = useState(null)
 
   useEffect(() => {
-    if (quizData.data) {
-      let totalQuestion = []
+    fetch('https://demo.herbana.id/quiz-api.php')
+      .then((res) => res.json())
+      .then((quizData) => {
+        let totalQuestion = []
 
-      quizData.data.sections
-        .filter((data) => data.type !== 'fundamental')
-        .forEach((data) => {
-          totalQuestion.push(...data.questions)
+        quizData.sections
+          .filter((data) => data.type !== 'fundamental')
+          .forEach((data) => {
+            totalQuestion.push(...data.questions)
+          })
+
+        quizData.sections = quizData.sections.map((data) => {
+          if (data.type !== 'fundamental') {
+            return {
+              ...data,
+              questions: data.questions.map((e) => {
+                return {
+                  ...e,
+                  current:
+                    totalQuestion.indexOf(
+                      totalQuestion.find((f) => f.ID === e.ID),
+                    ) + 1,
+                }
+              }),
+            }
+          } else {
+            return data
+          }
         })
 
-      quizData.data.sections = quizData.data.sections.map((data) => {
-        if (data.type !== 'fundamental') {
-          return {
-            ...data,
-            questions: data.questions.map((e) => {
-              return {
-                ...e,
-                current:
-                  totalQuestion.indexOf(
-                    totalQuestion.find((f) => f.ID === e.ID),
-                  ) + 1,
-              }
-            }),
+        quizData.totalQuestion = totalQuestion.length
+
+        setQuiz(quizData)
+
+        const dataQuestionnaire = JSON.parse(
+          localStorage.getItem('questionnaire'),
+        )
+        if (dataQuestionnaire) {
+          if (dataQuestionnaire.currentSection !== null) {
+            setColor({
+              header:
+                quizData.sections[dataQuestionnaire.currentSection].bgColor,
+              bg: quizData.sections[dataQuestionnaire.currentSection].bgColor,
+            })
           }
-        } else {
-          return data
         }
       })
-
-      quizData.data.totalQuestion = totalQuestion.length
-
-      setQuiz(quizData.data)
-
-      const dataQuestionnaire = JSON.parse(
-        localStorage.getItem('questionnaire'),
-      )
-      if (dataQuestionnaire) {
-        if (dataQuestionnaire.currentSection !== null) {
-          setColor({
-            header:
-              quizData.data.sections[dataQuestionnaire.currentSection].bgColor,
-            bg:
-              quizData.data.sections[dataQuestionnaire.currentSection].bgColor,
-          })
-        }
-      }
-    }
-  }, [quizData])
+  }, [])
 
   useEffect(() => {
+    window.scroll(0,0)
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     if (dataQuestionnaire) {
       if (dataQuestionnaire.currentSection === null) {
@@ -82,7 +81,7 @@ const QuestionnairePage = () => {
           bg: '#DFF2F7',
         })
       } else {
-        if (quiz.length > 0) {
+        if (quiz) {
           setColor({
             header: quiz.sections[dataQuestionnaire.currentSection].bgColor,
             bg: quiz.sections[dataQuestionnaire.currentSection].bgColor,
@@ -109,7 +108,7 @@ const QuestionnairePage = () => {
     }
   }, [])
 
-  if (quiz.length === 0) {
+  if (!quiz) {
     return <></>
   } else {
     return (
@@ -140,13 +139,16 @@ const QuestionnairePage = () => {
                   {quiz.sections[currentSection].title.en}
                 </span>
               </div>
+              {}
               <div
                 className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
                 style={{
                   width: `${
-                    (quiz.sections[currentSection].questions[currentQuestion]
-                      .current /
-                      quiz.totalQuestion) *
+                    ((quiz.sections[currentSection].questions.indexOf(
+                      quiz.sections[currentSection].questions[currentQuestion],
+                    ) +
+                      1) /
+                      quiz.sections[currentSection].questions.length) *
                     100
                   }%`,
                 }}
