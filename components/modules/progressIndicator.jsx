@@ -107,9 +107,14 @@ const ProgressIndicator = ({
       </Container>
       <div className=" relative w-full ">
         <div
-          className={`hidden relative md:grid md:grid-cols-${
-            sections.length > 3 ? 3 : sections.length
-          }`}
+          className={`hidden relative md:grid`}
+          style={{
+            gridTemplateColumns: `repeat(${
+              sections.filter((data) => data.type !== 'fundamental').length > 5
+                ? 5
+                : sections.filter((data) => data.type !== 'fundamental').length
+            }, minmax(0, 1fr))`,
+          }}
         >
           {sections.map(
             (data, id) =>
