@@ -3,10 +3,9 @@
 import Image from 'next/image'
 import Container from '../container'
 import { RoundedFullButton } from '../utils/buttons'
-import FundamentalComponent from './fundamentalComponent'
+import InputTextComponent from './inputTextComponent'
 import IconComponent from './iconComponent'
 import ImageComponent from './imageComponent'
-import PickupComponent from './pickupComponent'
 import ResultComponent from './resultComponent'
 import TextButtonComponent from './textButtonComponent'
 import TextImageComponent from './textImageComponent'
@@ -116,21 +115,96 @@ const ShowComponent = ({
   } else {
     if (status === 'progress') {
       if (section.type === 'fundamental') {
-        return (
-          <FundamentalComponent
-            sections={quiz.sections}
-            questionId={question.ID}
-            nextSection={nextSection}
-            nextQuestion={nextQuestion}
-            subTitle={question.content.en}
-            placeholder={question.content.placeholder.en}
-            currentSection={currentSection}
-            currentQuestion={currentQuestion}
-            setCurrentSection={setCurrentSection}
-            setCurrentQuestion={setCurrentQuestion}
-            setStatus={setStatus}
-          />
-        )
+        if (question.type === 'text') {
+          return (
+            <InputTextComponent
+              sections={quiz.sections}
+              questionId={question.ID}
+              nextSection={nextSection}
+              nextQuestion={nextQuestion}
+              subTitle={question.content.en}
+              placeholder={question.content.placeholder.en}
+              currentSection={currentSection}
+              currentQuestion={currentQuestion}
+              setCurrentSection={setCurrentSection}
+              setCurrentQuestion={setCurrentQuestion}
+              setStatus={setStatus}
+            />
+          )
+        } else {
+          if (question.answerType === 'icon') {
+            return (
+              <IconComponent
+                sections={quiz.sections}
+                questionId={question.ID}
+                nextSection={nextSection}
+                nextQuestion={nextQuestion}
+                subTitle={question.content.en}
+                answers={question.answers}
+                currentSection={currentSection}
+                currentQuestion={currentQuestion}
+                setCurrentSection={setCurrentSection}
+                setCurrentQuestion={setCurrentQuestion}
+                setStatus={setStatus}
+                type={question.type}
+              />
+            )
+          } else if (question.answerType === 'text') {
+            if (question.content.image) {
+              return (
+                <TextImageComponent
+                  sections={quiz.sections}
+                  questionId={question.ID}
+                  nextSection={nextSection}
+                  nextQuestion={nextQuestion}
+                  subTitle={question.content.en}
+                  answers={question.answers}
+                  image={question.content.image}
+                  currentSection={currentSection}
+                  currentQuestion={currentQuestion}
+                  setCurrentSection={setCurrentSection}
+                  setCurrentQuestion={setCurrentQuestion}
+                  setStatus={setStatus}
+                  type={question.type}
+                />
+              )
+            } else {
+              return (
+                <TextButtonComponent
+                  sections={quiz.sections}
+                  questionId={question.ID}
+                  nextSection={nextSection}
+                  nextQuestion={nextQuestion}
+                  subTitle={question.content.en}
+                  answers={question.answers}
+                  currentSection={currentSection}
+                  currentQuestion={currentQuestion}
+                  setCurrentSection={setCurrentSection}
+                  setCurrentQuestion={setCurrentQuestion}
+                  setStatus={setStatus}
+                  type={question.type}
+                />
+              )
+            }
+          } else {
+            return (
+              <ImageComponent
+                sections={quiz.sections}
+                questionId={question.ID}
+                nextSection={nextSection}
+                nextQuestion={nextQuestion}
+                subTitle={question.content.en}
+                answers={question.answers}
+                currentSection={currentSection}
+                currentQuestion={currentQuestion}
+                setCurrentSection={setCurrentSection}
+                setCurrentQuestion={setCurrentQuestion}
+                setStatus={setStatus}
+                type={question.type}
+              />
+            )
+          }
+        }
       } else if (section.type === 'quiz') {
         if (currentQuestion === null) {
           return (
@@ -146,78 +220,9 @@ const ShowComponent = ({
             />
           )
         } else {
-          if (question.type === 'option') {
-            if (question.answerType === 'icon') {
-              return (
-                <IconComponent
-                  sections={quiz.sections}
-                  questionId={question.ID}
-                  nextSection={nextSection}
-                  nextQuestion={nextQuestion}
-                  subTitle={question.content.en}
-                  answers={question.answers}
-                  currentSection={currentSection}
-                  currentQuestion={currentQuestion}
-                  setCurrentSection={setCurrentSection}
-                  setCurrentQuestion={setCurrentQuestion}
-                  setStatus={setStatus}
-                />
-              )
-            } else if (question.answerType === 'text') {
-              if (question.content.image) {
-                return (
-                  <TextImageComponent
-                    sections={quiz.sections}
-                    questionId={question.ID}
-                    nextSection={nextSection}
-                    nextQuestion={nextQuestion}
-                    subTitle={question.content.en}
-                    answers={question.answers}
-                    image={question.content.image}
-                    currentSection={currentSection}
-                    currentQuestion={currentQuestion}
-                    setCurrentSection={setCurrentSection}
-                    setCurrentQuestion={setCurrentQuestion}
-                    setStatus={setStatus}
-                  />
-                )
-              } else {
-                return (
-                  <TextButtonComponent
-                    sections={quiz.sections}
-                    questionId={question.ID}
-                    nextSection={nextSection}
-                    nextQuestion={nextQuestion}
-                    subTitle={question.content.en}
-                    answers={question.answers}
-                    currentSection={currentSection}
-                    currentQuestion={currentQuestion}
-                    setCurrentSection={setCurrentSection}
-                    setCurrentQuestion={setCurrentQuestion}
-                    setStatus={setStatus}
-                  />
-                )
-              }
-            } else {
-              return (
-                <ImageComponent
-                  sections={quiz.sections}
-                  questionId={question.ID}
-                  nextSection={nextSection}
-                  nextQuestion={nextQuestion}
-                  subTitle={question.content.en}
-                  answers={question.answers}
-                  currentSection={currentSection}
-                  currentQuestion={currentQuestion}
-                  setCurrentSection={setCurrentSection}
-                  setCurrentQuestion={setCurrentQuestion}
-                  setStatus={setStatus}
-                />
-              )
-            }
-          } else {
+          if (question.answerType === 'icon') {
             return (
-              <PickupComponent
+              <IconComponent
                 sections={quiz.sections}
                 questionId={question.ID}
                 nextSection={nextSection}
@@ -229,6 +234,61 @@ const ShowComponent = ({
                 setCurrentSection={setCurrentSection}
                 setCurrentQuestion={setCurrentQuestion}
                 setStatus={setStatus}
+                type={question.type}
+              />
+            )
+          } else if (question.answerType === 'text') {
+            if (question.content.image) {
+              return (
+                <TextImageComponent
+                  sections={quiz.sections}
+                  questionId={question.ID}
+                  nextSection={nextSection}
+                  nextQuestion={nextQuestion}
+                  subTitle={question.content.en}
+                  answers={question.answers}
+                  image={question.content.image}
+                  currentSection={currentSection}
+                  currentQuestion={currentQuestion}
+                  setCurrentSection={setCurrentSection}
+                  setCurrentQuestion={setCurrentQuestion}
+                  setStatus={setStatus}
+                  type={question.type}
+                />
+              )
+            } else {
+              return (
+                <TextButtonComponent
+                  sections={quiz.sections}
+                  questionId={question.ID}
+                  nextSection={nextSection}
+                  nextQuestion={nextQuestion}
+                  subTitle={question.content.en}
+                  answers={question.answers}
+                  currentSection={currentSection}
+                  currentQuestion={currentQuestion}
+                  setCurrentSection={setCurrentSection}
+                  setCurrentQuestion={setCurrentQuestion}
+                  setStatus={setStatus}
+                  type={question.type}
+                />
+              )
+            }
+          } else {
+            return (
+              <ImageComponent
+                sections={quiz.sections}
+                questionId={question.ID}
+                nextSection={nextSection}
+                nextQuestion={nextQuestion}
+                subTitle={question.content.en}
+                answers={question.answers}
+                currentSection={currentSection}
+                currentQuestion={currentQuestion}
+                setCurrentSection={setCurrentSection}
+                setCurrentQuestion={setCurrentQuestion}
+                setStatus={setStatus}
+                type={question.type}
               />
             )
           }

@@ -5,7 +5,7 @@ import { BorderButton } from '../utils/buttons'
 import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 
-const FundamentalComponent = ({
+const InputTextComponent = ({
   sections,
   subTitle = '',
   placeholder,
@@ -49,4 +49,4 @@ const FundamentalComponent = ({
   )
 }
 
-export default FundamentalComponent
+export default InputTextComponent
