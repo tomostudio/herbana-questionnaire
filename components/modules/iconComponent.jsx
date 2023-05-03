@@ -29,7 +29,7 @@ const IconComponent = ({
           subTitle={subTitle}
           subTitleSizeMobile="text-mheading1"
           classNameSubTitle="max-w-xs md:max-w-none"
-          marginSubtitle={false}
+          marginSubtitle={type !== "multiple" ? true : false}
         />
         {type === 'multiple' && (
           <span className="mb-8 text-greyPickup md:text-mqHeadingb font-bold">
