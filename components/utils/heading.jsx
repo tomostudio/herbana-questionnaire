@@ -1,3 +1,5 @@
+import parse from 'html-react-parser';
+
 const Heading = ({
   title,
   subTitle,
@@ -21,7 +23,7 @@ const Heading = ({
           marginSubtitle ? 'mb-8' : 'm-0'
         }  whitespace-pre-wrap ${position}`}
       >
-        {subTitle}
+        {parse(subTitle)}
       </h1>
     </>
   )
