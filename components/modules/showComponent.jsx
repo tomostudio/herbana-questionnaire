@@ -10,6 +10,7 @@ import ResultComponent from './resultComponent'
 import TextButtonComponent from './textButtonComponent'
 import TextImageComponent from './textImageComponent'
 import TitleComponent from './titleComponent'
+import parse from 'html-react-parser'
 
 const ShowComponent = ({
   quiz,
@@ -37,7 +38,7 @@ const ShowComponent = ({
               {quiz.coverPage.title.en}
             </h1>
             <p className="max-w-sm md:max-w-md lg:mb-12 text-center lg:text-left">
-              {quiz.coverPage.description.en}
+              {parse(quiz.coverPage.description.en)}
             </p>
             <RoundedFullButton
               icon
@@ -147,6 +148,7 @@ const ShowComponent = ({
                 setCurrentQuestion={setCurrentQuestion}
                 setStatus={setStatus}
                 type={question.type}
+                answerLimit={question.answerLimit}
               />
             )
           } else if (question.answerType === 'text') {
@@ -166,6 +168,7 @@ const ShowComponent = ({
                   setCurrentQuestion={setCurrentQuestion}
                   setStatus={setStatus}
                   type={question.type}
+                  answerLimit={question.answerLimit}
                 />
               )
             } else {
@@ -183,6 +186,7 @@ const ShowComponent = ({
                   setCurrentQuestion={setCurrentQuestion}
                   setStatus={setStatus}
                   type={question.type}
+                  answerLimit={question.answerLimit}
                 />
               )
             }
@@ -201,6 +205,7 @@ const ShowComponent = ({
                 setCurrentQuestion={setCurrentQuestion}
                 setStatus={setStatus}
                 type={question.type}
+                answerLimit={question.answerLimit}
               />
             )
           }
@@ -235,6 +240,7 @@ const ShowComponent = ({
                 setCurrentQuestion={setCurrentQuestion}
                 setStatus={setStatus}
                 type={question.type}
+                answerLimit={question.answerLimit}
               />
             )
           } else if (question.answerType === 'text') {
@@ -254,6 +260,7 @@ const ShowComponent = ({
                   setCurrentQuestion={setCurrentQuestion}
                   setStatus={setStatus}
                   type={question.type}
+                  answerLimit={question.answerLimit}
                 />
               )
             } else {
@@ -271,6 +278,7 @@ const ShowComponent = ({
                   setCurrentQuestion={setCurrentQuestion}
                   setStatus={setStatus}
                   type={question.type}
+                  answerLimit={question.answerLimit}
                 />
               )
             }
@@ -289,6 +297,7 @@ const ShowComponent = ({
                 setCurrentQuestion={setCurrentQuestion}
                 setStatus={setStatus}
                 type={question.type}
+                answerLimit={question.answerLimit}
               />
             )
           }

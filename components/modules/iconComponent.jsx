@@ -17,6 +17,7 @@ const IconComponent = ({
   questionId,
   setStatus,
   type,
+  answerLimit,
 }) => {
   const title = sections[currentSection].title.en
   const [getAnswer, setAnswer] = useState([])
@@ -29,11 +30,11 @@ const IconComponent = ({
           subTitle={subTitle}
           subTitleSizeMobile="text-mheading1"
           classNameSubTitle="max-w-xs md:max-w-none"
-          marginSubtitle={type !== "multiple" ? true : false}
+          marginSubtitle={type !== 'multiple' ? true : false}
         />
         {type === 'multiple' && (
           <span className="mb-8 text-greyPickup md:text-mqHeadingb font-bold">
-            (PICK UP TO 3)
+            {`PICK ${answerLimit.min} - ${answerLimit.max}`}
           </span>
         )}
         <div className="w-full max-w-4xl flex flex-wrap justify-center gap-6">
@@ -59,7 +60,10 @@ const IconComponent = ({
                     setAnswer(filterAnswer)
                     pickupButton.classList.remove('pickupActive')
                   } else {
-                    if (getAnswer.length < 3) {
+                    if (
+                      getAnswer.length >= parseInt(answerLimit.min) &&
+                      getAnswer.length <= parseInt(answerLimit.max)
+                    ) {
                       setAnswer([...getAnswer, data.label.en])
                       pickupButton.classList.add('pickupActive')
                     }
