@@ -41,8 +41,8 @@ const IconComponent = ({
           {answers?.map((data, id) => (
             <ImageButton
               key={id}
-              src="/icons/energy_black.png"
-              src2="/icons/energy_white.png"
+              src={data.icon}
+              src2={data.iconHover ? data.iconHover : data.icon}
               fill={false}
               width={70}
               height={70}
