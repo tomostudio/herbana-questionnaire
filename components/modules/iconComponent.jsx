@@ -61,8 +61,7 @@ const IconComponent = ({
                     pickupButton.classList.remove('pickupActive')
                   } else {
                     if (
-                      getAnswer.length >= parseInt(answerLimit.min) &&
-                      getAnswer.length <= parseInt(answerLimit.max)
+                      getAnswer.length < parseInt(answerLimit.max)
                     ) {
                       setAnswer([...getAnswer, data.label.en])
                       pickupButton.classList.add('pickupActive')
