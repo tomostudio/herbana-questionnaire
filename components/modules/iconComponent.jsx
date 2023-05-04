@@ -34,7 +34,7 @@ const IconComponent = ({
         />
         {type === 'multiple' && (
           <span className="mb-8 text-greyPickup md:text-mqHeadingb font-bold">
-            {`PICK ${answerLimit.min} - ${answerLimit.max}`}
+            {`(PICK ${answerLimit.min} - ${answerLimit.max})`}
           </span>
         )}
         <div className="w-full max-w-4xl flex flex-wrap justify-center gap-6">
@@ -60,9 +60,7 @@ const IconComponent = ({
                     setAnswer(filterAnswer)
                     pickupButton.classList.remove('pickupActive')
                   } else {
-                    if (
-                      getAnswer.length < parseInt(answerLimit.max)
-                    ) {
+                    if (getAnswer.length < parseInt(answerLimit.max)) {
                       setAnswer([...getAnswer, data.label.en])
                       pickupButton.classList.add('pickupActive')
                     }

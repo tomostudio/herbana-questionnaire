@@ -19,6 +19,7 @@ const TextImageComponent = ({
   questionId,
   setStatus,
   type,
+  answerLimit,
 }) => {
   const title = sections[currentSection].title.en
   const [getAnswer, setAnswer] = useState([])
@@ -33,7 +34,13 @@ const TextImageComponent = ({
             subTitle={subTitle}
             position="text-center lg:text-left"
             subTitleSizeMobile="text-mheading1"
+            marginSubtitle={type !== 'multiple' ? true : false}
           />
+          {type === 'multiple' && (
+            <span className="mb-8 text-greyPickup md:text-mqHeadingb font-bold">
+              {`(PICK ${answerLimit.min} - ${answerLimit.max})`}
+            </span>
+          )}
           <div className="w-full flex justify-center lg:justify-start gap-6">
             {answers?.map((data, id) => (
               <RoundedButton
@@ -51,7 +58,7 @@ const TextImageComponent = ({
                       setAnswer(filterAnswer)
                       pickupButton.classList.remove('pickupActive')
                     } else {
-                      if (getAnswer.length < 3) {
+                      if (getAnswer.length < parseInt(answerLimit.max)) {
                         setAnswer([...getAnswer, data.label.en])
                         pickupButton.classList.add('pickupActive')
                       }
