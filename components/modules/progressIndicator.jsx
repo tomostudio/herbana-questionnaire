@@ -55,10 +55,11 @@ const ProgressIndicator = ({
       ].display.condition.find((i) =>
         i.answer.find(
           (j) =>
-            j ===
+            j.toLowerCase() ===
             dataQuestionnaire.questionnaireRespond
-              .find((h) => h.questionID === i.questionID)
-              ?.answer.find((k) => k === j),
+              .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
+              ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
+              .toLowerCase(),
         ),
       )
 

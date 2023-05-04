@@ -14,7 +14,7 @@ const quizUpdate = (
     if (answer) {
       const newRespond = {
         sectionID: sections[currentSection].ID,
-        questionID: questionId,
+        questionID: parseInt(questionId),
         answer: answer,
       }
 
@@ -83,8 +83,8 @@ const quizUpdate = (
         let showQuiz
         if (answer) {
           const newRespond = {
-            sectionID: sections[currentSection].ID,
-            questionID: questionId,
+            sectionID: parseInt(sections[currentSection].ID),
+            questionID: parseInt(questionId),
             answer: answer,
           }
 
@@ -99,10 +99,13 @@ const quizUpdate = (
           ].display.condition.find((i) =>
             i.answer.find(
               (j) =>
-                j ===
+                j.toLowerCase() ===
                 updatedResponds
-                  .find((h) => h.questionID === i.questionID)
-                  ?.answer.find((k) => k === j),
+                  .find(
+                    (h) => parseInt(h.questionID) === parseInt(i.questionID),
+                  )
+                  ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
+                  ?.toLowerCase(),
             ),
           )
         } else {
@@ -111,10 +114,13 @@ const quizUpdate = (
           ].display.condition.find((i) =>
             i.answer.find(
               (j) =>
-                j ===
+                j.toLowerCase() ===
                 updatedResponds
-                  .find((h) => h.questionID === i.questionID)
-                  ?.answer.find((k) => k === j),
+                  .find(
+                    (h) => parseInt(h.questionID) === parseInt(i.questionID),
+                  )
+                  ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
+                  ?.toLowerCase(),
             ),
           )
         }

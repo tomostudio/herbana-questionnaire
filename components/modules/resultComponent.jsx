@@ -115,7 +115,9 @@ const ResultComponent = ({ quiz }) => {
                   >
                     <p className="pt-8 text-[0.938rem] md:text-body text-left">
                       {resultData
-                        .filter((f) => f.sectionID === data.ID)
+                        .filter(
+                          (f) => parseInt(f.sectionID) === parseInt(data.ID),
+                        )
                         .map((f) => (
                           <>
                             {f.answer.toString()}
