@@ -35,7 +35,7 @@ const ShowComponent = ({
         <Container className="w-full h-full flex flex-col lg:flex-row items-end lg:items-center">
           <div className="w-full lg:w-1/2 min-h-[50vh] lg:h-full flex flex-col items-center lg:items-start justify-center pt-16 pb-20 lg:pt-0 lg:pb-0 lg:pr-8">
             <h1 className="uppercase text-mopHeading max-w-md md:max-w-lg lg:max-w-none text-center lg:text-left lg:text-opHeading m-0 leading-none mb-6">
-              {quiz.coverPage.title.en}
+              {parse(quiz.coverPage.title.en)}
             </h1>
             <p className="max-w-sm md:max-w-md lg:mb-12 text-center lg:text-left">
               {parse(quiz.coverPage.description.en)}

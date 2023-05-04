@@ -5,6 +5,7 @@ import Container from '../container'
 import { DefaultButton, RoundedFullButton } from '../utils/buttons'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 
 const ResultComponent = ({ quiz }) => {
   const title = quiz.beforeResult.title.en
@@ -39,7 +40,7 @@ const ResultComponent = ({ quiz }) => {
       <div className="relative w-full h-[405px] md:h-[521px]">
         <Container className="relative z-10 text-center h-full flex justify-center items-center">
           <h1 className="whitespace-pre-wrap uppercase text-mendHeading md:text-endHeading max-w-lg">
-            {title}
+            {parse(title)}
           </h1>
         </Container>
         <Image
@@ -62,7 +63,7 @@ const ResultComponent = ({ quiz }) => {
       <div className="w-full bg-blue flex justify-center px-6 md:px-0">
         <div className="max-w-3xl w-full mt-20 mb-16 flex flex-col items-center">
           <h2 className="text-mheading1 max-w-xl md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight">
-            {description}
+            {parse(description)}
           </h2>
           <div className="w-full flex flex-col mt-20 space-y-5">
             {quiz.sections
@@ -133,7 +134,7 @@ const ResultComponent = ({ quiz }) => {
           <div className="flex flex-col rounded-2xl border-2 border-orange bg-orange overflow-hidden">
             <div className="h-full md:h-72 text-left px-6 pb-16 pt-6 md:p-12">
               <span className="text-white text-mheading1 md:text-qHeadingb whitespace-pre-wrap">
-                {formTitle}
+                {parse(formTitle)}
               </span>
             </div>
             <form
