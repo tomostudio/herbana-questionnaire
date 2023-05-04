@@ -78,8 +78,12 @@ const ProgressIndicator = ({
   const handleBackClick = () => {
     if (currentQuestion > 0) {
       if (
-        sections[currentSection].questions[currentQuestion - 1]?.display
-          .state === 0
+        sections[currentSection].questions[currentQuestion - 1]
+          ? parseInt(
+              sections[currentSection].questions[currentQuestion - 1].display
+                .state,
+            ) === 0
+          : false
       ) {
         while (true) {
           if (loopSkip() === false) {

@@ -180,7 +180,13 @@ const quizUpdate = (
   if (
     sections[currentSection].questions[
       currentQuestion === null ? 0 : currentQuestion + 1
-    ]?.display.state === 0
+    ]
+      ? parseInt(
+          sections[currentSection].questions[
+            currentQuestion === null ? 0 : currentQuestion + 1
+          ].display.state,
+        ) === 0
+      : false
   ) {
     while (true) {
       if (loopSkip() === false) {
