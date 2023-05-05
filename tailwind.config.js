@@ -36,7 +36,7 @@ module.exports = {
         qHeadingb: '1.875rem',
         mqHeadingb: '1.25rem',
         nav: '0.875rem',
-        footer: '0.625rem',
+        footer: '0.75rem',
         button: '1rem',
         mButton: '0.875rem',
         mInput: '0.875rem',
