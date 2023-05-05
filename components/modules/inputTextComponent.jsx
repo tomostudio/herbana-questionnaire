@@ -40,7 +40,7 @@ const InputTextComponent = ({
         <input
           type="text"
           placeholder={placeholder}
-          className="w-fit md:w-full md:max-w-xl mb-12 px-8 uppercase text-mInput md:text-body outline-none placeholder:text-black tracking-wider placeholder:opacity-50 text-center border py-4 border-black rounded-xl"
+          className="w-full max-w-md md:max-w-xl mb-12 px-8 uppercase text-mInput md:text-body outline-none placeholder:text-black tracking-wider placeholder:opacity-50 text-center border py-4 border-black rounded-xl"
           required
         />
         <BorderButton>CONTINUE</BorderButton>
