@@ -187,6 +187,64 @@ const quizUpdate = (
     sections[currentSection].questions[
       currentQuestion === null ? 0 : currentQuestion + 1
     ]
+  ) {
+    if (
+      parseInt(
+        sections[currentSection].questions[
+          currentQuestion === null ? 0 : currentQuestion + 1
+        ].display.state,
+      ) === 0
+    ) {
+      while (true) {
+        if (loopSkip() === false) {
+          break
+        }
+      }
+    } else {
+      updateQuestionnaire(
+        sections[currentSection].questions[
+          currentQuestion === null ? 0 : currentQuestion + 1
+        ]
+          ? currentSection
+          : sections[currentSection + 1]
+          ? currentSection + 1
+          : null,
+        sections[currentSection].questions[
+          currentQuestion === null ? 0 : currentQuestion + 1
+        ]
+          ? currentQuestion === null
+            ? 0
+            : currentQuestion + 1
+          : sections[currentSection + 1]
+          ? sections[currentSection + 1].type === 'fundamental'
+            ? 0
+            : null
+          : null,
+        sections[currentSection].questions[
+          currentQuestion === null ? 0 : currentQuestion + 1
+        ]
+          ? 'progress'
+          : sections[currentSection + 1]
+          ? 'progress'
+          : 'finish',
+      )
+    }
+  } else {
+    updateQuestionnaire(
+      sections[currentSection + 1] ? currentSection + 1 : null,
+      sections[currentSection + 1]
+        ? sections[currentSection + 1].type === 'fundamental'
+          ? 0
+          : null
+        : null,
+      sections[currentSection + 1] ? 'progress' : 'finish',
+    )
+  }
+
+  if (
+    sections[currentSection].questions[
+      currentQuestion === null ? 0 : currentQuestion + 1
+    ]
       ? parseInt(
           sections[currentSection].questions[
             currentQuestion === null ? 0 : currentQuestion + 1

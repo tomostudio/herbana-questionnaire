@@ -11,6 +11,7 @@ import ShowComponent from '@/components/modules/showComponent'
 import Container from '@/components/container'
 import Layout from '@/components/layout'
 import SEO from '@/components/utils/seo'
+import BackComponent from '@/components/utils/backComponent'
 
 const Questionnaire = () => {
   const [checkStorage, setCheckStorage] = useState(true)
@@ -39,13 +40,10 @@ const Questionnaire = () => {
           if (data.type !== 'fundamental') {
             return {
               ...data,
-              questions: data.questions.map((e) => {
+              questions: data.questions.map((e, index) => {
                 return {
                   ...e,
-                  current:
-                    totalQuestion.indexOf(
-                      totalQuestion.find((f) => f.ID === e.ID),
-                    ) + 1,
+                  current: index + 1,
                 }
               }),
             }
@@ -54,7 +52,7 @@ const Questionnaire = () => {
           }
         })
 
-        quizData.totalQuestion = totalQuestion.length
+        // quizData.totalQuestion = totalQuestion.length
 
         setQuiz(quizData)
 
@@ -185,55 +183,19 @@ const Questionnaire = () => {
               </div>
 
               {checkStorage && status === 'progress' ? (
-                quiz.sections[currentSection].type === 'fundamental' ? (
-                  <Container className="absolute bottom-5 left-1/2 -translate-x-1/2">
-                    <DefaultButton
-                      className="w-fit flex items-center text-footer md:text-nav font-maisonMono uppercase"
-                      onClick={() => {
-                        if (currentSection === 0) {
-                          localStorage.removeItem('questionnaire')
-                          setCurrentSection(0)
-                          setCurrentQuestion(0)
-                          setCheckStorage(false)
-                          setColor({
-                            header: '#FFF7E9',
-                            bg: '#DFF2F7',
-                          })
-                        } else {
-                          const dataQuestionnaire = JSON.parse(
-                            localStorage.getItem('questionnaire'),
-                          )
-                          dataQuestionnaire.questionnaireRespond.pop()
-                          localStorage.setItem(
-                            'questionnaire',
-                            JSON.stringify({
-                              currentSection: currentSection - 1,
-                              currentQuestion:
-                                quiz.sections[currentSection - 1].questions
-                                  .length - 1,
-                              questionnaireRespond:
-                                dataQuestionnaire.questionnaireRespond,
-                              status: 'progress',
-                              expired: dataQuestionnaire.expired,
-                            }),
-                          )
-                          setCurrentSection(currentSection - 1)
-                          setCurrentQuestion(
-                            quiz.sections[currentSection - 1].questions.length -
-                              1,
-                          )
-                          setColor({
-                            header: quiz.sections[currentSection].bgColor,
-                            bg: quiz.sections[currentSection].bgColor,
-                          })
-                        }
-                      }}
-                    >
-                      <ArrowLeft className="mr-3 md:mr-4 w-[23px] md:w-auto" />
-                      <span className="leading-none pt-[2px]">Back</span>
-                    </DefaultButton>
-                  </Container>
-                ) : currentQuestion !== null ? (
+                quiz.sections[currentSection].type === 'fundamental' ||
+                currentQuestion === null ? (
+                  <BackComponent
+                    currentSection={currentSection}
+                    currentQuestion={currentQuestion}
+                    setCurrentSection={setCurrentSection}
+                    setCurrentQuestion={setCurrentQuestion}
+                    sections={quiz.sections}
+                    setStatus={setStatus}
+                    setColor={setColor}
+                    type={quiz.sections[currentSection].type}
+                  />
+                ) : (
                   <ProgressIndicator
                     currentSection={currentSection}
                     currentQuestion={currentQuestion}
@@ -242,9 +204,8 @@ const Questionnaire = () => {
                     sections={quiz.sections}
                     totalQuestion={quiz.totalQuestion}
                     setStatus={setStatus}
+                    setColor={setColor}
                   />
-                ) : (
-                  <></>
                 )
               ) : (
                 <></>
