@@ -8,7 +8,7 @@ export default function Footer({footer}) {
     <footer className={`bg-grey w-full`}>
       <Container>
         <div className="flex flex-row-reverse md:flex-row justify-between py-4">
-          <div className="flex items-center text-footer font-bold font-maisonMono">
+          <div className="flex items-center text-footer font-bold font-maisonMono max-w-[200px] text-right md:max-w-none">
             {footer.creditText.en}
           </div>
           <div className="flex space-x-8">

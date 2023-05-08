@@ -9,6 +9,7 @@ const quizUpdate = (
   setStatus,
 ) => {
   const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+  if(!dataQuestionnaire) window.location.reload()
 
   const updateQuestionnaire = (updateSection, updateQuestion, status) => {
     if (answer) {

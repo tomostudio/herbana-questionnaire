@@ -36,10 +36,10 @@ const BackComponent = ({
   let newQuestion = currentQuestion
   let newQuestion2 = sections[currentSection - 1]?.questions.length
   let newSection = currentSection
+  let lastQuestion = false
 
   const skipQuestion2 = () => {
-    const skipQuiz = sections[newSection - 1].questions[newQuestion - 2]
-    // if(sections[])
+    const skipQuiz = sections[newSection - 1].questions[newQuestion2]
     if (skipQuiz) {
       newQuestion2 = newQuestion - 2
       newSection = newSection - 1
@@ -92,10 +92,12 @@ const BackComponent = ({
 
   const skipQuestion = () => {
     if (type === 'fundamental') {
-      // skipQuestion2()
       if (currentQuestion === 0) {
+        skipQuestion2()
       } else {
-        const skipQuiz = sections[currentSection].questions[newQuestion - 2]
+        const skipQuiz = sections[newSection].questions[newQuestion2 - 2]
+        newQuestion2 -= 1
+        updateQuestionnaire(newSection, newQuestion2)
       }
     }
     const skipQuiz = sections[currentSection].questions[newQuestion - 2]
@@ -109,34 +111,11 @@ const BackComponent = ({
   }
 
   const loopSkip = () => {
-    if (type === 'fundamental') {
-      const showQuiz = sections[newSection].questions[
-        newQuestion2 - 1
-      ].display.condition.find((i) =>
-        i.answer.find(
-          (j) =>
-            j.toLowerCase() ===
-            dataQuestionnaire.questionnaireRespond
-              .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
-              ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
-              .toLowerCase(),
-        ),
-      )
-
-      if (!showQuiz) {
-        skipQuestion()
-        return true
-      } else {
-        updateQuestionnaire(currentSection, newQuestion - 1)
-        return false
-      }
-    }
-
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    if (type === 'fundamental' || currentQuestion === null) {
-      if (sections[newSection - 1].questions[newQuestion2 - 1]) {
+    if (type === 'fundamental') {
+      if (lastQuestion) {
         const showQuiz = sections[newSection - 1].questions[
-          newQuestion2 - 1
+          sections[newSection - 1].questions.length - 1
         ].display.condition.find((i) =>
           i.answer.find(
             (j) =>
@@ -152,9 +131,36 @@ const BackComponent = ({
           skipQuestion()
           return true
         } else {
-          updateQuestionnaire(newSection - 1, newQuestion2 - 1)
+          updateQuestionnaire(
+            newSection - 1,
+            sections[newSection - 1].questions.length - 1,
+          )
           return false
         }
+      } else if(sections[newSection].questions[newQuestion - 1]) {
+        const showQuiz = sections[newSection].questions[
+          newQuestion - 1
+        ].display.condition.find((i) =>
+          i.answer.find(
+            (j) =>
+              j.toLowerCase() ===
+              dataQuestionnaire.questionnaireRespond
+                .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
+                ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
+                .toLowerCase(),
+          ),
+        )
+        console.log(showQuiz)
+  
+        if (!showQuiz) {
+          skipQuestion()
+          return true
+        } else {
+          updateQuestionnaire(newSection, newQuestion - 1)
+          return false
+        }
+      } else {
+        
       }
     }
 
@@ -211,6 +217,7 @@ const BackComponent = ({
                 ].display.state,
               ) === 0
             ) {
+              lastQuestion = false
               while (true) {
                 if (loopSkip() === false) {
                   break
@@ -231,45 +238,6 @@ const BackComponent = ({
               header: '#FFF7E9',
               bg: '#DFF2F7',
             })
-            // onClick={() => {
-            //   if (currentSection === 0) {
-            //     localStorage.removeItem('questionnaire')
-            //     setCurrentSection(0)
-            //     setCurrentQuestion(0)
-            //     setCheckStorage(false)
-            //     setColor({
-            //       header: '#FFF7E9',
-            //       bg: '#DFF2F7',
-            //     })
-            //   } else {
-            //     const dataQuestionnaire = JSON.parse(
-            //       localStorage.getItem('questionnaire'),
-            //     )
-            //     dataQuestionnaire.questionnaireRespond.pop()
-            //     localStorage.setItem(
-            //       'questionnaire',
-            //       JSON.stringify({
-            //         currentSection: currentSection - 1,
-            //         currentQuestion:
-            //           quiz.sections[currentSection - 1].questions
-            //             .length - 1,
-            //         questionnaireRespond:
-            //           dataQuestionnaire.questionnaireRespond,
-            //         status: 'progress',
-            //         expired: dataQuestionnaire.expired,
-            //       }),
-            //     )
-            //     setCurrentSection(currentSection - 1)
-            //     setCurrentQuestion(
-            //       quiz.sections[currentSection - 1].questions.length -
-            //         1,
-            //     )
-            //     setColor({
-            //       header: quiz.sections[currentSection].bgColor,
-            //       bg: quiz.sections[currentSection].bgColor,
-            //     })
-            //   }
-            // }}
           }
         } else {
           updateQuestionnaire(currentSection, currentQuestion - 1)

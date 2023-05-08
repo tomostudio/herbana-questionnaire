@@ -44,6 +44,7 @@ const IconComponent = ({
               src={data.icon}
               src2={data.iconHover ? data.iconHover : data.icon}
               fill={false}
+              heightButton={answers.length > 4 ? 'h-fit' : 'h-auto'}
               width={70}
               height={70}
               data-target={id}

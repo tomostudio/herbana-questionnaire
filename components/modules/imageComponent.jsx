@@ -45,6 +45,7 @@ const ImageComponent = ({
               src={data.image}
               icon={false}
               fill={true}
+              heightButton={answers.length > 4 ? 'h-fit' : 'h-auto'}
               style={{
                 objectFit: 'cover',
               }}
