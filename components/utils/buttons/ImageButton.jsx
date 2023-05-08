@@ -6,13 +6,9 @@ const ImageButton = ({
   className,
   src,
   src2,
-  fill = true,
-  style = {
-    objectFit: 'contain',
-  },
   pickup = false,
   icon = true,
-  heightButton = 'h-auto',
+  heightFit = false,
   height = 0,
   width = 0,
   ...others
@@ -22,7 +18,7 @@ const ImageButton = ({
       hover={false}
       className={`${
         icon ? 'w-[117px] md:w-[150px]' : 'w-[131px] md:w-[205px]'
-      } ${heightButton} overflow-hidden text-center bg-white rounded-lg hover:border-orange transition-all duration-300 border-default border-black text-black text-mButton md:text-body ${className}`}
+      } ${heightFit ? 'h-fit' : 'h-auto'} overflow-hidden text-center bg-white rounded-lg hover:border-orange transition-all duration-300 border-default border-black text-black text-mButton md:text-body ${className}`}
       {...others}
     >
       <div className="relative flex flex-col w-full h-full">
@@ -33,33 +29,47 @@ const ImageButton = ({
               : 'h-[125px] md:h-[180px] hover:border-orange transition-all duration-300 border-b-default border-black'
           } flex justify-center items-center imgContainer`}
         >
-          {fill ? (
-            <Image src={src} fill={fill} style={style} />
-          ) : pickup ? (
-            <>
+          {icon ? (
+            pickup ? (
+              <>
+                <Image
+                  src={src}
+                  fill={false}
+                  height={height}
+                  width={width}
+                  style={{
+                    objectFit: 'contain',
+                  }}
+                />
+                <Image
+                  src={src2}
+                  fill={false}
+                  height={height}
+                  width={width}
+                  style={{
+                    objectFit: 'contain',
+                  }}
+                  className="hidden"
+                />
+              </>
+            ) : (
               <Image
                 src={src}
-                fill={fill}
+                fill={false}
                 height={height}
                 width={width}
-                style={style}
+                style={{
+                  objectFit: 'contain',
+                }}
               />
-              <Image
-                src={src2}
-                fill={fill}
-                height={height}
-                width={width}
-                style={style}
-                className="hidden"
-              />
-            </>
+            )
           ) : (
             <Image
               src={src}
-              fill={fill}
-              height={height}
-              width={width}
-              style={style}
+              fill={true}
+              style={{
+                objectFit: 'cover',
+              }}
             />
           )}
         </div>

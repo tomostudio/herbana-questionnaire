@@ -113,7 +113,7 @@ const ResultComponent = ({ quiz }) => {
                     variants={variants}
                     className="overflow-hidden w-full"
                   >
-                    <p className="pt-8 text-[0.938rem] md:text-body text-left">
+                    <p className="pt-7 text-[0.938rem] md:text-body text-left">
                       {resultData
                         .filter(
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
@@ -155,7 +155,14 @@ const ResultComponent = ({ quiz }) => {
                     session: Date.now(),
                     email: e.target[0].value,
                     phone: e.target[1].value,
-                    answers: dataQuestionnaire.questionnaireRespond,
+                    answers: dataQuestionnaire.questionnaireRespond.map(
+                      (data) => {
+                        return {
+                          questionID: data.questionID,
+                          answer: data.answer,
+                        }
+                      },
+                    ),
                   }),
                 })
                   .then((res) => res.json())
