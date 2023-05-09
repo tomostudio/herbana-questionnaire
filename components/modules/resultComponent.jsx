@@ -113,7 +113,7 @@ const ResultComponent = ({ quiz }) => {
                     variants={variants}
                     className="overflow-hidden w-full"
                   >
-                    <p className="pt-7 text-[0.938rem] md:text-body text-left">
+                    <p className="pt-5 md:pt-7 text-[0.938rem] md:text-body text-left">
                       {resultData
                         .filter(
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),

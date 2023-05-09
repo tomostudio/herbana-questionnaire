@@ -51,7 +51,7 @@ const QuestionComponent = ({
     <div className="w-full flex flex-col-reverse lg:flex-row self-stretch">
       <Container className="w-full h-full flex flex-col lg:flex-row items-end lg:items-center">
         <div className="lg:hidden w-full h-[345px] md:h-[400px]" />
-        <div className="w-full lg:w-1/2 min-h-[50vh] lg:h-full flex flex-col justify-center pt-10 pb-28 lg:pt-20 lg:pb-20 lg:pr-8">
+        <div className="w-full lg:w-1/2 min-h-[50vh] lg:h-full flex flex-col justify-center items-center md:items-start pt-10 pb-28 lg:pt-20 lg:pb-20 lg:pr-12">
           <Heading
             title={title}
             subTitle={subTitle}
@@ -70,7 +70,7 @@ const QuestionComponent = ({
                 <RoundedButton
                   key={id}
                   data-target={id}
-                  heightFit={true}
+                  heightFit={answers.length > 4 ? true : false}
                   onClick={() => {
                     if (type === 'multiple') {
                       const pickupButton = document.querySelector(
