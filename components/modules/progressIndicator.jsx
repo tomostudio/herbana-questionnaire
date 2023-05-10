@@ -7,8 +7,8 @@ const ProgressIndicator = ({
   currentQuestion,
   setCurrentSection,
   setCurrentQuestion,
+  setCheckStorage,
   sections,
-  totalQuestion,
   setStatus,
   setColor,
 }) => {
@@ -19,6 +19,7 @@ const ProgressIndicator = ({
         currentQuestion={currentQuestion}
         setCurrentSection={setCurrentSection}
         setCurrentQuestion={setCurrentQuestion}
+        setCheckStorage={setCheckStorage}
         sections={sections}
         setStatus={setStatus}
         setColor={setColor}

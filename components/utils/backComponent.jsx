@@ -7,20 +7,22 @@ const BackComponent = ({
   currentQuestion,
   setCurrentSection,
   setCurrentQuestion,
+  setCheckStorage,
   sections,
   setStatus,
   setColor,
   type,
+  top = true,
 }) => {
   const updateQuestionnaire = (updateSection, updateQuestion) => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    if (sections[currentSection].questions[updateQuestion]) {
+    if (sections[updateSection].questions[updateQuestion]) {
       dataQuestionnaire.questionnaireRespond.pop()
     }
     localStorage.setItem(
       'questionnaire',
       JSON.stringify({
-        currentSection: currentSection,
+        currentSection: updateSection,
         currentQuestion: updateQuestion,
         questionnaireRespond: dataQuestionnaire.questionnaireRespond,
         status: 'progress',
@@ -33,76 +35,14 @@ const BackComponent = ({
     setStatus('progress')
   }
 
-  let newQuestion = currentQuestion
-  let newQuestion2 = sections[currentSection - 1]?.questions.length
   let newSection = currentSection
+  let newQuestion = currentQuestion
   let lastQuestion = false
 
-  const skipQuestion2 = () => {
-    const skipQuiz = sections[newSection - 1].questions[newQuestion2]
-    if (skipQuiz) {
-      newQuestion2 = newQuestion - 2
-      newSection = newSection - 1
-      updateQuestionnaire(currentSection - 1, newQuestion)
-    } else {
-      if (sections[newSection - 2]) {
-        newSection = newSection - 2
-        newQuestion2 = sections[newSection].questions.length
-        if (
-          parseInt(
-            sections[newSection].questions[newQuestion2 - 1].display.state,
-          ) === 0
-        ) {
-          const dataQuestionnaire = JSON.parse(
-            localStorage.getItem('questionnaire'),
-          )
-          const showQuiz = sections[newSection].questions[
-            newQuestion2 - 1
-          ].display.condition.find((i) =>
-            i.answer.find(
-              (j) =>
-                j.toLowerCase() ===
-                dataQuestionnaire.questionnaireRespond
-                  .find(
-                    (h) => parseInt(h.questionID) === parseInt(i.questionID),
-                  )
-                  ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
-                  .toLowerCase(),
-            ),
-          )
-
-          if (!showQuiz) {
-            const skipQuiz2 = sections[newSection].questions[newQuestion2 - 2]
-            if (skipQuiz2) {
-              newQuestion2 = newQuestion - 2
-              newSection = newSection - 1
-              updateQuestionnaire(currentSection - 1, newQuestion)
-            } else {
-              updateQuestionnaire(currentSection - 1, newQuestion)
-            }
-          }
-        } else {
-          updateQuestionnaire(newSection, newQuestion2 - 1)
-        }
-      }
-      newQuestion = null
-      updateQuestionnaire(currentSection - 1, null)
-    }
-  }
-
   const skipQuestion = () => {
-    if (type === 'fundamental') {
-      if (currentQuestion === 0) {
-        skipQuestion2()
-      } else {
-        const skipQuiz = sections[newSection].questions[newQuestion2 - 2]
-        newQuestion2 -= 1
-        updateQuestionnaire(newSection, newQuestion2)
-      }
-    }
-    const skipQuiz = sections[currentSection].questions[newQuestion - 2]
+    const skipQuiz = sections[currentSection].questions[newQuestion - 1]
     if (skipQuiz) {
-      newQuestion = newQuestion - 2
+      newQuestion = newQuestion - 1
       updateQuestionnaire(currentSection, newQuestion)
     } else {
       newQuestion = null
@@ -112,82 +52,188 @@ const BackComponent = ({
 
   const loopSkip = () => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    if (type === 'fundamental') {
-      if (lastQuestion) {
-        const showQuiz = sections[newSection - 1].questions[
-          sections[newSection - 1].questions.length - 1
-        ].display.condition.find((i) =>
-          i.answer.find(
-            (j) =>
-              j.toLowerCase() ===
-              dataQuestionnaire.questionnaireRespond
-                .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
-                ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
-                .toLowerCase(),
-          ),
-        )
-
-        if (!showQuiz) {
-          skipQuestion()
-          return true
-        } else {
-          updateQuestionnaire(
-            newSection - 1,
-            sections[newSection - 1].questions.length - 1,
-          )
-          return false
-        }
-      } else if(sections[newSection].questions[newQuestion - 1]) {
-        const showQuiz = sections[newSection].questions[
-          newQuestion - 1
-        ].display.condition.find((i) =>
-          i.answer.find(
-            (j) =>
-              j.toLowerCase() ===
-              dataQuestionnaire.questionnaireRespond
-                .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
-                ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
-                .toLowerCase(),
-          ),
-        )
-        console.log(showQuiz)
-  
-        if (!showQuiz) {
-          skipQuestion()
-          return true
-        } else {
-          updateQuestionnaire(newSection, newQuestion - 1)
-          return false
-        }
-      } else {
-        
-      }
-    }
-
     if (sections[currentSection].questions[newQuestion - 1]) {
       const showQuiz = sections[currentSection].questions[
         newQuestion - 1
-      ].display.condition.find((i) =>
+      ].display.condition?.find((i) =>
         i.answer.find(
           (j) =>
             j.toLowerCase() ===
             dataQuestionnaire.questionnaireRespond
               .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
               ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
-              .toLowerCase(),
+              ?.toLowerCase(),
         ),
       )
 
-      if (!showQuiz) {
-        skipQuestion()
-        return true
+      if (
+        parseInt(
+          sections[currentSection].questions[newQuestion - 1].display.state,
+        ) === 0
+      ) {
+        if (!showQuiz) {
+          newQuestion = newQuestion - 1
+          return true
+        } else {
+          updateQuestionnaire(currentSection, newQuestion - 1)
+          return false
+        }
       } else {
-        updateQuestionnaire(currentSection, newQuestion - 1)
-        return false
+        if (showQuiz) {
+          newQuestion = newQuestion - 1
+          return true
+        } else {
+          updateQuestionnaire(currentSection, newQuestion - 1)
+          return false
+        }
       }
     } else {
       updateQuestionnaire(currentSection, null)
       return false
+    }
+  }
+
+  const loopSkipFundamental = () => {
+    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
+
+    if (lastQuestion) {
+      lastQuestion = false
+      newSection = newSection - 1
+      newQuestion = sections[newSection].questions.length - 1
+      const showQuiz = sections[newSection].questions[
+        newQuestion
+      ].display.condition?.find((i) =>
+        i.answer.find(
+          (j) =>
+            j.toLowerCase() ===
+            dataQuestionnaire.questionnaireRespond
+              .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
+              ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
+              ?.toLowerCase(),
+        ),
+      )
+
+      if (
+        parseInt(sections[newSection].questions[newQuestion].display.state) ===
+        0
+      ) {
+        if (!showQuiz) {
+          const skipQuiz = sections[newSection].questions[newQuestion - 1]
+          if (skipQuiz) {
+            newQuestion = newQuestion - 1
+            return true
+          } else {
+            if (sections[newSection - 1]) {
+              newSection = newSection - 1
+              newQuestion = sections[newSection].questions.length - 1
+              if (
+                parseInt(
+                  sections[newSection].questions[newQuestion].display.state,
+                ) === 0
+              ) {
+                lastQuestion = true
+                loopSkipFundamental()
+                return true
+              } else {
+                updateQuestionnaire(newSection, newQuestion)
+                return false
+              }
+            } else {
+              localStorage.removeItem('questionnaire')
+              setCurrentSection(0)
+              setCurrentQuestion(0)
+              setCheckStorage(false)
+              setColor({
+                header: '#FFF7E9',
+                bg: '#DFF2F7',
+              })
+
+              return false
+            }
+          }
+        } else {
+          updateQuestionnaire(newSection, newQuestion)
+          return false
+        }
+      } else {
+        if (showQuiz) {
+          const skipQuiz = sections[newSection].questions[newQuestion - 1]
+          if (skipQuiz) {
+            newQuestion = newQuestion - 1
+            return true
+          } else {
+            if (sections[newSection - 1]) {
+              newSection = newSection - 1
+              newQuestion = sections[newSection].questions.length - 1
+              if (
+                parseInt(
+                  sections[newSection].questions[newQuestion].display.state,
+                ) === 0
+              ) {
+                lastQuestion = true
+                loopSkipFundamental()
+                return true
+              } else {
+                updateQuestionnaire(newSection, newQuestion)
+                return false
+              }
+            } else {
+              localStorage.removeItem('questionnaire')
+              setCurrentSection(0)
+              setCurrentQuestion(0)
+              setCheckStorage(false)
+              setColor({
+                header: '#FFF7E9',
+                bg: '#DFF2F7',
+              })
+
+              return false
+            }
+          }
+        } else {
+          updateQuestionnaire(newSection, newQuestion)
+          return false
+        }
+      }
+    } else {
+      if (sections[newSection].questions[newQuestion - 1]) {
+        newQuestion = newQuestion - 1
+        updateQuestionnaire(newSection, newQuestion)
+        return false
+      } else {
+        if (sections[newSection].type === 'quiz') {
+          updateQuestionnaire(newSection, null)
+          return false
+        } else {
+          if (sections[newSection - 1]) {
+            newSection = newSection - 1
+            newQuestion = sections[newSection].questions.length - 1
+            if (
+              parseInt(
+                sections[newSection].questions[newQuestion].display.state,
+              ) === 0
+            ) {
+              lastQuestion = true
+              loopSkipFundamental()
+              return true
+            } else {
+              updateQuestionnaire(newSection, newQuestion)
+              return false
+            }
+          } else {
+            localStorage.removeItem('questionnaire')
+            setCurrentSection(0)
+            setCurrentQuestion(0)
+            setCheckStorage(false)
+            setColor({
+              header: '#FFF7E9',
+              bg: '#DFF2F7',
+            })
+
+            return false
+          }
+        }
+      }
     }
   }
 
@@ -207,44 +253,9 @@ const BackComponent = ({
         updateQuestionnaire(currentSection, currentQuestion - 1)
       }
     } else {
-      if (type === 'fundamental') {
-        if (currentQuestion === 0) {
-          if (sections[currentSection - 1]) {
-            if (
-              parseInt(
-                sections[currentSection - 1].questions[
-                  sections[currentSection - 1].questions.length - 1
-                ].display.state,
-              ) === 0
-            ) {
-              lastQuestion = false
-              while (true) {
-                if (loopSkip() === false) {
-                  break
-                }
-              }
-            } else {
-              updateQuestionnaire(
-                currentSection - 1,
-                sections[currentSection - 1].questions.length - 1,
-              )
-            }
-          } else {
-            localStorage.removeItem('questionnaire')
-            setCurrentSection(0)
-            setCurrentQuestion(0)
-            setCheckStorage(false)
-            setColor({
-              header: '#FFF7E9',
-              bg: '#DFF2F7',
-            })
-          }
-        } else {
-          updateQuestionnaire(currentSection, currentQuestion - 1)
-        }
+      if (type === 'quiz' && currentQuestion === 0) {
+        updateQuestionnaire(currentSection, null)
       } else {
-      }
-      if (type === 'fundamental' || currentQuestion == null) {
         if (sections[currentSection - 1]) {
           if (
             parseInt(
@@ -253,8 +264,9 @@ const BackComponent = ({
               ].display.state,
             ) === 0
           ) {
+            lastQuestion = true
             while (true) {
-              if (loopSkip() === false) {
+              if (loopSkipFundamental() === false) {
                 break
               }
             }
@@ -274,15 +286,16 @@ const BackComponent = ({
             bg: '#DFF2F7',
           })
         }
-        updateQuestionnaire(currentSection, null)
-      } else {
-        updateQuestionnaire(currentSection, null)
       }
     }
   }
 
   return (
-    <Container className="absolute -top-5 left-1/2 -translate-x-1/2 -translate-y-full">
+    <Container
+      className={`absolute ${
+        top ? '-top-5 -translate-y-full' : 'bottom-5'
+      } left-1/2 -translate-x-1/2`}
+    >
       <DefaultButton
         className="w-fit flex items-center text-footer md:text-nav font-maisonMono uppercase"
         onClick={handleBackClick}

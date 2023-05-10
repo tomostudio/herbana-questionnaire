@@ -190,10 +190,12 @@ const Questionnaire = () => {
                     currentQuestion={currentQuestion}
                     setCurrentSection={setCurrentSection}
                     setCurrentQuestion={setCurrentQuestion}
+                    setCheckStorage={setCheckStorage}
                     sections={quiz.sections}
                     setStatus={setStatus}
                     setColor={setColor}
                     type={quiz.sections[currentSection].type}
+                    top={false}
                   />
                 ) : (
                   <ProgressIndicator
@@ -201,8 +203,8 @@ const Questionnaire = () => {
                     currentQuestion={currentQuestion}
                     setCurrentSection={setCurrentSection}
                     setCurrentQuestion={setCurrentQuestion}
+                    setCheckStorage={setCheckStorage}
                     sections={quiz.sections}
-                    totalQuestion={quiz.totalQuestion}
                     setStatus={setStatus}
                     setColor={setColor}
                   />
