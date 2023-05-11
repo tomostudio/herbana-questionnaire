@@ -34,7 +34,7 @@ export default function Header({
             destination="https://herbana.id"
             className="relative flex items-center w-fit h-fit"
           >
-            <ArrowLeft className="md:hidden mr-3" />
+            <ArrowLeft className="md:hidden mr-1" />
             <div className="relative w-[120px] h-[22px] md:w-[180px] md:h-[35px]">
               <Herbana />
             </div>
