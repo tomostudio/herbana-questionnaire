@@ -85,15 +85,15 @@ body {
 }
 
 .pickupActive {
-  @apply bg-orange text-white;
+  @apply bg-orange text-white border-orange;
 
   .imgContainer {
     & > img:first-child {
-      @apply hidden;
+      @apply opacity-0;
     }
 
     & > img:last-child {
-      @apply block;
+      @apply opacity-100;
     }
   }
 }

@@ -18,7 +18,7 @@ const ImageButton = ({
       hover={false}
       className={`${
         icon ? 'w-[117px] md:w-[150px]' : 'w-[131px] md:w-[205px]'
-      } ${heightFit ? 'h-fit' : 'h-auto'} overflow-hidden text-center bg-white rounded-lg hover:border-orange transition-all duration-300 border-default border-black text-black text-mButton md:text-body ${className}`}
+      } ${heightFit ? 'h-fit' : 'h-auto'} overflow-hidden text-center bg-white rounded-lg hover:border-orange transition-all duration-500 border-default border-black text-black text-mButton md:text-body ${className}`}
       {...others}
     >
       <div className="relative flex flex-col w-full h-full">
@@ -40,6 +40,7 @@ const ImageButton = ({
                   style={{
                     objectFit: 'contain',
                   }}
+                  loading='eager'
                 />
                 <Image
                   src={src2}
@@ -49,7 +50,8 @@ const ImageButton = ({
                   style={{
                     objectFit: 'contain',
                   }}
-                  className="hidden"
+                  loading='eager'
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0"
                 />
               </>
             ) : (
