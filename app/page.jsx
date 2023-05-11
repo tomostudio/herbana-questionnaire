@@ -142,12 +142,11 @@ const Questionnaire = () => {
               currentQuestion !== null &&
               quiz.sections[currentSection].type !== 'fundamental' ? (
                 <div className="relative md:hidden w-full border-b-default border-black">
-                  <div className="relative z-10 text-center text-footer font-maisonMono py-3">
+                  <div className="relative z-10 text-center text-footer font-maisonMono pt-3.5 pb-3">
                     <span className="relative uppercase">
                       {quiz.sections[currentSection].title.en}
                     </span>
                   </div>
-                  {}
                   <div
                     className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
                     style={{
