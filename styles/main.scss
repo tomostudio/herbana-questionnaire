@@ -19,6 +19,10 @@ body {
   scroll-behavior: smooth;
 }
 
+main {
+  transition: all 0.3s ease-out;
+}
+
 .hover-white {
   &:hover {
 	color: #E46B37 !important;
@@ -96,4 +100,9 @@ body {
       @apply opacity-100;
     }
   }
+}
+
+#containerQuestion {
+  transition: all 0.3s ease-out;
+  opacity: 0;
 }

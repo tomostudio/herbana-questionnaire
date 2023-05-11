@@ -7,6 +7,7 @@ import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 import Image from 'next/image'
 import InputTextComponent from './inputTextComponent'
+import { useAppContext } from 'context/state'
 
 const QuestionComponent = ({
   sections,
@@ -27,6 +28,7 @@ const QuestionComponent = ({
   nextQuestion,
 }) => {
   const title = sections[currentSection].title.en
+  const appContext = useAppContext();
   const [getAnswer, setAnswer] = useState([])
 
   if (type === 'text') {
@@ -89,16 +91,20 @@ const QuestionComponent = ({
                         }
                       }
                     } else {
-                      quizUpdate(
-                        [data.label.en],
-                        questionId,
-                        sections,
-                        currentSection,
-                        currentQuestion,
-                        setCurrentSection,
-                        setCurrentQuestion,
-                        setStatus,
-                      )
+                      appContext.setChangeQuestion(true);
+                      document.getElementById("containerQuestion").style.opacity = 0;
+                      setTimeout(() => {
+                        quizUpdate(
+                          [data.label.en],
+                          questionId,
+                          sections,
+                          currentSection,
+                          currentQuestion,
+                          setCurrentSection,
+                          setCurrentQuestion,
+                          setStatus,
+                        )
+                      }, 300);
                     }
                   }}
                 >
@@ -139,16 +145,20 @@ const QuestionComponent = ({
                         }
                       }
                     } else {
-                      quizUpdate(
-                        [data.label.en],
-                        questionId,
-                        sections,
-                        currentSection,
-                        currentQuestion,
-                        setCurrentSection,
-                        setCurrentQuestion,
-                        setStatus,
-                      )
+                      appContext.setChangeQuestion(true);
+                      document.getElementById("containerQuestion").style.opacity = 0;
+                      setTimeout(() => {
+                        quizUpdate(
+                          [data.label.en],
+                          questionId,
+                          sections,
+                          currentSection,
+                          currentQuestion,
+                          setCurrentSection,
+                          setCurrentQuestion,
+                          setStatus,
+                        )
+                      }, 300);
                     }
                   }}
                 >
@@ -162,16 +172,20 @@ const QuestionComponent = ({
               className="mt-6 md:mt-7"
               onClick={() => {
                 if (getAnswer.length > 0) {
-                  quizUpdate(
-                    getAnswer,
-                    questionId,
-                    sections,
-                    currentSection,
-                    currentQuestion,
-                    setCurrentSection,
-                    setCurrentQuestion,
-                    setStatus,
-                  )
+                  appContext.setChangeQuestion(true);
+                  document.getElementById("containerQuestion").style.opacity = 0;
+                  setTimeout(() => {
+                    quizUpdate(
+                      getAnswer,
+                      questionId,
+                      sections,
+                      currentSection,
+                      currentQuestion,
+                      setCurrentSection,
+                      setCurrentQuestion,
+                      setStatus,
+                    )
+                  }, 300);
                 }
               }}
             >
@@ -238,16 +252,20 @@ const QuestionComponent = ({
                       }
                     }
                   } else {
-                    quizUpdate(
-                      [data.label.en],
-                      questionId,
-                      sections,
-                      currentSection,
-                      currentQuestion,
-                      setCurrentSection,
-                      setCurrentQuestion,
-                      setStatus,
-                    )
+                    appContext.setChangeQuestion(true);
+                    document.getElementById("containerQuestion").style.opacity = 0;
+                    setTimeout(() => {
+                      quizUpdate(
+                        [data.label.en],
+                        questionId,
+                        sections,
+                        currentSection,
+                        currentQuestion,
+                        setCurrentSection,
+                        setCurrentQuestion,
+                        setStatus,
+                      )
+                    }, 300);
                   }
                 }}
               >
@@ -288,16 +306,20 @@ const QuestionComponent = ({
                       }
                     }
                   } else {
-                    quizUpdate(
-                      [data.label.en],
-                      questionId,
-                      sections,
-                      currentSection,
-                      currentQuestion,
-                      setCurrentSection,
-                      setCurrentQuestion,
-                      setStatus,
-                    )
+                    appContext.setChangeQuestion(true);
+                    document.getElementById("containerQuestion").style.opacity = 0;
+                    setTimeout(() => {
+                      quizUpdate(
+                        [data.label.en],
+                        questionId,
+                        sections,
+                        currentSection,
+                        currentQuestion,
+                        setCurrentSection,
+                        setCurrentQuestion,
+                        setStatus,
+                      )
+                    }, 300);
                   }
                 }}
               >
@@ -311,16 +333,20 @@ const QuestionComponent = ({
             className="mt-6 md:mt-8"
             onClick={() => {
               if (getAnswer.length > 0) {
-                quizUpdate(
-                  getAnswer,
-                  questionId,
-                  sections,
-                  currentSection,
-                  currentQuestion,
-                  setCurrentSection,
-                  setCurrentQuestion,
-                  setStatus,
-                )
+                appContext.setChangeQuestion(true);
+                document.getElementById("containerQuestion").style.opacity = 0;
+                setTimeout(() => {
+                  quizUpdate(
+                    getAnswer,
+                    questionId,
+                    sections,
+                    currentSection,
+                    currentQuestion,
+                    setCurrentSection,
+                    setCurrentQuestion,
+                    setStatus,
+                  )
+                }, 300);
               }
             }}
           >

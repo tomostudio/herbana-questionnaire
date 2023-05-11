@@ -12,6 +12,8 @@ import Container from '@/components/container'
 import Layout from '@/components/layout'
 import SEO from '@/components/utils/seo'
 import BackComponent from '@/components/utils/backComponent'
+import { useAppContext } from 'context/state'
+import { motion } from 'framer-motion'
 
 const Questionnaire = () => {
   const [checkStorage, setCheckStorage] = useState(true)
@@ -23,6 +25,28 @@ const Questionnaire = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [status, setStatus] = useState('progress')
   const [quiz, setQuiz] = useState(null)
+  const appContext = useAppContext()
+  const variants = {
+    initial: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      appContext.setChangeQuestion(false)
+      document.getElementById("containerQuestion").style.opacity = 100
+    }, 500)
+  }, [appContext.changeQuestion])
 
   useEffect(() => {
     fetch('https://demo.herbana.id/quiz-api.php')
@@ -166,7 +190,9 @@ const Questionnaire = () => {
               ) : (
                 <></>
               )}
-              <div className="relative w-full h-full grow flex items-center">
+              <div id="containerQuestion"
+                className="relative w-full h-full grow flex items-center"
+              >
                 <ShowComponent
                   quiz={quiz}
                   checkStorage={checkStorage}

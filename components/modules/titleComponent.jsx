@@ -5,6 +5,7 @@ import Container from '../container';
 import { RoundedFullButton } from '../utils/buttons';
 import Heading from '../utils/heading';
 import quizUpdate from '../utils/quizUpdate';
+import { useAppContext } from 'context/state';
 
 const TitleComponent = ({
   sections,
@@ -19,6 +20,7 @@ const TitleComponent = ({
   const button = sections[currentSection].cover.button.en;
   const imageLeft = sections[currentSection].cover.image.left;
   const imageRight = sections[currentSection].cover.image.right;
+  const appContext = useAppContext();
 
   return (
     <Container
@@ -35,16 +37,20 @@ const TitleComponent = ({
         <RoundedFullButton
           className='uppercase tracking-default'
           onClick={() => {
-            quizUpdate(
-              null,
-              null,
-              sections,
-              currentSection,
-              currentQuestion,
-              setCurrentSection,
-              setCurrentQuestion,
-              setStatus
-            );
+            appContext.setChangeQuestion(true);
+            document.getElementById("containerQuestion").style.opacity = 0;
+            setTimeout(() => {
+              quizUpdate(
+                null,
+                null,
+                sections,
+                currentSection,
+                currentQuestion,
+                setCurrentSection,
+                setCurrentQuestion,
+                setStatus
+              );
+            }, 300);
           }}
         >
           {button}

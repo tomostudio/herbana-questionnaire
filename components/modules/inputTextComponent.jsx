@@ -1,5 +1,6 @@
 'use client'
 
+import { useAppContext } from 'context/state'
 import Container from '../container'
 import { BorderButton } from '../utils/buttons'
 import Heading from '../utils/heading'
@@ -17,22 +18,27 @@ const InputTextComponent = ({
   setStatus,
 }) => {
   const title = sections[currentSection].title.en
+  const appContext = useAppContext();
 
   return (
     <Container className="w-full h-full flex justify-center items-center py-10">
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          quizUpdate(
-            [e.target[0].value],
-            questionId,
-            sections,
-            currentSection,
-            currentQuestion,
-            setCurrentSection,
-            setCurrentQuestion,
-            setStatus,
-          )
+          appContext.setChangeQuestion(true);
+          document.getElementById("containerQuestion").style.opacity = 0;
+          setTimeout(() => {
+            quizUpdate(
+              [e.target[0].value],
+              questionId,
+              sections,
+              currentSection,
+              currentQuestion,
+              setCurrentSection,
+              setCurrentQuestion,
+              setStatus,
+            )
+          }, 300);
         }}
         className="w-full md:max-w-lg lg:max-w-4xl flex flex-col items-center"
       >
