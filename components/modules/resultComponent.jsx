@@ -15,6 +15,7 @@ const ResultComponent = ({ quiz }) => {
   const phonePlaceholder = quiz.beforeResult.phonePlaceholder.en
   const buttonText = quiz.beforeResult.buttonText.en
   const coverImage = quiz.beforeResult.coverImage
+  const coverImageMobile = quiz.beforeResult.coverImageMobile
 
   const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])
@@ -52,7 +53,7 @@ const ResultComponent = ({ quiz }) => {
           className="hidden md:block"
         />
         <Image
-          src={coverImage}
+          src={coverImageMobile}
           fill
           style={{
             objectFit: 'cover',
@@ -62,7 +63,7 @@ const ResultComponent = ({ quiz }) => {
       </div>
       <div className="w-full bg-blue flex justify-center px-6 md:px-0">
         <div className="max-w-3xl w-full mt-20 mb-16 flex flex-col items-center">
-          <h2 className="text-mheading1 max-w-xl md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight">
+          <h2 className="text-mheading1 max-w-xl md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight px-6 md:px-0">
             {parse(description)}
           </h2>
           <div className="w-full flex flex-col mt-20 space-y-5">
