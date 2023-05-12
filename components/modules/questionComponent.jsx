@@ -228,7 +228,7 @@ const QuestionComponent = ({
             {`(PICK ${answerLimit.min} - ${answerLimit.max})`}
           </span>
         )}
-        <div className="w-full max-w-4xl flex flex-wrap justify-center gap-6">
+        <div className="w-full max-w-4xl flex flex-wrap justify-center gap-[15px] md:gap-6">
           {answers?.map((data, id) =>
             answerType === 'text' ? (
               <RoundedButton
