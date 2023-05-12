@@ -1,6 +1,6 @@
 import Container from '../container'
 import { DefaultButton } from './buttons'
-import { ArrowLeft } from './svg'
+import { ArrowLeft, ArrowLeftMobile } from './svg'
 
 const BackComponent = ({
   currentSection,
@@ -300,7 +300,8 @@ const BackComponent = ({
         className="w-fit flex items-center text-footer md:text-nav font-maisonMono uppercase"
         onClick={handleBackClick}
       >
-        <ArrowLeft className="mr-3 md:mr-4 w-[23px] md:w-auto" />
+        <ArrowLeft className="hidden md:block mr-3 md:mr-4 w-[23px] md:w-auto" />
+        <ArrowLeftMobile className="md:hidden mr-2 w-[23px]" />
         <span className="leading-none pt-[2px]">Back</span>
       </DefaultButton>
     </Container>

@@ -29,10 +29,7 @@ main {
     & * {
       color: white !important;
     }
-    & svg:not(.fill-hover) * {
-      stroke: white !important;
-    }
-    & svg.fill-hover * {
+    & svg * {
       fill: white !important;
     }
   }
@@ -44,10 +41,7 @@ main {
     & * {
       color: #E46B37 !important;
     }
-    & svg:not(.fill-hover) * {
-      stroke: #E46B37 !important;
-    }
-    & svg.fill-hover * {
+    & svg * {
       fill: #E46B37 !important;
     }
   }
