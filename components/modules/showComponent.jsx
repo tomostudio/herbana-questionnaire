@@ -29,11 +29,11 @@ const ShowComponent = ({
     return (
       <div className="w-full flex flex-col lg:flex-row self-stretch">
         <Container className="w-full h-full flex flex-col lg:flex-row items-end lg:items-center">
-          <div className="w-full lg:w-1/2 min-h-[50vh] lg:h-full flex flex-col items-center lg:items-start justify-center pt-16 pb-20 lg:pt-0 lg:pb-0 lg:pr-8">
+          <div className="w-full lg:w-1/2 min-h-[50vh] lg:h-full flex flex-col items-center lg:items-start justify-center pt-[40px] pb-14 lg:pt-0 lg:pb-0 lg:pr-8">
             <h1 className="uppercase text-mopHeading max-w-md md:max-w-lg lg:max-w-none text-center lg:text-left lg:text-opHeading m-0 leading-none mb-6">
               {parse(quiz.coverPage.title.en)}
             </h1>
-            <p className="max-w-sm md:max-w-md lg:mb-12 text-center lg:text-left">
+            <p className="max-w-[260px] md:max-w-md lg:mb-12 text-center lg:text-left text-[15px] md:text-body">
               {parse(quiz.coverPage.description.en)}
             </p>
             <RoundedFullButton
