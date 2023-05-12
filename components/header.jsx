@@ -1,7 +1,7 @@
 import Container from '@/components/container'
 import Image from 'next/image'
 import { DefaultButton } from './utils/buttons'
-import { ArrowLeft, Herbana } from './utils/svg'
+import { ArrowLeft, ArrowLeftMobile, Herbana } from './utils/svg'
 import { useRouter } from 'next/navigation'
 
 export default function Header({
@@ -34,7 +34,8 @@ export default function Header({
             destination="https://herbana.id"
             className="relative flex items-center w-fit h-fit"
           >
-            <ArrowLeft className="md:hidden mr-1" />
+            {/* <ArrowLeft className="md:hidden mr-1" /> */}
+            <ArrowLeftMobile className="md:hidden mr-0.5" />
             <div className="relative w-[120px] h-[22px] md:w-[180px] md:h-[35px]">
               <Herbana />
             </div>

@@ -3,25 +3,25 @@ import Image from 'next/image'
 import { DefaultButton } from './utils/buttons'
 import { ArrowLeft } from './utils/svg'
 
-export default function Footer({footer}) {
+export default function Footer({ footer }) {
   return (
     <footer className={`bg-grey w-full`}>
       <Container>
-        <div className="flex flex-row-reverse md:flex-row justify-between py-4">
-          <div className="flex items-center text-footer font-bold font-maisonMono max-w-[200px] text-right md:max-w-none">
+        <div className="flex flex-row-reverse items-center md:flex-row justify-between py-4">
+          <div className="flex items-center text-footer font-maisonMono max-w-[150px] text-right md:max-w-none">
             {footer.creditText.en}
           </div>
           <div className="flex space-x-8">
             <div className="flex items-center">
               <DefaultButton
                 destination="/en"
-                className="text-footer font-bold font-maisonMono pr-2 border-r border-black"
+                className="text-footer font-maisonMono pr-2 border-r border-black"
               >
                 EN
               </DefaultButton>
               <DefaultButton
                 destination="/id"
-                className="text-footer font-bold font-maisonMono ml-2"
+                className="text-footer font-maisonMono ml-2"
               >
                 ID
               </DefaultButton>

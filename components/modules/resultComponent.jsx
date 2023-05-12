@@ -62,11 +62,11 @@ const ResultComponent = ({ quiz }) => {
         />
       </div>
       <div className="w-full bg-blue flex justify-center px-6 md:px-0">
-        <div className="max-w-3xl w-full mt-20 mb-16 flex flex-col items-center">
-          <h2 className="text-mheading1 max-w-xl md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight px-6 md:px-0">
+        <div className="max-w-3xl w-full my-[40px] flex flex-col items-center">
+          <h2 className="text-mqHeadingb max-w-xl md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight px-6 md:px-0">
             {parse(description)}
           </h2>
-          <div className="w-full flex flex-col mt-20 space-y-[15px] md:space-y-5">
+          <div className="w-full flex flex-col mt-[40px] space-y-[15px] md:space-y-5">
             {quiz.sections
               .filter((e) => e.type !== 'fundamental')
               .map((data, index) => (

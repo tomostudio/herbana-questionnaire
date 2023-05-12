@@ -45,6 +45,28 @@ const ArrowLeft = ({ color = '#fff', stroke = 2, ...options }) => (
   </svg>
 )
 
+const ArrowLeftMobile = ({ color = '#fff', stroke = 2, ...options }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="8"
+    fill="none"
+    viewBox="0 0 24 8"
+    {...options}
+  >
+    <path
+      fill={
+        color === 'text-black'
+          ? 'black'
+          : color === 'text-white'
+          ? 'white'
+          : 'black'
+      }
+      d="M.646 3.646a.5.5 0 000 .708l3.182 3.182a.5.5 0 10.707-.708L1.707 4l2.828-2.828a.5.5 0 10-.707-.708L.646 3.646zm22.47-.146H1v1h22.115v-1z"
+    ></path>
+  </svg>
+)
+
 const Plus = ({ color = '#fff', stroke = 2, ...options }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -77,4 +99,4 @@ const Herbana = () => (
   </svg>
 )
 
-export { ArrowRight, ArrowLeft, Plus, Herbana }
+export { ArrowRight, ArrowLeft, ArrowLeftMobile, Plus, Herbana }
