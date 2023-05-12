@@ -165,7 +165,7 @@ const Questionnaire = () => {
               status === 'progress' &&
               currentQuestion !== null &&
               quiz.sections[currentSection].type !== 'fundamental' ? (
-                <div className="relative md:hidden w-full border-b-default border-black">
+                <div className="relative md:hidden w-full border-b md:border-b-default border-black">
                   <div className="relative z-10 text-center text-footer font-maisonMono pt-3.5 pb-3">
                     <span className="relative uppercase">
                       {quiz.sections[currentSection].title.en}

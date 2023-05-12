@@ -15,7 +15,7 @@ const RoundedFullButton = ({
   return (
     <DefaultButton
       hover={false}
-      className={`py-3 px-6 min-w-[8rem] ${borderHover} ${hoverTextIcon} transition-all duration-300 flex justify-center items-center text-center rounded-full ${bg} ${color} border-default ${borderColor} font-bold text-mButton md:text-button ${className}`}
+      className={`py-3 px-6 min-w-[8rem] ${borderHover} ${hoverTextIcon} transition-all duration-300 flex justify-center items-center text-center rounded-full ${bg} ${color} border md:border-default ${borderColor} font-bold text-mButton md:text-button ${className}`}
       {...others}
     >
       {children}

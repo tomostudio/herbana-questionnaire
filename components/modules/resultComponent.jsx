@@ -134,8 +134,8 @@ const ResultComponent = ({ quiz }) => {
       </div>
       <div className="w-full bg-beige flex justify-center px-6 md:px-0">
         <div className="w-full max-w-5xl mx-auto py-10 md:py-20">
-          <div className="flex flex-col rounded-2xl border-2 border-orange bg-orange overflow-hidden">
-            <div className="h-full md:h-72 text-left px-6 pb-16 pt-6 md:p-12">
+          <div className="flex flex-col rounded-2xl border md:border-2 border-orange bg-orange overflow-hidden">
+            <div className="h-full md:h-72 text-left px-6 pb-16 pt-6 md:p-12 max-w-xl">
               <span className="text-white text-mheading1 md:text-qHeadingb whitespace-pre-wrap">
                 {parse(formTitle)}
               </span>

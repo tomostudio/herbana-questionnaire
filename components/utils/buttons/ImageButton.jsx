@@ -18,7 +18,7 @@ const ImageButton = ({
       hover={false}
       className={`${
         icon ? 'w-[117px] md:w-[150px]' : 'w-[131px] md:w-[205px]'
-      } ${heightFit ? 'h-fit' : 'h-auto'} overflow-hidden text-center bg-white rounded-lg hover:border-orange transition-all duration-500 border-default border-black text-black text-mButton md:text-body ${className}`}
+      } ${heightFit ? 'h-fit' : 'h-auto'} overflow-hidden text-center bg-white rounded-lg hover:border-orange transition-all duration-500 border md:border-default border-black text-black text-mButton md:text-body ${className}`}
       {...others}
     >
       <div className="relative flex flex-col w-full h-full">
@@ -26,7 +26,7 @@ const ImageButton = ({
           className={`relative ${
             icon
               ? 'h-[125px]'
-              : 'h-[125px] md:h-[180px] hover:border-orange transition-all duration-300 border-b-default border-black'
+              : 'h-[125px] md:h-[180px] hover:border-orange transition-all duration-300 border-b md:border-b-default border-black'
           } flex justify-center items-center imgContainer`}
         >
           {icon ? (

@@ -41,7 +41,7 @@ const ProgressIndicator = ({
               data.type !== 'fundamental' && (
                 <div
                   key={id}
-                  className="relative md:border-l-0 md:border-r-default  z-10 border-default border-black text-center text-footer md:text-nav font-maisonMono py-3 last:border-r-0"
+                  className="relative md:border-l-0 md:border-r-default  z-10 border-y-default border-black text-center text-footer md:text-nav font-maisonMono py-3 last:border-r-0"
                 >
                   <div
                     className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
