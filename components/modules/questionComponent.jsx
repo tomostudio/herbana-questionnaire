@@ -346,6 +346,7 @@ const QuestionComponent = ({
                     setCurrentQuestion,
                     setStatus,
                   )
+                  setAnswer([])
                 }, 300);
               }
             }}
