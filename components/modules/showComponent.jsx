@@ -33,7 +33,7 @@ const ShowComponent = ({
             <h1 className="uppercase text-mopHeading max-w-md md:max-w-lg lg:max-w-none text-center lg:text-left lg:text-opHeading m-0 leading-none mb-6">
               {parse(quiz.coverPage.title.en)}
             </h1>
-            <p className="max-w-[260px] md:max-w-md lg:mb-12 text-center lg:text-left text-[15px] md:text-body">
+            <p className="max-w-[260px] md:max-w-md lg:mb-12 text-center lg:text-left text-[15px] md:text-body leading-[19.5px]">
               {parse(quiz.coverPage.description.en)}
             </p>
             <RoundedFullButton
