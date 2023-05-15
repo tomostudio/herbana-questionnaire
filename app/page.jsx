@@ -44,7 +44,9 @@ const Questionnaire = () => {
   useEffect(() => {
     setTimeout(() => {
       appContext.setChangeQuestion(false)
-      document.getElementById("containerQuestion").style.opacity = 100
+      if(document.getElementById("containerQuestion")) {
+        document.getElementById("containerQuestion").style.opacity = 100
+      }
     }, 500)
   }, [appContext.changeQuestion])
 

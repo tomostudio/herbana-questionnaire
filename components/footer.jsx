@@ -8,8 +8,13 @@ export default function Footer({ footer }) {
     <footer className={`bg-grey w-full`}>
       <Container>
         <div className="flex flex-row-reverse items-center md:flex-row justify-between py-4">
-          <div className="flex items-center text-footer font-maisonMono max-w-[150px] text-right md:max-w-none">
-            {footer.creditText.en}
+          <div className="flex items-center text-footer font-maisonMono text-right md:max-w-none">
+            <span className='hidden md:block'>© HERBANA 2023. All rights reserved.</span>
+            <span className='md:hidden'>
+              © HERBANA 2023.
+              <br />
+              All rights reserved.
+            </span>
           </div>
           <div className="flex space-x-8">
             <div className="flex items-center">
