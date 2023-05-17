@@ -41,7 +41,7 @@ const NotFoundPage = () => {
               <HeaderGap />
               <div className="relative w-full h-full grow flex justify-center items-center">
                 <div className="flex flex-col justify-center items-center">
-                  <div className="relative w-[70px] h-[70px] md:w-[105px] md:h-[105px]">
+                  <div className="relative w-[70px] h-[70px] md:w-[105px] md:h-[105px] bg-white">
                     <Image
                       src="/icons/informed.svg"
                       fill

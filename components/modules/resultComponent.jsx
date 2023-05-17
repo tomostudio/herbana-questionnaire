@@ -38,7 +38,7 @@ const ResultComponent = ({ quiz }) => {
   }
   return (
     <div className="w-full flex flex-col">
-      <div className="relative w-full h-[405px] md:h-[521px]">
+      <div className="relative w-full h-[405px] md:h-[521px] bg-white">
         <Container className="relative z-10 text-center h-full flex justify-center items-center">
           <h1 className="whitespace-pre-wrap uppercase text-mendHeading md:text-endHeading max-w-lg">
             {parse(title)}

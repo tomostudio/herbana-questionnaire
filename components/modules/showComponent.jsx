@@ -64,7 +64,7 @@ const ShowComponent = ({
           </div>
           <div className="lg:hidden w-full h-[379px] md:h-[400px]" />
         </Container>
-        <div className="hidden lg:block absolute top-0 right-0 w-full lg:w-1/2 h-[50vh] lg:h-full">
+        <div className="hidden lg:block absolute top-0 right-0 w-full lg:w-1/2 h-[50vh] lg:h-full bg-white">
           <Image
             src={quiz.coverPage.coverImage}
             fill
@@ -74,7 +74,7 @@ const ShowComponent = ({
             loading='eager'
           />
         </div>
-        <div className="lg:hidden absolute bottom-0 right-0 w-full h-[379px] md:h-[400px]">
+        <div className="lg:hidden absolute bottom-0 right-0 w-full h-[379px] md:h-[400px] bg-white">
           <Image
             src={quiz.coverPage.coverImage}
             fill

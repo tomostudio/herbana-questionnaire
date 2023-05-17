@@ -62,7 +62,7 @@ const QuestionComponent = ({
                     )
                   }, 300)
                 }}
-                className="w-full flex flex-wrap justify-center lg:justify-start gap-6"
+                className="w-full flex flex-col items-center lg:items-start justify-center lg:justify-start gap-6"
               >
                 <input
                   type="text"
@@ -74,7 +74,7 @@ const QuestionComponent = ({
               </form>
             </div>
           </Container>
-          <div className="hidden lg:block absolute top-0 right-0 w-full lg:w-1/2 h-[50vh] lg:h-full">
+          <div className="hidden lg:block absolute top-0 right-0 w-full lg:w-1/2 h-[50vh] lg:h-full bg-white">
             <Image
               src={image}
               fill
@@ -84,7 +84,7 @@ const QuestionComponent = ({
               loading='eager'
             />
           </div>
-          <div className="lg:hidden absolute top-0 right-0 w-full h-[345px] md:h-[400px]">
+          <div className="lg:hidden absolute top-0 right-0 w-full h-[345px] md:h-[400px] bg-white">
             <Image
               src={image}
               fill
@@ -248,7 +248,7 @@ const QuestionComponent = ({
               )}
             </div>
           </Container>
-          <div className="hidden lg:block absolute top-0 right-0 w-full lg:w-1/2 h-[50vh] lg:h-full">
+          <div className="hidden lg:block absolute top-0 right-0 w-full lg:w-1/2 h-[50vh] lg:h-full bg-white">
             <Image
               src={image}
               fill
@@ -258,7 +258,7 @@ const QuestionComponent = ({
               loading='eager'
             />
           </div>
-          <div className="lg:hidden absolute top-0 right-0 w-full h-[345px] md:h-[400px]">
+          <div className="lg:hidden absolute top-0 right-0 w-full h-[345px] md:h-[400px] bg-white">
             <Image
               src={image}
               fill
