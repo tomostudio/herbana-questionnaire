@@ -41,6 +41,7 @@ const ImageButton = ({
                     objectFit: 'contain',
                   }}
                   loading='eager'
+                  priority={true}
                 />
                 <Image
                   src={src2}
@@ -51,6 +52,7 @@ const ImageButton = ({
                     objectFit: 'contain',
                   }}
                   loading='eager'
+                  priority={true}
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0"
                 />
               </>
@@ -64,6 +66,7 @@ const ImageButton = ({
                   objectFit: 'contain',
                 }}
                 loading='eager'
+                priority={true}
               />
             )
           ) : (
@@ -74,6 +77,7 @@ const ImageButton = ({
                 objectFit: 'cover',
               }}
               loading='eager'
+              priority={true}
             />
           )}
         </div>

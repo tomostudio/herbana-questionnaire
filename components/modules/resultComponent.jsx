@@ -51,6 +51,7 @@ const ResultComponent = ({ quiz }) => {
             objectFit: 'cover',
           }}
           loading='eager'
+          priority={true}
           className="hidden md:block"
         />
         <Image
@@ -60,6 +61,7 @@ const ResultComponent = ({ quiz }) => {
             objectFit: 'cover',
           }}
           loading='eager'
+          priority={true}
           className="md:hidden"
         />
       </div>

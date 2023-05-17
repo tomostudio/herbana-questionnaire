@@ -43,6 +43,7 @@ export default function Footer({ footer }) {
                     objectFit: 'contain',
                   }}
                   loading='eager'
+                  priority={true}
                 />
               </div>
               {footer.whatsappNumber}

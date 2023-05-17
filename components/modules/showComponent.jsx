@@ -72,6 +72,7 @@ const ShowComponent = ({
               objectFit: 'cover',
             }}
             loading='eager'
+            priority={true}
           />
         </div>
         <div className="lg:hidden absolute bottom-0 right-0 w-full h-[379px] md:h-[400px] bg-white">
@@ -82,6 +83,7 @@ const ShowComponent = ({
               objectFit: 'cover',
             }}
             loading='eager'
+            priority={true}
           />
           <RoundedFullButton
             icon

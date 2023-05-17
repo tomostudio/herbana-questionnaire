@@ -49,6 +49,7 @@ const NotFoundPage = () => {
                         objectFit: 'contain',
                       }}
                       loading='eager'
+                      priority={true}
                     />
                   </div>
                   <span className="text-mheading md:text-qHeading uppercase font-bold text-orange mt-6">

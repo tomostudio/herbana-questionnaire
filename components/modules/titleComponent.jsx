@@ -65,6 +65,7 @@ const TitleComponent = ({
               objectFit: 'contain',
             }}
             loading='eager'
+            priority={true}
           />
         </div>
         <div className='absolute -right-5 md:right-auto top-0 md:top-auto md:translate-y-0 md:relative w-44 h-44 md:w-60 md:h-60 lg:w-72 lg:h-72 rotate-[-30deg] md:rotate-0 '>
@@ -75,6 +76,7 @@ const TitleComponent = ({
               objectFit: 'contain',
             }}
             loading='eager'
+            priority={true}
           />
         </div>
       </div>
