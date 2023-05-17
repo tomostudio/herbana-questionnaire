@@ -21,7 +21,7 @@ const Heading = ({
           letterSpacing ? 'md:tracking-wider' : ''
         } font-maison font-bold leading-tight ${
           marginSubtitle ? 'mb-8' : 'mb-2'
-        }  whitespace-pre-wrap ${position}`}
+        } ${position}`}
       >
         {parse(subTitle)}
       </h1>
