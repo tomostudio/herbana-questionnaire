@@ -81,6 +81,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
+              loading='eager'
             />
           </div>
           <div className="lg:hidden absolute top-0 right-0 w-full h-[345px] md:h-[400px]">
@@ -90,6 +91,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
+              loading='eager'
             />
           </div>
         </div>
@@ -253,6 +255,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
+              loading='eager'
             />
           </div>
           <div className="lg:hidden absolute top-0 right-0 w-full h-[345px] md:h-[400px]">
@@ -262,6 +265,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
+              loading='eager'
             />
           </div>
         </div>

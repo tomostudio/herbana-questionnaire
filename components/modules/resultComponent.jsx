@@ -50,6 +50,7 @@ const ResultComponent = ({ quiz }) => {
           style={{
             objectFit: 'cover',
           }}
+          loading='eager'
           className="hidden md:block"
         />
         <Image
@@ -58,6 +59,7 @@ const ResultComponent = ({ quiz }) => {
           style={{
             objectFit: 'cover',
           }}
+          loading='eager'
           className="md:hidden"
         />
       </div>

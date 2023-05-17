@@ -71,6 +71,7 @@ const ShowComponent = ({
             style={{
               objectFit: 'cover',
             }}
+            loading='eager'
           />
         </div>
         <div className="lg:hidden absolute bottom-0 right-0 w-full h-[379px] md:h-[400px]">
@@ -80,6 +81,7 @@ const ShowComponent = ({
             style={{
               objectFit: 'cover',
             }}
+            loading='eager'
           />
           <RoundedFullButton
             icon

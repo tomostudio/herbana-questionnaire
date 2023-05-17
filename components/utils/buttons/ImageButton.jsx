@@ -63,6 +63,7 @@ const ImageButton = ({
                 style={{
                   objectFit: 'contain',
                 }}
+                loading='eager'
               />
             )
           ) : (
@@ -72,6 +73,7 @@ const ImageButton = ({
               style={{
                 objectFit: 'cover',
               }}
+              loading='eager'
             />
           )}
         </div>

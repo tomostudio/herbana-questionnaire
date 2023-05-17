@@ -42,6 +42,7 @@ export default function Footer({ footer }) {
                   style={{
                     objectFit: 'contain',
                   }}
+                  loading='eager'
                 />
               </div>
               {footer.whatsappNumber}
