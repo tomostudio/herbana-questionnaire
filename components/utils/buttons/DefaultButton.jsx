@@ -18,7 +18,7 @@ const DefaultButton = forwardRef(
     return !destination ? (
       <button
         aria-label={a11yText}
-        className={`${className} pointer-events-auto ${
+        className={`${className} pointer-events-auto select-none ${
           hover ? 'hover:opacity-50 transition-opacity' : ''
         }`}
         onClick={onClick}
@@ -32,7 +32,7 @@ const DefaultButton = forwardRef(
         href={destination}
         scroll={false}
         aria-label={a11yText}
-        className={`${className} pointer-events-auto ${
+        className={`${className} pointer-events-auto select-none ${
           hover ? 'hover:opacity-50 transition-opacity' : ''
         }`}
         ref={ref}
@@ -45,7 +45,7 @@ const DefaultButton = forwardRef(
         aria-label={a11yText}
         className={`${
           destination ? 'pointer-events-auto' : 'pointer-events-none'
-        } ${hover ? 'hover:opacity-50 transition-opacity' : ''} ${className}`}
+        } ${hover ? 'hover:opacity-50 transition-opacity' : ''} select-none ${className}`}
         target="_blank"
         href={destination}
         ref={ref}
