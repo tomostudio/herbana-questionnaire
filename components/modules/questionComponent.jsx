@@ -49,6 +49,9 @@ const QuestionComponent = ({
                   e.preventDefault()
                   appContext.setChangeQuestion(true)
                   document.getElementById('containerQuestion').style.opacity = 0
+                  if(document.getElementById('progress')) {
+                    document.getElementById('progress').style.opacity = 0
+                  }
                   setTimeout(() => {
                     quizUpdate(
                       [e.target[0].value],
@@ -145,6 +148,9 @@ const QuestionComponent = ({
                           document.getElementById(
                             'containerQuestion',
                           ).style.opacity = 0
+                          if(document.getElementById('progress')) {
+                            document.getElementById('progress').style.opacity = 0
+                          }
                           setTimeout(() => {
                             quizUpdate(
                               [data.label.en],
@@ -201,6 +207,9 @@ const QuestionComponent = ({
                           document.getElementById(
                             'containerQuestion',
                           ).style.opacity = 0
+                          if(document.getElementById('progress')) {
+                            document.getElementById('progress').style.opacity = 0
+                          }
                           setTimeout(() => {
                             quizUpdate(
                               [data.label.en],
@@ -230,6 +239,9 @@ const QuestionComponent = ({
                       document.getElementById(
                         'containerQuestion',
                       ).style.opacity = 0
+                      if(document.getElementById('progress')) {
+                        document.getElementById('progress').style.opacity = 0
+                      }
                       setTimeout(() => {
                         quizUpdate(
                           getAnswer,
@@ -284,6 +296,9 @@ const QuestionComponent = ({
               e.preventDefault()
               appContext.setChangeQuestion(true)
               document.getElementById('containerQuestion').style.opacity = 0
+              if(document.getElementById('progress')) {
+                document.getElementById('progress').style.opacity = 0
+              }
               setTimeout(() => {
                 quizUpdate(
                   [e.target[0].value],
@@ -360,6 +375,9 @@ const QuestionComponent = ({
                         document.getElementById(
                           'containerQuestion',
                         ).style.opacity = 0
+                        if(document.getElementById('progress')) {
+                          document.getElementById('progress').style.opacity = 0
+                        }
                         setTimeout(() => {
                           quizUpdate(
                             [data.label.en],
@@ -416,6 +434,9 @@ const QuestionComponent = ({
                         document.getElementById(
                           'containerQuestion',
                         ).style.opacity = 0
+                        if(document.getElementById('progress')) {
+                          document.getElementById('progress').style.opacity = 0
+                        }
                         setTimeout(() => {
                           quizUpdate(
                             [data.label.en],
@@ -445,6 +466,9 @@ const QuestionComponent = ({
                     document.getElementById(
                       'containerQuestion',
                     ).style.opacity = 0
+                    if(document.getElementById('progress')) {
+                      document.getElementById('progress').style.opacity = 0
+                    }
                     setTimeout(() => {
                       quizUpdate(
                         getAnswer,

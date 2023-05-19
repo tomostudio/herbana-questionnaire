@@ -23,6 +23,10 @@ main {
   transition: all 0.5s ease;
 }
 
+#progress {
+  transition: all 0.5s ease;
+}
+
 .hover-white {
   &:hover {
 	color: #E46B37 !important;

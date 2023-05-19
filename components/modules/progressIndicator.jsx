@@ -13,7 +13,7 @@ const ProgressIndicator = ({
   setColor,
 }) => {
   return (
-    <div className="relative flex flex-col w-full">
+    <div id="progress" className="relative flex flex-col w-full">
       <BackComponent
         currentSection={currentSection}
         currentQuestion={currentQuestion}

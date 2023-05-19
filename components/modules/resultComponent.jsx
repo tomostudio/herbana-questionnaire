@@ -189,7 +189,8 @@ const ResultComponent = ({ quiz }) => {
                   required
                 />
                 <input
-                  type="text"
+                  type="number"
+                  max={16}
                   placeholder={phonePlaceholder}
                   className="mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   required

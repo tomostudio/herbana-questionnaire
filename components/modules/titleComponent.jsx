@@ -39,6 +39,9 @@ const TitleComponent = ({
           onClick={() => {
             appContext.setChangeQuestion(true);
             document.getElementById("containerQuestion").style.opacity = 0;
+            if(document.getElementById('progress')) {
+              document.getElementById('progress').style.opacity = 0
+            }
             setTimeout(() => {
               quizUpdate(
                 null,

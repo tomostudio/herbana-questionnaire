@@ -3,17 +3,13 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import HeaderGap from '@/components/headerGap'
-import { DefaultButton } from '@/components/utils/buttons'
-import { ArrowLeft } from '@/components/utils/svg'
 import { useEffect, useState } from 'react'
 import ProgressIndicator from '@/components/modules/progressIndicator'
 import ShowComponent from '@/components/modules/showComponent'
-import Container from '@/components/container'
 import Layout from '@/components/layout'
 import SEO from '@/components/utils/seo'
 import BackComponent from '@/components/utils/backComponent'
 import { useAppContext } from 'context/state'
-import { motion } from 'framer-motion'
 
 const Questionnaire = () => {
   const [checkStorage, setCheckStorage] = useState(true)
@@ -26,26 +22,15 @@ const Questionnaire = () => {
   const [status, setStatus] = useState('progress')
   const [quiz, setQuiz] = useState(null)
   const appContext = useAppContext()
-  const variants = {
-    initial: {
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  }
 
   useEffect(() => {
     setTimeout(() => {
       appContext.setChangeQuestion(false)
       if (document.getElementById('containerQuestion')) {
         document.getElementById('containerQuestion').style.opacity = 100
+      }
+      if (document.getElementById('progress')) {
+        document.getElementById('progress').style.opacity = 100
       }
     }, 500)
   }, [appContext.changeQuestion])
@@ -211,7 +196,7 @@ const Questionnaire = () => {
               {checkStorage && status === 'progress' ? (
                 quiz.sections[currentSection].type === 'fundamental' ||
                 currentQuestion === null ? (
-                  <div className="relative flex flex-col w-full">
+                  <di id="progress" className="relative flex flex-col w-full">
                     <BackComponent
                       currentSection={currentSection}
                       currentQuestion={currentQuestion}
@@ -225,7 +210,7 @@ const Questionnaire = () => {
                       // top={false}
                     />
                     <div className='hidden md:block h-[41px] w-full' />
-                  </div>
+                  </di>
                 ) : (
                   <ProgressIndicator
                     currentSection={currentSection}
