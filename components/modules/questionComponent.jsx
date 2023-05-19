@@ -6,7 +6,6 @@ import { BorderButton, ImageButton, RoundedButton } from '../utils/buttons'
 import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 import Image from 'next/image'
-import { useAppContext } from 'context/state'
 
 const QuestionComponent = ({
   sections,
@@ -25,9 +24,9 @@ const QuestionComponent = ({
   answerLimit,
   nextSection,
   nextQuestion,
+  controls
 }) => {
   const title = sections[currentSection].title.en
-  const appContext = useAppContext()
   const [getAnswer, setAnswer] = useState([])
 
   if (image) {
@@ -47,12 +46,9 @@ const QuestionComponent = ({
               <form
                 onSubmit={(e) => {
                   e.preventDefault()
-                  appContext.setChangeQuestion(true)
-                  document.getElementById('containerQuestion').style.opacity = 0
-                  if(document.getElementById('progress')) {
-                    document.getElementById('progress').style.opacity = 0
-                  }
+                  controls.start('hidden')
                   setTimeout(() => {
+                    controls.start('visible')
                     quizUpdate(
                       [e.target[0].value],
                       questionId,
@@ -63,7 +59,7 @@ const QuestionComponent = ({
                       setCurrentQuestion,
                       setStatus,
                     )
-                  }, 300)
+                  }, 500)
                 }}
                 className="w-full flex flex-col items-center lg:items-start justify-center lg:justify-start gap-6"
               >
@@ -144,14 +140,9 @@ const QuestionComponent = ({
                             }
                           }
                         } else {
-                          appContext.setChangeQuestion(true)
-                          document.getElementById(
-                            'containerQuestion',
-                          ).style.opacity = 0
-                          if(document.getElementById('progress')) {
-                            document.getElementById('progress').style.opacity = 0
-                          }
+                          controls.start('hidden')
                           setTimeout(() => {
+                            controls.start('visible')
                             quizUpdate(
                               [data.label.en],
                               questionId,
@@ -162,7 +153,7 @@ const QuestionComponent = ({
                               setCurrentQuestion,
                               setStatus,
                             )
-                          }, 300)
+                          }, 500)
                         }
                       }}
                     >
@@ -203,14 +194,9 @@ const QuestionComponent = ({
                             }
                           }
                         } else {
-                          appContext.setChangeQuestion(true)
-                          document.getElementById(
-                            'containerQuestion',
-                          ).style.opacity = 0
-                          if(document.getElementById('progress')) {
-                            document.getElementById('progress').style.opacity = 0
-                          }
+                          controls.start('hidden')
                           setTimeout(() => {
+                            controls.start('visible')
                             quizUpdate(
                               [data.label.en],
                               questionId,
@@ -221,7 +207,7 @@ const QuestionComponent = ({
                               setCurrentQuestion,
                               setStatus,
                             )
-                          }, 300)
+                          }, 500)
                         }
                       }}
                     >
@@ -235,14 +221,9 @@ const QuestionComponent = ({
                   className="mt-6 md:mt-7"
                   onClick={() => {
                     if (getAnswer.length > 0) {
-                      appContext.setChangeQuestion(true)
-                      document.getElementById(
-                        'containerQuestion',
-                      ).style.opacity = 0
-                      if(document.getElementById('progress')) {
-                        document.getElementById('progress').style.opacity = 0
-                      }
+                      controls.start('hidden')
                       setTimeout(() => {
+                        controls.start('visible')
                         quizUpdate(
                           getAnswer,
                           questionId,
@@ -253,7 +234,7 @@ const QuestionComponent = ({
                           setCurrentQuestion,
                           setStatus,
                         )
-                      }, 300)
+                      }, 500)
                     }
                   }}
                 >
@@ -294,12 +275,9 @@ const QuestionComponent = ({
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              appContext.setChangeQuestion(true)
-              document.getElementById('containerQuestion').style.opacity = 0
-              if(document.getElementById('progress')) {
-                document.getElementById('progress').style.opacity = 0
-              }
+              controls.start('hidden')
               setTimeout(() => {
+                controls.start('visible')
                 quizUpdate(
                   [e.target[0].value],
                   questionId,
@@ -310,7 +288,7 @@ const QuestionComponent = ({
                   setCurrentQuestion,
                   setStatus,
                 )
-              }, 300)
+              }, 500)
             }}
             className="w-full max-w-5xl flex flex-col items-center"
           >
@@ -371,14 +349,9 @@ const QuestionComponent = ({
                           }
                         }
                       } else {
-                        appContext.setChangeQuestion(true)
-                        document.getElementById(
-                          'containerQuestion',
-                        ).style.opacity = 0
-                        if(document.getElementById('progress')) {
-                          document.getElementById('progress').style.opacity = 0
-                        }
+                        controls.start('hidden')
                         setTimeout(() => {
+                          controls.start('visible')
                           quizUpdate(
                             [data.label.en],
                             questionId,
@@ -389,7 +362,7 @@ const QuestionComponent = ({
                             setCurrentQuestion,
                             setStatus,
                           )
-                        }, 300)
+                        }, 500)
                       }
                     }}
                   >
@@ -430,14 +403,9 @@ const QuestionComponent = ({
                           }
                         }
                       } else {
-                        appContext.setChangeQuestion(true)
-                        document.getElementById(
-                          'containerQuestion',
-                        ).style.opacity = 0
-                        if(document.getElementById('progress')) {
-                          document.getElementById('progress').style.opacity = 0
-                        }
+                        controls.start('hidden')
                         setTimeout(() => {
+                          controls.start('visible')
                           quizUpdate(
                             [data.label.en],
                             questionId,
@@ -448,7 +416,7 @@ const QuestionComponent = ({
                             setCurrentQuestion,
                             setStatus,
                           )
-                        }, 300)
+                        }, 500)
                       }
                     }}
                   >
@@ -462,14 +430,9 @@ const QuestionComponent = ({
                 className="mt-6 md:mt-8"
                 onClick={() => {
                   if (getAnswer.length > 0) {
-                    appContext.setChangeQuestion(true)
-                    document.getElementById(
-                      'containerQuestion',
-                    ).style.opacity = 0
-                    if(document.getElementById('progress')) {
-                      document.getElementById('progress').style.opacity = 0
-                    }
+                    controls.start('hidden')
                     setTimeout(() => {
+                      controls.start('visible')
                       quizUpdate(
                         getAnswer,
                         questionId,
@@ -481,7 +444,7 @@ const QuestionComponent = ({
                         setStatus,
                       )
                       setAnswer([])
-                    }, 300)
+                    }, 500)
                   }
                 }}
               >

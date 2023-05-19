@@ -19,6 +19,7 @@ const ShowComponent = ({
   currentQuestion,
   setCurrentQuestion,
   setColor,
+  controls
 }) => {
   const section = quiz.sections[currentSection]
   const question = section?.questions[currentQuestion]
@@ -134,6 +135,7 @@ const ShowComponent = ({
             type={question.type}
             answerType={question.answerType}
             answerLimit={question.answerLimit}
+            controls={controls}
           />
         )
       } else if (section.type === 'quiz') {
@@ -148,6 +150,7 @@ const ShowComponent = ({
               setCurrentSection={setCurrentSection}
               setCurrentQuestion={setCurrentQuestion}
               setStatus={setStatus}
+              controls={controls}
             />
           )
         } else {
@@ -169,6 +172,7 @@ const ShowComponent = ({
               type={question.type}
               answerType={question.answerType}
               answerLimit={question.answerLimit}
+              controls={controls}
             />
           )
         }

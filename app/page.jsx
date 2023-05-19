@@ -9,7 +9,7 @@ import ShowComponent from '@/components/modules/showComponent'
 import Layout from '@/components/layout'
 import SEO from '@/components/utils/seo'
 import BackComponent from '@/components/utils/backComponent'
-import { useAppContext } from 'context/state'
+import { motion, useAnimation } from 'framer-motion'
 
 const Questionnaire = () => {
   const [checkStorage, setCheckStorage] = useState(true)
@@ -21,19 +21,11 @@ const Questionnaire = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [status, setStatus] = useState('progress')
   const [quiz, setQuiz] = useState(null)
-  const appContext = useAppContext()
-
-  useEffect(() => {
-    setTimeout(() => {
-      appContext.setChangeQuestion(false)
-      if (document.getElementById('containerQuestion')) {
-        document.getElementById('containerQuestion').style.opacity = 100
-      }
-      if (document.getElementById('progress')) {
-        document.getElementById('progress').style.opacity = 100
-      }
-    }, 500)
-  }, [appContext.changeQuestion])
+  const controls = useAnimation()
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
 
   useEffect(() => {
     fetch('https://demo.herbana.id/quiz-api.php', { cache: 'force-cache' })
@@ -175,8 +167,10 @@ const Questionnaire = () => {
               ) : (
                 <></>
               )}
-              <div
-                id="containerQuestion"
+              <motion.div
+                animate={controls}
+                variants={variants}
+                transition={{ ease: 'linear' }}
                 className="relative w-full h-full grow flex items-center"
               >
                 <ShowComponent
@@ -190,13 +184,19 @@ const Questionnaire = () => {
                   currentQuestion={currentQuestion}
                   setCurrentQuestion={setCurrentQuestion}
                   setColor={setColor}
+                  controls={controls}
                 />
-              </div>
+              </motion.div>
 
               {checkStorage && status === 'progress' ? (
                 quiz.sections[currentSection].type === 'fundamental' ||
                 currentQuestion === null ? (
-                  <di id="progress" className="relative flex flex-col w-full">
+                  <motion.div
+                    animate={controls}
+                    variants={variants}
+                    transition={{ ease: 'linear' }}
+                    className="relative flex flex-col w-full"
+                  >
                     <BackComponent
                       currentSection={currentSection}
                       currentQuestion={currentQuestion}
@@ -209,8 +209,8 @@ const Questionnaire = () => {
                       type={quiz.sections[currentSection].type}
                       // top={false}
                     />
-                    <div className='hidden md:block h-[41px] w-full' />
-                  </di>
+                    <div className="hidden md:block h-[41px] w-full" />
+                  </motion.div>
                 ) : (
                   <ProgressIndicator
                     currentSection={currentSection}
@@ -221,6 +221,8 @@ const Questionnaire = () => {
                     sections={quiz.sections}
                     setStatus={setStatus}
                     setColor={setColor}
+                    controls={controls}
+                    variants={variants}
                   />
                 )
               ) : (
