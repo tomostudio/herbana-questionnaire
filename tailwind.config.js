@@ -63,7 +63,8 @@ module.exports = {
         greyPickup: '#6C766C',
         green: '#D8ECD8',
         pink: '#FEEEEF',
-        yellow: '#FFC645'
+        yellow: '#FFC645',
+        red: '#FF0000'
       },
     },
   },

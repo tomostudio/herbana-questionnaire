@@ -19,6 +19,7 @@ const ResultComponent = ({ quiz }) => {
 
   const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])
+  const [numError, setNumError] = useState(false)
 
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
@@ -50,7 +51,7 @@ const ResultComponent = ({ quiz }) => {
           style={{
             objectFit: 'cover',
           }}
-          loading='eager'
+          loading="eager"
           priority={true}
           className="hidden md:block"
         />
@@ -60,7 +61,7 @@ const ResultComponent = ({ quiz }) => {
           style={{
             objectFit: 'cover',
           }}
-          loading='eager'
+          loading="eager"
           priority={true}
           className="md:hidden"
         />
@@ -150,34 +151,38 @@ const ResultComponent = ({ quiz }) => {
                 const dataQuestionnaire = JSON.parse(
                   localStorage.getItem('questionnaire'),
                 )
-
-                fetch('https://demo.herbana.id/quiz-api.php', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-                  body: JSON.stringify({
-                    session: Date.now(),
-                    email: e.target[0].value,
-                    phone: e.target[1].value,
-                    answers: dataQuestionnaire.questionnaireRespond.map(
-                      (data) => {
-                        return {
-                          questionID: data.questionID,
-                          answer: data.answer,
-                        }
-                      },
-                    ),
-                  }),
-                })
-                  .then((res) => res.json())
-                  .then((res) => {
-                    if (res.status === 1) {
-                      window.location = `https://demo.herbana.id/quiz-result.php?s=${res.data}`
-                    } else {
-                      console.log(res)
-                    }
+                if (e.target[1].value.split('').length < 8) {
+                  setNumError(true)
+                } else {
+                  setNumError(false)
+                  fetch('https://demo.herbana.id/quiz-api.php', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: JSON.stringify({
+                      session: Date.now(),
+                      email: e.target[0].value,
+                      phone: e.target[1].value,
+                      answers: dataQuestionnaire.questionnaireRespond.map(
+                        (data) => {
+                          return {
+                            questionID: data.questionID,
+                            answer: data.answer,
+                          }
+                        },
+                      ),
+                    }),
                   })
+                    .then((res) => res.json())
+                    .then((res) => {
+                      if (res.status === 1) {
+                        window.location = `https://demo.herbana.id/quiz-result.php?s=${res.data}`
+                      } else {
+                        console.log(res)
+                      }
+                    })
+                }
               }}
               className="bg-white rounded-t-2xl p-6 md:p-12 flex flex-col md:flex-row justify-between"
             >
@@ -190,11 +195,19 @@ const ResultComponent = ({ quiz }) => {
                 />
                 <input
                   type="number"
-                  min={10}
+                  min={8}
                   placeholder={phonePlaceholder}
                   className="mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   required
                 />
+                {numError && (
+                  <span
+                    id="numError"
+                    className="text-red text-[13px] mt-[6px] transition-all duration-300"
+                  >
+                    *Please input more than 8 digits
+                  </span>
+                )}
               </div>
               <div className="flex justify-center md:justify-end items-end w-full md:w-1/2 mt-7 md:mt-0">
                 <RoundedFullButton
