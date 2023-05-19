@@ -38,7 +38,6 @@ const TitleComponent = ({
           onClick={() => {
             controls.start('hidden')
             setTimeout(() => {
-              console.log('visible')
               controls.start('visible')
               quizUpdate(
                 null,

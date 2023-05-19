@@ -17,8 +17,8 @@ const Questionnaire = () => {
     header: '#FFF7E9',
     bg: '#DFF2F7',
   })
-  const [currentSection, setCurrentSection] = useState(0)
-  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [currentSection, setCurrentSection] = useState(null)
+  const [currentQuestion, setCurrentQuestion] = useState(null)
   const [status, setStatus] = useState('progress')
   const [quiz, setQuiz] = useState(null)
   const controls = useAnimation()

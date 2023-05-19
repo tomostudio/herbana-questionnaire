@@ -45,8 +45,8 @@ export default function Header({
             onClick={() => {
               if (setCurrentSection) {
                 localStorage.removeItem('questionnaire')
-                setCurrentSection(0)
-                setCurrentQuestion(0)
+                setCurrentSection(null)
+                setCurrentQuestion(null)
                 setCheckStorage(false)
                 setStatus('progress')
                 setColor({

@@ -51,13 +51,17 @@ const ShowComponent = ({
                     expired: new Date(Date.now() + 86400 * 1000).getTime(),
                   }),
                 )
-                setColor({
-                  header: section.bgColor,
-                  bg: section.bgColor,
-                })
-                setCurrentSection(0)
-                setCurrentQuestion(0)
-                setCheckStorage(true)
+                controls.start('hidden')
+                setTimeout(() => {
+                  controls.start('visible')
+                  setColor({
+                    header: quiz.sections[0].bgColor,
+                    bg: quiz.sections[0].bgColor,
+                  })
+                  setCurrentSection(0)
+                  setCurrentQuestion(0)
+                  setCheckStorage(true)
+                }, 500);
               }}
             >
               {quiz.coverPage.buttonText.en}
