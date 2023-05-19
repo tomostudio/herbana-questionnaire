@@ -47,11 +47,16 @@ const ProgressIndicator = ({
                     className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
                     style={{
                       width: `${
-                        currentSection === id ?
-                        (sections[currentSection].questions[currentQuestion]
-                          .current /
-                          sections[currentSection].questions.length) *
-                        100 : currentSection > id ? 100 : 0 
+                        currentSection === id
+                          ? ((sections[currentSection].questions[
+                              currentQuestion
+                            ].current -
+                              1) /
+                              sections[currentSection].questions.length) *
+                            100
+                          : currentSection > id
+                          ? 100
+                          : 0
                       }%`,
                     }}
                   />

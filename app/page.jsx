@@ -44,8 +44,8 @@ const Questionnaire = () => {
   useEffect(() => {
     setTimeout(() => {
       appContext.setChangeQuestion(false)
-      if(document.getElementById("containerQuestion")) {
-        document.getElementById("containerQuestion").style.opacity = 100
+      if (document.getElementById('containerQuestion')) {
+        document.getElementById('containerQuestion').style.opacity = 100
       }
     }, 500)
   }, [appContext.changeQuestion])
@@ -177,11 +177,8 @@ const Questionnaire = () => {
                     className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
                     style={{
                       width: `${
-                        ((quiz.sections[currentSection].questions.indexOf(
-                          quiz.sections[currentSection].questions[
-                            currentQuestion
-                          ],
-                        ) +
+                        ((quiz.sections[currentSection].questions[currentQuestion]
+                          .current -
                           1) /
                           quiz.sections[currentSection].questions.length) *
                         100
@@ -192,7 +189,8 @@ const Questionnaire = () => {
               ) : (
                 <></>
               )}
-              <div id="containerQuestion"
+              <div
+                id="containerQuestion"
                 className="relative w-full h-full grow flex items-center"
               >
                 <ShowComponent
