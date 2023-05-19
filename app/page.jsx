@@ -177,8 +177,9 @@ const Questionnaire = () => {
                     className={`absolute top-0 left-0 h-full bg-yellow transition-all duration-300`}
                     style={{
                       width: `${
-                        ((quiz.sections[currentSection].questions[currentQuestion]
-                          .current -
+                        ((quiz.sections[currentSection].questions[
+                          currentQuestion
+                        ].current -
                           1) /
                           quiz.sections[currentSection].questions.length) *
                         100
@@ -210,18 +211,21 @@ const Questionnaire = () => {
               {checkStorage && status === 'progress' ? (
                 quiz.sections[currentSection].type === 'fundamental' ||
                 currentQuestion === null ? (
-                  <BackComponent
-                    currentSection={currentSection}
-                    currentQuestion={currentQuestion}
-                    setCurrentSection={setCurrentSection}
-                    setCurrentQuestion={setCurrentQuestion}
-                    setCheckStorage={setCheckStorage}
-                    sections={quiz.sections}
-                    setStatus={setStatus}
-                    setColor={setColor}
-                    type={quiz.sections[currentSection].type}
-                    top={false}
-                  />
+                  <div className="relative flex flex-col w-full">
+                    <BackComponent
+                      currentSection={currentSection}
+                      currentQuestion={currentQuestion}
+                      setCurrentSection={setCurrentSection}
+                      setCurrentQuestion={setCurrentQuestion}
+                      setCheckStorage={setCheckStorage}
+                      sections={quiz.sections}
+                      setStatus={setStatus}
+                      setColor={setColor}
+                      type={quiz.sections[currentSection].type}
+                      // top={false}
+                    />
+                    <div className='hidden md:block h-[41px] w-full' />
+                  </div>
                 ) : (
                   <ProgressIndicator
                     currentSection={currentSection}
