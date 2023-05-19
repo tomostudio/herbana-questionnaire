@@ -13,7 +13,7 @@ const ProgressIndicator = ({
   setStatus,
   setColor,
   controls,
-  variants
+  variants,
 }) => {
   return (
     <motion.div
@@ -56,12 +56,14 @@ const ProgressIndicator = ({
                     style={{
                       width: `${
                         currentSection === id
-                          ? ((sections[currentSection].questions[
-                              currentQuestion
-                            ].current -
-                              1) /
-                              sections[currentSection].questions.length) *
-                            100
+                          ? currentQuestion !== null
+                            ? ((sections[currentSection].questions[
+                                currentQuestion
+                              ].current -
+                                1) /
+                                sections[currentSection].questions.length) *
+                              100
+                            : 0
                           : currentSection > id
                           ? 100
                           : 0

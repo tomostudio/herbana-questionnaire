@@ -189,8 +189,7 @@ const Questionnaire = () => {
               </motion.div>
 
               {checkStorage && status === 'progress' ? (
-                quiz.sections[currentSection].type === 'fundamental' ||
-                currentQuestion === null ? (
+                quiz.sections[currentSection].type === 'fundamental' ? (
                   <motion.div
                     animate={controls}
                     variants={variants}
