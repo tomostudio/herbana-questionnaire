@@ -25,12 +25,12 @@
   "dependencies": {
     "framer-motion": "^10.2.3",
     "html-react-parser": "^3.0.16",
-    "next": "^13",
+    "next": "^13.4.3",
     "next-seo": "^6.0.0",
     "postcss-import": "^15.1.0",
     "postcss-nested": "^6.0.0",
     "postcss-preset-env": "^8.0.1",
-    "react": "^18",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.58.3",
     "swr": "^2.1.3"
