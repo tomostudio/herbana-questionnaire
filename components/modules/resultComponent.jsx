@@ -203,7 +203,7 @@ const ResultComponent = ({ quiz }) => {
                 {numError && (
                   <span
                     id="numError"
-                    className="text-red text-[13px] mt-[6px] transition-all duration-300"
+                    className="text-red text-[12px] md:text-[13px] mt-[6px] transition-all duration-300"
                   >
                     *Please input more than 8 digits
                   </span>
