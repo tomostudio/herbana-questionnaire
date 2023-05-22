@@ -9,9 +9,9 @@ export default function Footer({ footer }) {
       <Container>
         <div className="flex flex-row-reverse items-center md:flex-row justify-between py-4">
           <div className="flex items-center text-footer font-maisonMono text-right md:max-w-none">
-            <span className='hidden md:block'>© HERBANA 2023. All rights reserved.</span>
+            <span className='hidden md:block'>© HERBANA {new Date().getFullYear()}. All rights reserved.</span>
             <span className='md:hidden'>
-              © HERBANA 2023.
+              © HERBANA {new Date().getFullYear()}.
               <br />
               All rights reserved.
             </span>
