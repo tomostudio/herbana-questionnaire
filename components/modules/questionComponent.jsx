@@ -129,13 +129,13 @@ const QuestionComponent = ({
                           )
                           if (pickupButton.classList.contains('pickupActive')) {
                             let filterAnswer = getAnswer.filter(
-                              (e) => e !== data.label.en,
+                              (e) => e !== data.value,
                             )
                             setAnswer(filterAnswer)
                             pickupButton.classList.remove('pickupActive')
                           } else {
                             if (getAnswer.length < parseInt(answerLimit.max)) {
-                              setAnswer([...getAnswer, data.label.en])
+                              setAnswer([...getAnswer, data.value])
                               pickupButton.classList.add('pickupActive')
                             }
                           }
@@ -144,7 +144,7 @@ const QuestionComponent = ({
                           setTimeout(() => {
                             controls.start('visible')
                             quizUpdate(
-                              [data.label.en],
+                              [data.value],
                               questionId,
                               sections,
                               currentSection,
@@ -183,13 +183,13 @@ const QuestionComponent = ({
                           )
                           if (pickupButton.classList.contains('pickupActive')) {
                             let filterAnswer = getAnswer.filter(
-                              (e) => e !== data.label.en,
+                              (e) => e !== data.value,
                             )
                             setAnswer(filterAnswer)
                             pickupButton.classList.remove('pickupActive')
                           } else {
                             if (getAnswer.length < parseInt(answerLimit.max)) {
-                              setAnswer([...getAnswer, data.label.en])
+                              setAnswer([...getAnswer, data.value])
                               pickupButton.classList.add('pickupActive')
                             }
                           }
@@ -198,7 +198,7 @@ const QuestionComponent = ({
                           setTimeout(() => {
                             controls.start('visible')
                             quizUpdate(
-                              [data.label.en],
+                              [data.value],
                               questionId,
                               sections,
                               currentSection,
@@ -338,13 +338,13 @@ const QuestionComponent = ({
                         )
                         if (pickupButton.classList.contains('pickupActive')) {
                           let filterAnswer = getAnswer.filter(
-                            (e) => e !== data.label.en,
+                            (e) => e !== data.value,
                           )
                           setAnswer(filterAnswer)
                           pickupButton.classList.remove('pickupActive')
                         } else {
                           if (getAnswer.length < parseInt(answerLimit.max)) {
-                            setAnswer([...getAnswer, data.label.en])
+                            setAnswer([...getAnswer, data.value])
                             pickupButton.classList.add('pickupActive')
                           }
                         }
@@ -353,7 +353,7 @@ const QuestionComponent = ({
                         setTimeout(() => {
                           controls.start('visible')
                           quizUpdate(
-                            [data.label.en],
+                            [data.value],
                             questionId,
                             sections,
                             currentSection,
@@ -392,13 +392,13 @@ const QuestionComponent = ({
                         )
                         if (pickupButton.classList.contains('pickupActive')) {
                           let filterAnswer = getAnswer.filter(
-                            (e) => e !== data.label.en,
+                            (e) => e !== data.value,
                           )
                           setAnswer(filterAnswer)
                           pickupButton.classList.remove('pickupActive')
                         } else {
                           if (getAnswer.length < parseInt(answerLimit.max)) {
-                            setAnswer([...getAnswer, data.label.en])
+                            setAnswer([...getAnswer, data.value])
                             pickupButton.classList.add('pickupActive')
                           }
                         }
@@ -407,7 +407,7 @@ const QuestionComponent = ({
                         setTimeout(() => {
                           controls.start('visible')
                           quizUpdate(
-                            [data.label.en],
+                            [data.value],
                             questionId,
                             sections,
                             currentSection,

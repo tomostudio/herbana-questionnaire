@@ -124,12 +124,26 @@ const ResultComponent = ({ quiz }) => {
                         .filter(
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
                         )
-                        .map((f) => (
-                          <>
-                            {f.answer.toString()}
-                            <br />
-                          </>
-                        ))}
+                        .map((f) =>
+                          f.answer.map((g) => (
+                            <>
+                              {
+                                quiz.sections
+                                  .find(
+                                    (g) =>
+                                      parseInt(g.ID) === parseInt(f.sectionID),
+                                  )
+                                  .questions.find(
+                                    (h) =>
+                                      parseInt(h.ID) === parseInt(f.questionID),
+                                  )
+                                  .answers.find((i) => i.value === g)
+                                  .summaryText.en
+                              }
+                              &nbsp;
+                            </>
+                          )),
+                        )}
                     </p>
                   </motion.div>
                 </DefaultButton>
