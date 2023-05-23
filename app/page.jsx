@@ -190,10 +190,7 @@ const Questionnaire = () => {
 
               {checkStorage && status === 'progress' ? (
                 quiz.sections[currentSection].type === 'fundamental' ? (
-                  <motion.div
-                    animate={controls}
-                    variants={variants}
-                    transition={{ ease: 'linear' }}
+                  <div
                     className="relative flex flex-col w-full"
                   >
                     <BackComponent
@@ -209,7 +206,7 @@ const Questionnaire = () => {
                       // top={false}
                     />
                     <div className="hidden md:block h-[41px] w-full" />
-                  </motion.div>
+                  </div>
                 ) : (
                   <ProgressIndicator
                     currentSection={currentSection}
@@ -220,8 +217,6 @@ const Questionnaire = () => {
                     sections={quiz.sections}
                     setStatus={setStatus}
                     setColor={setColor}
-                    controls={controls}
-                    variants={variants}
                   />
                 )
               ) : (

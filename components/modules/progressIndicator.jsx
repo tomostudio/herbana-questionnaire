@@ -1,7 +1,6 @@
 'use client'
 
 import BackComponent from '../utils/backComponent'
-import { motion } from 'framer-motion'
 
 const ProgressIndicator = ({
   currentSection,
@@ -12,14 +11,9 @@ const ProgressIndicator = ({
   sections,
   setStatus,
   setColor,
-  controls,
-  variants,
 }) => {
   return (
-    <motion.div
-      animate={controls}
-      variants={variants}
-      transition={{ ease: 'linear' }}
+    <div
       className="relative flex flex-col w-full"
     >
       <BackComponent
@@ -76,7 +70,7 @@ const ProgressIndicator = ({
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

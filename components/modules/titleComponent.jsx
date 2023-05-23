@@ -24,7 +24,6 @@ const TitleComponent = ({
   return (
     <Container
       className="relative w-full h-full flex justify-center items-center"
-      // maxWidth=""
     >
       <div className="relative max-w-xl z-10 w-fit flex flex-col items-center">
         <Heading
