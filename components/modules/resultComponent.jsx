@@ -20,6 +20,7 @@ const ResultComponent = ({ quiz }) => {
   const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])
   const [numError, setNumError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
 
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
@@ -207,9 +208,21 @@ const ResultComponent = ({ quiz }) => {
                   className="border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   onInvalid={(e) => {
                     e.target.setCustomValidity(' ')
+                    if(e.target.value.split("").length > 0) {
+                      if(e.target.value.split('').find((f) => f === '@')) {
+                        setEmailError(false)
+                      } else {
+                        setEmailError(true)
+                      }
+                    }
                   }}
                   required
                 />
+                {emailError && (
+                  <span className="text-red text-[12px] md:text-[13px] mt-[6px] transition-all duration-300">
+                    *please include an '@' in the email address.
+                  </span>
+                )}
                 <input
                   type="number"
                   min={8}
@@ -218,10 +231,7 @@ const ResultComponent = ({ quiz }) => {
                   required
                 />
                 {numError && (
-                  <span
-                    id="numError"
-                    className="text-red text-[12px] md:text-[13px] mt-[6px] transition-all duration-300"
-                  >
+                  <span className="text-red text-[12px] md:text-[13px] mt-[6px] transition-all duration-300">
                     *please input more than 8 digits
                   </span>
                 )}
