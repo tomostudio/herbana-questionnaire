@@ -202,9 +202,12 @@ const ResultComponent = ({ quiz }) => {
             >
               <div className="flex flex-col w-full md:w-1/2">
                 <input
-                  type="text"
+                  type="email"
                   placeholder={emailPlaceholder}
                   className="border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
+                  onInvalid={(e) => {
+                    e.target.setCustomValidity(' ')
+                  }}
                   required
                 />
                 <input
