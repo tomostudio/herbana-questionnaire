@@ -120,32 +120,36 @@ const ResultComponent = ({ quiz }) => {
                     variants={variants}
                     className="overflow-hidden w-full"
                   >
-                    <p className="pt-5 md:pt-7 text-[0.938rem] md:text-body text-left">
+                    <ul className="list-disc list-inside pt-5 md:pt-7 text-[0.938rem] md:text-body text-left">
                       {resultData
                         .filter(
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
                         )
                         .map((f) =>
                           f.answer.map((g) => (
-                            <>
-                              {
-                                quiz.sections
-                                  .find(
-                                    (g) =>
-                                      parseInt(g.ID) === parseInt(f.sectionID),
-                                  )
-                                  .questions.find(
-                                    (h) =>
-                                      parseInt(h.ID) === parseInt(f.questionID),
-                                  )
-                                  .answers.find((i) => i.value === g)
-                                  .summaryText.en
-                              }
-                              &nbsp;
-                            </>
+                            <li>
+                              <>
+                                {
+                                  quiz.sections
+                                    .find(
+                                      (g) =>
+                                        parseInt(g.ID) ===
+                                        parseInt(f.sectionID),
+                                    )
+                                    .questions.find(
+                                      (h) =>
+                                        parseInt(h.ID) ===
+                                        parseInt(f.questionID),
+                                    )
+                                    .answers.find((i) => i.value === g)
+                                    .summaryText.en
+                                }
+                                <br />
+                              </>
+                            </li>
                           )),
                         )}
-                    </p>
+                    </ul>
                   </motion.div>
                 </DefaultButton>
               ))}
@@ -208,8 +212,8 @@ const ResultComponent = ({ quiz }) => {
                   className="border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   onInvalid={(e) => {
                     e.target.setCustomValidity(' ')
-                    if(e.target.value.split("").length > 0) {
-                      if(e.target.value.split('').find((f) => f === '@')) {
+                    if (e.target.value.split('').length > 0) {
+                      if (e.target.value.split('').find((f) => f === '@')) {
                         setEmailError(false)
                       } else {
                         setEmailError(true)
