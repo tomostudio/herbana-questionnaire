@@ -209,7 +209,7 @@ const ResultComponent = ({ quiz }) => {
                 <input
                   type="email"
                   placeholder={emailPlaceholder}
-                  className="border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
+                  className="rounded-none	border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   onInvalid={(e) => {
                     e.target.setCustomValidity(' ')
                     if (e.target.value.split('').length > 0) {
@@ -231,7 +231,7 @@ const ResultComponent = ({ quiz }) => {
                   type="number"
                   min={8}
                   placeholder={phonePlaceholder}
-                  className="mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
+                  className="rounded-none	mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   required
                 />
                 {numError && (
