@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 const NotFoundPage = () => {
   const [quiz, setQuiz] = useState(null)
   useEffect(() => {
-    fetch('https://demo.herbana.id/quiz-api.php')
+    fetch('https://herbana.id/quiz-api.php')
       .then((res) => res.json())
       .then((quizData) => {
         setQuiz(quizData)

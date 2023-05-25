@@ -174,7 +174,7 @@ const ResultComponent = ({ quiz }) => {
                   setNumError(true)
                 } else {
                   setNumError(false)
-                  fetch('https://demo.herbana.id/quiz-api.php', {
+                  fetch('https://herbana.id/quiz-api.php', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/x-www-form-urlencoded',
@@ -196,7 +196,7 @@ const ResultComponent = ({ quiz }) => {
                     .then((res) => res.json())
                     .then((res) => {
                       if (res.status === 1) {
-                        window.location = `https://demo.herbana.id/quiz-result.php?s=${res.data}`
+                        window.location = `https://herbana.id/quiz-result.php?s=${res.data}`
                       } else {
                         console.log(res)
                       }
@@ -231,7 +231,7 @@ const ResultComponent = ({ quiz }) => {
                   type="number"
                   min={8}
                   placeholder={phonePlaceholder}
-                  className="rounded-none	mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
+                  className="rounded-none appearance-none	mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   required
                 />
                 {numError && (

@@ -28,7 +28,7 @@ const Questionnaire = () => {
   }
 
   useEffect(() => {
-    fetch('https://demo.herbana.id/quiz-api.php', { cache: 'force-cache' })
+    fetch('https://herbana.id/quiz-api.php', { cache: 'force-cache' })
       .then((res) => res.json())
       .then((quizData) => {
         let totalQuestion = []
