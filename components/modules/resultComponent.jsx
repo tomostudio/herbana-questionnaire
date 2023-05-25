@@ -165,15 +165,26 @@ const ResultComponent = ({ quiz }) => {
               </span>
             </div>
             <form
+              noValidate
               onSubmit={(e) => {
                 e.preventDefault()
                 const dataQuestionnaire = JSON.parse(
                   localStorage.getItem('questionnaire'),
                 )
-                if (e.target[1].value.split('').length < 8) {
+                if (
+                  !e.target[0].checkValidity() &&
+                  !e.target[1].checkValidity()
+                ) {
+                  setEmailError(true)
+                  setNumError(true)
+                } else if (!e.target[0].checkValidity()) {
+                  setEmailError(true)
+                } else if (!e.target[1].checkValidity()) {
                   setNumError(true)
                 } else {
+                  setEmailError(false)
                   setNumError(false)
+
                   fetch('https://herbana.id/quiz-api.php', {
                     method: 'POST',
                     headers: {
@@ -207,36 +218,41 @@ const ResultComponent = ({ quiz }) => {
             >
               <div className="flex flex-col w-full md:w-1/2">
                 <input
+                  id="inputEmail"
                   type="email"
                   placeholder={emailPlaceholder}
                   className="rounded-none	border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
-                  onInvalid={(e) => {
-                    e.target.setCustomValidity(' ')
-                    if (e.target.value.split('').length > 0) {
-                      if (e.target.value.split('').find((f) => f === '@')) {
-                        setEmailError(false)
-                      } else {
-                        setEmailError(true)
-                      }
+                  onChange={(e) => {
+                    if (e.target.checkValidity()) {
+                      setEmailError(false)
+                    } else {
+                      setEmailError(true)
+                    }
+                  }}
+                  required
+                />
+                <input
+                  type="number"
+                  placeholder={phonePlaceholder}
+                  className="rounded-none	mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
+                  onChange={(e) => {
+                    if (e.target.value.split('').length < 8) {
+                      setNumError(true)
+                    } else {
+                      e.target.setCustomValidity('')
+                      setNumError(false)
                     }
                   }}
                   required
                 />
                 {emailError && (
                   <span className="text-red text-[12px] md:text-[13px] mt-[6px] transition-all duration-300">
-                    *please include an '@' in the email address.
+                    *Please input a valid email address.
                   </span>
                 )}
-                <input
-                  type="number"
-                  min={8}
-                  placeholder={phonePlaceholder}
-                  className="rounded-none	mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
-                  required
-                />
                 {numError && (
                   <span className="text-red text-[12px] md:text-[13px] mt-[6px] transition-all duration-300">
-                    *please input more than 8 digits
+                    *Please input a valid phone number.
                   </span>
                 )}
               </div>
