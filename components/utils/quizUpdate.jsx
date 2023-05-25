@@ -13,10 +13,20 @@ const quizUpdate = (
 
   const updateQuestionnaire = (updateSection, updateQuestion, status) => {
     if (answer) {
+      let summaryText = []
+      answer.forEach((e) => {
+        summaryText.push(
+          sections[currentSection].questions[currentQuestion].answers?.find(
+            (f) => f.value === e,
+          ).summaryText.en,
+        )
+      })
+
       const newRespond = {
         sectionID: sections[currentSection].ID,
         questionID: parseInt(questionId),
         answer: answer,
+        summaryText: summaryText,
       }
 
       const updatedResponds = [

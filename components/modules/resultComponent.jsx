@@ -121,35 +121,12 @@ const ResultComponent = ({ quiz }) => {
                     className="overflow-hidden w-full"
                   >
                     <ul className="list-disc list-inside pt-5 md:pt-7 text-[0.938rem] md:text-body text-left">
-                      {console.log(resultData)}
-                      {console.log(quiz.sections)}
                       {resultData
                         .filter(
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
                         )
                         .map((f) =>
-                          f.answer.map((g) => (
-                            <li>
-                              <>
-                                {
-                                  quiz.sections
-                                    .find(
-                                      (g) =>
-                                        parseInt(g.ID) ===
-                                        parseInt(f.sectionID),
-                                    )
-                                    .questions.find(
-                                      (h) =>
-                                        parseInt(h.ID) ===
-                                        parseInt(f.questionID),
-                                    )
-                                    .answers.find((i) => i.value === g)
-                                    .summaryText.en
-                                }
-                                <br />
-                              </>
-                            </li>
-                          )),
+                          f.summaryText.map((g) => (g ? <li>{g}</li> : <></>)),
                         )}
                     </ul>
                   </motion.div>
