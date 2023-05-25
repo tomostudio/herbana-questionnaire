@@ -122,6 +122,7 @@ const ResultComponent = ({ quiz }) => {
                   >
                     <ul className="list-disc list-inside pt-5 md:pt-7 text-[0.938rem] md:text-body text-left">
                       {console.log(resultData)}
+                      {console.log(quiz.sections)}
                       {resultData
                         .filter(
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
@@ -130,7 +131,6 @@ const ResultComponent = ({ quiz }) => {
                           f.answer.map((g) => (
                             <li>
                               <>
-                                {console.log(quiz.sections)}
                                 {
                                   quiz.sections
                                     .find(
