@@ -158,8 +158,24 @@ const ResultComponent = ({ quiz }) => {
                   setNumError(true)
                 } else if (!e.target[0].checkValidity()) {
                   setEmailError(true)
-                } else if (!e.target[1].checkValidity()) {
+                  if (
+                    e.target[1].value.split('').length === 0 ||
+                    e.target[1].value.split('').length < 8
+                  ) {
+                    setNumError(true)
+                  } else {
+                    setNumError(false)
+                  }
+                } else if (
+                  e.target[1].value.split('').length === 0 ||
+                  e.target[1].value.split('').length < 8
+                ) {
                   setNumError(true)
+                  if (!e.target[0].checkValidity()) {
+                    setEmailError(true)
+                  } else {
+                    setEmailError(false)
+                  }
                 } else {
                   setEmailError(false)
                   setNumError(false)
@@ -201,27 +217,12 @@ const ResultComponent = ({ quiz }) => {
                   type="email"
                   placeholder={emailPlaceholder}
                   className="rounded-none	border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
-                  onChange={(e) => {
-                    if (e.target.checkValidity()) {
-                      setEmailError(false)
-                    } else {
-                      setEmailError(true)
-                    }
-                  }}
                   required
                 />
                 <input
                   type="number"
                   placeholder={phonePlaceholder}
                   className="rounded-none	mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
-                  onChange={(e) => {
-                    if (e.target.value.split('').length < 8) {
-                      setNumError(true)
-                    } else {
-                      e.target.setCustomValidity('')
-                      setNumError(false)
-                    }
-                  }}
                   required
                 />
                 {emailError && (
