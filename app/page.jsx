@@ -99,6 +99,7 @@ const Questionnaire = () => {
     if (dataQuestionnaire) {
       if (Date.now() > dataQuestionnaire.expired) {
         localStorage.removeItem('questionnaire')
+        window.location.reload()
       } else {
         setCurrentSection(dataQuestionnaire.currentSection)
         setCurrentQuestion(dataQuestionnaire.currentQuestion)
