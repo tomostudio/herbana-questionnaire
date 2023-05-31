@@ -21,6 +21,9 @@ const SEO = ({
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
+      <meta property="og:image:type" content="image/jpeg"/>
+      <meta property="og:image:width" content="1200"/>
+      <meta property="og:image:height" content="627"/>
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content={canonicalLink} />
       <meta property="twitter:title" content={pageTitle} />
