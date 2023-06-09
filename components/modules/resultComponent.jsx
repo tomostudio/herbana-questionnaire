@@ -150,13 +150,14 @@ const ResultComponent = ({ quiz }) => {
                 const dataQuestionnaire = JSON.parse(
                   localStorage.getItem('questionnaire'),
                 )
+                let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+[.][A-Za-z.]{2,}$/;
                 if (
-                  !e.target[0].checkValidity() &&
+                  !regex.test(e.target[0].value) &&
                   (e.target[1].value.split('').length === 0 ||
                     e.target[1].value.split('').length < 8)
                 ) {
                   setMessageError(3)
-                } else if (!e.target[0].checkValidity()) {
+                } else if (!regex.test(e.target[0].value)) {
                   setMessageError(1)
                 } else if (
                   e.target[1].value.split('').length === 0 ||
