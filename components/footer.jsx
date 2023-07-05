@@ -25,14 +25,15 @@ export default function Footer({ footer }) {
                 EN
               </DefaultButton>
               <DefaultButton
-                destination="/id"
+                destination="/"
                 className="text-footer font-maisonMono ml-2"
               >
                 ID
               </DefaultButton>
             </div>
             <DefaultButton
-              destination="/id"
+              destination={`https://wa.me/${footer.whatsappNumber.split(" ").join("")}`}
+              target="_blank"
               className="hidden md:flex items-center text-footer font-bold font-maisonMono ml-2"
             >
               <div className="relative w-[14px] h-[14px] mr-2">
