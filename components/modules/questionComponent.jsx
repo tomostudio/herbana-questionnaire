@@ -6,6 +6,7 @@ import { BorderButton, ImageButton, RoundedButton } from '../utils/buttons'
 import Heading from '../utils/heading'
 import quizUpdate from '../utils/quizUpdate'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 const QuestionComponent = ({
   sections,
@@ -24,9 +25,13 @@ const QuestionComponent = ({
   answerLimit,
   nextSection,
   nextQuestion,
-  controls
+  controls,
 }) => {
-  const title = sections[currentSection].title.en
+  const getPath = usePathname()
+  const title =
+    getPath === '/en'
+      ? sections[currentSection].title.en
+      : sections[currentSection].title.id
   const [getAnswer, setAnswer] = useState([])
 
   if (image) {
@@ -80,7 +85,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
-              loading='eager'
+              loading="eager"
               priority={true}
             />
           </div>
@@ -91,7 +96,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
-              loading='eager'
+              loading="eager"
               priority={true}
             />
           </div>
@@ -157,7 +162,7 @@ const QuestionComponent = ({
                         }
                       }}
                     >
-                      {data.label.en}
+                      {getPath === '/en' ? data.label.en : data.label.id}
                     </RoundedButton>
                   ) : (
                     <ImageButton
@@ -211,7 +216,7 @@ const QuestionComponent = ({
                         }
                       }}
                     >
-                      {data.label.en}
+                      {getPath === '/en' ? data.label.en : data.label.id}
                     </ImageButton>
                   ),
                 )}
@@ -250,7 +255,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
-              loading='eager'
+              loading="eager"
               priority={true}
             />
           </div>
@@ -261,7 +266,7 @@ const QuestionComponent = ({
               style={{
                 objectFit: 'cover',
               }}
-              loading='eager'
+              loading="eager"
               priority={true}
             />
           </div>
@@ -325,7 +330,11 @@ const QuestionComponent = ({
                 {`(PICK ${answerLimit.min} - ${answerLimit.max})`}
               </span>
             )}
-            <div className={`w-full ${answerType === "text" ? 'max-w-3xl' : 'max-w-4xl'} flex flex-wrap justify-center gap-[15px] md:gap-6`}>
+            <div
+              className={`w-full ${
+                answerType === 'text' ? 'max-w-3xl' : 'max-w-4xl'
+              } flex flex-wrap justify-center gap-[15px] md:gap-6`}
+            >
               {answers?.map((data, id) =>
                 answerType === 'text' ? (
                   <RoundedButton
@@ -366,7 +375,7 @@ const QuestionComponent = ({
                       }
                     }}
                   >
-                    {data.label.en}
+                    {getPath === '/en' ? data.label.en : data.label.id}
                   </RoundedButton>
                 ) : (
                   <ImageButton
@@ -420,7 +429,7 @@ const QuestionComponent = ({
                       }
                     }}
                   >
-                    {data.label.en}
+                    {getPath === '/en' ? data.label.en : data.label.id}
                   </ImageButton>
                 ),
               )}

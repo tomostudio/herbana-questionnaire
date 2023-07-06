@@ -41,7 +41,7 @@ const DefaultButton = forwardRef(
         {children}
       </Link>
     ) : (
-      <a
+      <Link
         aria-label={a11yText}
         className={`${
           destination ? 'pointer-events-auto' : 'pointer-events-none'
@@ -52,7 +52,7 @@ const DefaultButton = forwardRef(
         {...others}
       >
         {children}
-      </a>
+      </Link>
     )
   },
 )

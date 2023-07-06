@@ -1,10 +1,9 @@
 module.exports = {
-  async redirects() {
+  async rewrites() {
     return [
       {
         source: '/en',
         destination: '/',
-        permanent: true,
       },
     ];
   },

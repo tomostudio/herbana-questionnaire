@@ -7,6 +7,7 @@ import ResultComponent from './resultComponent'
 import TitleComponent from './titleComponent'
 import parse from 'html-react-parser'
 import QuestionComponent from './questionComponent'
+import { usePathname } from 'next/navigation'
 
 const ShowComponent = ({
   quiz,
@@ -19,8 +20,10 @@ const ShowComponent = ({
   currentQuestion,
   setCurrentQuestion,
   setColor,
-  controls
+  controls,
+  setReset,
 }) => {
+  const getPath = usePathname()
   const section = quiz.sections[currentSection]
   const question = section?.questions[currentQuestion]
   const nextSection = quiz.sections[currentSection + 1]
@@ -32,10 +35,18 @@ const ShowComponent = ({
         <Container className="w-full h-full flex flex-col lg:flex-row items-end lg:items-center">
           <div className="w-full lg:w-1/2 min-h-[50vh] lg:h-full flex flex-col items-center lg:items-start justify-center pt-[40px] pb-14 lg:pt-0 lg:pb-0 lg:pr-8">
             <h1 className="uppercase text-mopHeading max-w-md md:max-w-lg lg:max-w-none text-center lg:text-left lg:text-opHeading m-0 leading-none mb-6">
-              {parse(quiz.coverPage.title.en)}
+              {parse(
+                getPath === '/en'
+                  ? quiz.coverPage.title.en
+                  : quiz.coverPage.title.id,
+              )}
             </h1>
             <p className="max-w-[260px] md:max-w-md lg:mb-12 text-center lg:text-left text-[15px] md:text-body leading-[19.5px]">
-              {parse(quiz.coverPage.description.en)}
+              {parse(
+                getPath === '/en'
+                  ? quiz.coverPage.description.en
+                  : quiz.coverPage.description.id,
+              )}
             </p>
             <RoundedFullButton
               icon
@@ -48,6 +59,7 @@ const ShowComponent = ({
                     currentQuestion: 0,
                     questionnaireRespond: [],
                     status: 'progress',
+                    updatedAt: quiz.timestamp,
                     expired: new Date(Date.now() + 86400 * 1000).getTime(),
                   }),
                 )
@@ -61,10 +73,12 @@ const ShowComponent = ({
                   setCurrentSection(0)
                   setCurrentQuestion(0)
                   setCheckStorage(true)
-                }, 500);
+                }, 500)
               }}
             >
-              {quiz.coverPage.buttonText.en}
+              {getPath === '/en'
+                ? quiz.coverPage.buttonText.en
+                : quiz.coverPage.buttonText.id}
             </RoundedFullButton>
           </div>
           <div className="lg:hidden w-full h-[379px] md:h-[400px]" />
@@ -76,7 +90,7 @@ const ShowComponent = ({
             style={{
               objectFit: 'cover',
             }}
-            loading='eager'
+            loading="eager"
             priority={true}
           />
         </div>
@@ -87,7 +101,7 @@ const ShowComponent = ({
             style={{
               objectFit: 'cover',
             }}
-            loading='eager'
+            loading="eager"
             priority={true}
           />
           <RoundedFullButton
@@ -101,6 +115,7 @@ const ShowComponent = ({
                   currentQuestion: 0,
                   questionnaireRespond: [],
                   status: 'progress',
+                  updatedAt: quiz.timestamp,
                   expired: new Date(Date.now() + 86400 * 1000).getTime(),
                 }),
               )
@@ -114,10 +129,12 @@ const ShowComponent = ({
                 setCurrentSection(0)
                 setCurrentQuestion(0)
                 setCheckStorage(true)
-              }, 500);
+              }, 500)
             }}
           >
-            {quiz.coverPage.buttonText.en}
+            {getPath === '/en'
+              ? quiz.coverPage.buttonText.en
+              : quiz.coverPage.buttonText.id}
           </RoundedFullButton>
         </div>
       </div>
@@ -131,8 +148,14 @@ const ShowComponent = ({
             questionId={question.ID}
             nextSection={nextSection}
             nextQuestion={nextQuestion}
-            subTitle={question.content.en}
-            placeholder={question.content.placeholder?.en}
+            subTitle={
+              getPath === '/en' ? question.content.en : question.content.id
+            }
+            placeholder={
+              getPath === '/en'
+                ? question.content.placeholder?.en
+                : question.content.placeholder?.id
+            }
             answers={question.answers}
             image={question.content.image}
             currentSection={currentSection}
@@ -168,8 +191,14 @@ const ShowComponent = ({
               questionId={question.ID}
               nextSection={nextSection}
               nextQuestion={nextQuestion}
-              subTitle={question.content.en}
-              placeholder={question.content.placeholder?.en}
+              subTitle={
+                getPath === '/en' ? question.content.en : question.content.id
+              }
+              placeholder={
+                getPath === '/en'
+                  ? question.content.placeholder?.en
+                  : question.content.placeholder?.id
+              }
               answers={question.answers}
               image={question.content.image}
               currentSection={currentSection}
@@ -186,7 +215,7 @@ const ShowComponent = ({
         }
       }
     } else {
-      return <ResultComponent quiz={quiz} />
+      return <ResultComponent quiz={quiz} setReset={setReset} />
     }
   }
 }

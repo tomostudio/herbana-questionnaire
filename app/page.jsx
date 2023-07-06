@@ -10,9 +10,12 @@ import Layout from '@/components/layout'
 import SEO from '@/components/utils/seo'
 import BackComponent from '@/components/utils/backComponent'
 import { motion, useAnimation } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 const Questionnaire = () => {
+  const getPath = usePathname()
   const [checkStorage, setCheckStorage] = useState(true)
+  const [reset, setReset] = useState(false)
   const [color, setColor] = useState({
     header: '#FFF7E9',
     bg: '#DFF2F7',
@@ -27,7 +30,7 @@ const Questionnaire = () => {
     visible: { opacity: 1 },
   }
 
-  useEffect(() => {
+  const handleFetchData = () => {
     fetch('https://herbana.id/quiz-api.php', { cache: 'force-cache' })
       .then((res) => res.json())
       .then((quizData) => {
@@ -72,7 +75,27 @@ const Questionnaire = () => {
           }
         }
       })
-  }, [])
+  }
+
+  useEffect(() => {
+    if (reset) {
+      setReset(false)
+      if (setCurrentSection) {
+        localStorage.removeItem('questionnaire')
+        setCurrentSection(null)
+        setCurrentQuestion(null)
+        setCheckStorage(false)
+        setStatus('progress')
+        setColor({
+          header: '#FFF7E9',
+          bg: '#DFF2F7',
+        })
+      } else {
+        router.push('/')
+      }
+    }
+    handleFetchData()
+  }, [reset])
 
   useEffect(() => {
     window.scroll(0, 0)
@@ -118,9 +141,16 @@ const Questionnaire = () => {
         <></>
       ) : (
         <>
+          {console.log(usePathname())}
           <SEO
-            title={quiz.seoData.title.en}
-            keywords={quiz.seoData.keyword.en}
+            title={
+              getPath === '/en' ? quiz.seoData.title.en : quiz.seoData.title.id
+            }
+            keywords={
+              getPath === '/en'
+                ? quiz.seoData.keyword.en
+                : quiz.seoData.keyword.id
+            }
             description=""
             image={quiz.seoData.image}
           />
@@ -139,6 +169,7 @@ const Questionnaire = () => {
                 setColor={setColor}
                 setCurrentSection={setCurrentSection}
                 setCurrentQuestion={setCurrentQuestion}
+                setReset={setReset}
               />
               <HeaderGap />
               {checkStorage &&
@@ -148,7 +179,9 @@ const Questionnaire = () => {
                 <div className="relative md:hidden w-full border-b md:border-b-default border-black">
                   <div className="relative z-10 text-center text-footer font-maisonMono pt-3.5 pb-3">
                     <span className="relative uppercase">
-                      {quiz.sections[currentSection].title.en}
+                      {getPath === '/en'
+                        ? quiz.sections[currentSection].title.en
+                        : quiz.sections[currentSection].title.id}
                     </span>
                   </div>
                   <div
@@ -186,14 +219,13 @@ const Questionnaire = () => {
                   setCurrentQuestion={setCurrentQuestion}
                   setColor={setColor}
                   controls={controls}
+                  setReset={setReset}
                 />
               </motion.div>
 
               {checkStorage && status === 'progress' ? (
                 quiz.sections[currentSection].type === 'fundamental' ? (
-                  <div
-                    className="relative flex flex-col w-full"
-                  >
+                  <div className="relative flex flex-col w-full">
                     <BackComponent
                       currentSection={currentSection}
                       currentQuestion={currentQuestion}
@@ -204,7 +236,7 @@ const Questionnaire = () => {
                       setStatus={setStatus}
                       setColor={setColor}
                       type={quiz.sections[currentSection].type}
-                      // top={false}
+                      setReset={setReset}
                     />
                     <div className="hidden md:block h-[41px] w-full" />
                   </div>

@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import BackComponent from '../utils/backComponent'
 
 const ProgressIndicator = ({
@@ -12,10 +13,9 @@ const ProgressIndicator = ({
   setStatus,
   setColor,
 }) => {
+  const getPath = usePathname()
   return (
-    <div
-      className="relative flex flex-col w-full"
-    >
+    <div className="relative flex flex-col w-full">
       <BackComponent
         currentSection={currentSection}
         currentQuestion={currentQuestion}
@@ -64,7 +64,9 @@ const ProgressIndicator = ({
                       }%`,
                     }}
                   />
-                  <span className="relative uppercase">{data.title.en}</span>
+                  <span className="relative uppercase">
+                    {getPath === '/en' ? data.title.en : data.title.id}
+                  </span>
                 </div>
               ),
           )}

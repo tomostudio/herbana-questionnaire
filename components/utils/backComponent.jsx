@@ -12,6 +12,7 @@ const BackComponent = ({
   setStatus,
   setColor,
   type,
+  setReset,
   top = true,
 }) => {
   const updateQuestionnaire = (updateSection, updateQuestion) => {
@@ -22,11 +23,9 @@ const BackComponent = ({
     localStorage.setItem(
       'questionnaire',
       JSON.stringify({
+        ...dataQuestionnaire,
         currentSection: updateSection,
         currentQuestion: updateQuestion,
-        questionnaireRespond: dataQuestionnaire.questionnaireRespond,
-        status: 'progress',
-        expired: dataQuestionnaire.expired,
       }),
     )
 
@@ -139,14 +138,7 @@ const BackComponent = ({
                 return false
               }
             } else {
-              localStorage.removeItem('questionnaire')
-              setCurrentSection(0)
-              setCurrentQuestion(0)
-              setCheckStorage(false)
-              setColor({
-                header: '#FFF7E9',
-                bg: '#DFF2F7',
-              })
+              setReset(true)
 
               return false
             }
@@ -178,14 +170,7 @@ const BackComponent = ({
                 return false
               }
             } else {
-              localStorage.removeItem('questionnaire')
-              setCurrentSection(0)
-              setCurrentQuestion(0)
-              setCheckStorage(false)
-              setColor({
-                header: '#FFF7E9',
-                bg: '#DFF2F7',
-              })
+              setReset(true)
 
               return false
             }
@@ -221,14 +206,7 @@ const BackComponent = ({
               return false
             }
           } else {
-            localStorage.removeItem('questionnaire')
-            setCurrentSection(0)
-            setCurrentQuestion(0)
-            setCheckStorage(false)
-            setColor({
-              header: '#FFF7E9',
-              bg: '#DFF2F7',
-            })
+            setReset(true)
 
             return false
           }
@@ -277,14 +255,7 @@ const BackComponent = ({
             )
           }
         } else {
-          localStorage.removeItem('questionnaire')
-          setCurrentSection(0)
-          setCurrentQuestion(0)
-          setCheckStorage(false)
-          setColor({
-            header: '#FFF7E9',
-            bg: '#DFF2F7',
-          })
+          setReset(true)
         }
       }
     }

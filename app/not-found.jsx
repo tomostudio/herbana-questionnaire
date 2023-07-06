@@ -6,9 +6,11 @@ import HeaderGap from '@/components/headerGap'
 import Layout from '@/components/layout'
 import SEO from '@/components/utils/seo'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const NotFoundPage = () => {
+  const getPath = usePathname()
   const [quiz, setQuiz] = useState(null)
   useEffect(() => {
     fetch('https://herbana.id/quiz-api.php')
@@ -26,7 +28,7 @@ const NotFoundPage = () => {
         <>
           <SEO
             title="404 Not Found"
-            keywords={quiz.seoData.keyword.en}
+            keywords={getPath === '/en' ? quiz.seoData.keyword.en : quiz.seoData.keyword.id}
             description=""
             image={quiz.seoData.image}
           />

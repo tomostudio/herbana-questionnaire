@@ -13,20 +13,10 @@ const quizUpdate = (
 
   const updateQuestionnaire = (updateSection, updateQuestion, status) => {
     if (answer) {
-      let summaryText = []
-      answer.forEach((e) => {
-        summaryText.push(
-          sections[currentSection].questions[currentQuestion].answers?.find(
-            (f) => f.value === e,
-          ).summaryText.en,
-        )
-      })
-
       const newRespond = {
         sectionID: sections[currentSection].ID,
         questionID: parseInt(questionId),
         answer: answer,
-        summaryText: summaryText,
       }
 
       const updatedResponds = [
@@ -38,22 +28,21 @@ const quizUpdate = (
       localStorage.setItem(
         'questionnaire',
         JSON.stringify({
+          ...dataQuestionnaire,
           currentSection: updateSection,
           currentQuestion: updateQuestion,
           questionnaireRespond: updatedResponds,
           status: status,
-          expired: dataQuestionnaire.expired,
         }),
       )
     } else {
       localStorage.setItem(
         'questionnaire',
         JSON.stringify({
+          ...dataQuestionnaire,
           currentSection: updateSection,
           currentQuestion: updateQuestion,
-          questionnaireRespond: dataQuestionnaire.questionnaireRespond,
           status: status,
-          expired: dataQuestionnaire.expired,
         }),
       )
     }

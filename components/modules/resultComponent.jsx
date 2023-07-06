@@ -6,17 +6,10 @@ import { DefaultButton, RoundedFullButton } from '../utils/buttons'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import parse from 'html-react-parser'
+import { usePathname } from 'next/navigation'
 
-const ResultComponent = ({ quiz }) => {
-  const title = quiz.beforeResult.title.en
-  const description = quiz.beforeResult.description.en
-  const formTitle = quiz.beforeResult.formTitle.en
-  const emailPlaceholder = quiz.beforeResult.emailPlaceholder.en
-  const phonePlaceholder = quiz.beforeResult.phonePlaceholder.en
-  const buttonText = quiz.beforeResult.buttonText.en
-  const coverImage = quiz.beforeResult.coverImage
-  const coverImageMobile = quiz.beforeResult.coverImageMobile
-
+const ResultComponent = ({ quiz, setReset }) => {
+  const getPath = usePathname()
   const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])
   const [messageError, setMessageError] = useState(null)
@@ -25,6 +18,10 @@ const ResultComponent = ({ quiz }) => {
   useEffect(() => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     setResultData(dataQuestionnaire.questionnaireRespond)
+
+    if (dataQuestionnaire.updatedAt !== quiz.timestamp) {
+      setReset(true)
+    }
   }, [])
 
   const variants = {
@@ -38,16 +35,21 @@ const ResultComponent = ({ quiz }) => {
       marginTop: 0,
     },
   }
+
   return (
     <div className="w-full flex flex-col">
       <div className="relative w-full h-[405px] md:h-[521px] bg-white">
         <Container className="relative z-10 text-center h-full flex justify-center items-center">
           <h1 className="whitespace-pre-wrap uppercase text-mendHeading md:text-endHeading max-w-lg">
-            {parse(title)}
+            {parse(
+              getPath === '/en'
+                ? quiz.beforeResult.title.en
+                : quiz.beforeResult.title.id,
+            )}
           </h1>
         </Container>
         <Image
-          src={coverImage}
+          src={quiz.beforeResult.coverImage}
           fill
           style={{
             objectFit: 'cover',
@@ -57,7 +59,7 @@ const ResultComponent = ({ quiz }) => {
           className="hidden md:block"
         />
         <Image
-          src={coverImageMobile}
+          src={quiz.beforeResult.coverImageMobile}
           fill
           style={{
             objectFit: 'cover',
@@ -70,7 +72,11 @@ const ResultComponent = ({ quiz }) => {
       <div className="w-full bg-blue flex justify-center px-6 md:px-0">
         <div className="max-w-3xl w-full my-[40px] flex flex-col items-center">
           <h2 className="text-mqHeadingb w-full md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight px-6 md:px-9">
-            {parse(description)}
+            {parse(
+              getPath === '/en'
+                ? quiz.beforeResult.description.en
+                : quiz.beforeResult.description.id,
+            )}
           </h2>
           <div className="w-full flex flex-col mt-[40px] space-y-[15px] md:space-y-5">
             {quiz.sections
@@ -111,7 +117,9 @@ const ResultComponent = ({ quiz }) => {
                   className="flex flex-col w-full bg-beige p-6 md:p-9 rounded-xl hover:opacity-70 transition-opacity"
                 >
                   <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
-                    <span className="uppercase">{data.title.en}</span>
+                    <span className="uppercase">
+                      {getPath === '/en' ? data.title.en : data.title.id}
+                    </span>
                     <div className="dropdown"></div>
                   </div>
                   <motion.div
@@ -126,7 +134,24 @@ const ResultComponent = ({ quiz }) => {
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
                         )
                         .map((f) =>
-                          f.summaryText.map((g) => (g ? <li>{g}</li> : <></>)),
+                          // console.log(f)
+                          f.answer.map((g) => (
+                            <li>
+                              {
+                                quiz.sections
+                                  .find(
+                                    (e) =>
+                                      parseInt(e.ID) === parseInt(f.sectionID),
+                                  )
+                                  .questions.find(
+                                    (e) =>
+                                      parseInt(e.ID) === parseInt(f.questionID),
+                                  )
+                                  .answers.find((h) => h.value === g)
+                                  .summaryText.en
+                              }
+                            </li>
+                          )),
                         )}
                     </ul>
                   </motion.div>
@@ -140,7 +165,11 @@ const ResultComponent = ({ quiz }) => {
           <div className="flex flex-col rounded-2xl border md:border-2 border-orange bg-orange overflow-hidden">
             <div className="h-full md:h-72 text-left px-6 pb-16 pt-6 md:p-12 max-w-xl">
               <span className="text-white text-mheading1 md:text-qHeadingb whitespace-pre-wrap">
-                {parse(formTitle)}
+                {parse(
+                  getPath === '/en'
+                    ? quiz.beforeResult.formTitle.en
+                    : quiz.beforeResult.formTitle.id,
+                )}
               </span>
             </div>
             <form
@@ -150,7 +179,7 @@ const ResultComponent = ({ quiz }) => {
                 const dataQuestionnaire = JSON.parse(
                   localStorage.getItem('questionnaire'),
                 )
-                let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+[.][A-Za-z.]{2,}$/;
+                let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+[.][A-Za-z.]{2,}$/
                 if (
                   !regex.test(e.target[0].value) &&
                   (e.target[1].value.split('').length === 0 ||
@@ -165,7 +194,7 @@ const ResultComponent = ({ quiz }) => {
                 ) {
                   setMessageError(2)
                 } else {
-                  setLoading(true);
+                  setLoading(true)
                   setMessageError(null)
 
                   fetch('https://herbana.id/quiz-api.php', {
@@ -189,7 +218,7 @@ const ResultComponent = ({ quiz }) => {
                   })
                     .then((res) => res.json())
                     .then((res) => {
-                      setLoading(false);
+                      setLoading(false)
                       if (res.status === 1) {
                         window.location = `https://herbana.id/quiz-result.php?s=${res.data}`
                       } else {
@@ -204,13 +233,21 @@ const ResultComponent = ({ quiz }) => {
                 <input
                   id="inputEmail"
                   type="email"
-                  placeholder={emailPlaceholder}
+                  placeholder={
+                    getPath === '/en'
+                      ? quiz.beforeResult.emailPlaceholder.en
+                      : quiz.beforeResult.emailPlaceholder.id
+                  }
                   className="rounded-none	border-y md:border-y-2 border-black py-3 md:py-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   required
                 />
                 <input
                   type="number"
-                  placeholder={phonePlaceholder}
+                  placeholder={
+                    getPath === '/en'
+                      ? quiz.beforeResult.phonePlaceholder.en
+                      : quiz.beforeResult.phonePlaceholder.id
+                  }
                   className="rounded-none	mt-4 border-b md:border-b-2 border-black pb-3 md:pb-4 outline-none text-mInput md:text-body placeholder:text-black placeholder:opacity-30"
                   required
                 />
@@ -234,7 +271,11 @@ const ResultComponent = ({ quiz }) => {
                   borderColor="border-orange"
                   hoverTextIcon="hover-orange"
                   disabled={loading}
-                  className={loading ? '!pointer-events-none !bg-[#C7C7C7] !border-[#C7C7C7]' : ''}
+                  className={
+                    loading
+                      ? '!pointer-events-none !bg-[#C7C7C7] !border-[#C7C7C7]'
+                      : ''
+                  }
                 >
                   {loading ? (
                     <svg
@@ -243,7 +284,7 @@ const ResultComponent = ({ quiz }) => {
                       height="24"
                       fill="none"
                       viewBox="0 0 24 24"
-                      className='animate-spin'
+                      className="animate-spin"
                     >
                       <mask
                         id="path-1-outside-1_501_515"
@@ -274,7 +315,11 @@ const ResultComponent = ({ quiz }) => {
                       ></path>
                     </svg>
                   ) : (
-                    <span className="mr-3 md:mr-0">{buttonText}</span>
+                    <span className="mr-3 md:mr-0">
+                      {getPath === '/en'
+                        ? quiz.beforeResult.buttonText.en
+                        : quiz.beforeResult.buttonText.id}
+                    </span>
                   )}
                 </RoundedFullButton>
               </div>

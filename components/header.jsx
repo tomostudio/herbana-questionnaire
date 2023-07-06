@@ -1,8 +1,10 @@
+'use client'
+
 import Container from '@/components/container'
 import Image from 'next/image'
 import { DefaultButton } from './utils/buttons'
 import { ArrowLeft, ArrowLeftMobile, Herbana } from './utils/svg'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function Header({
   background = '#FFF7E9',
@@ -12,8 +14,10 @@ export default function Header({
   setColor,
   setCurrentSection = null,
   setCurrentQuestion,
+  setReset,
 }) {
   const router = useRouter()
+  const getPath = usePathname()
   return (
     <nav
       className={`fixed top-0 left-0 right-0 w-full z-20 border-b md:border-b-default  border-black`}
@@ -28,7 +32,7 @@ export default function Header({
             className="hidden md:flex items-center text-nav font-maisonMono"
           >
             <ArrowLeft className="mr-4" />
-            {header.backButton.en}
+            {getPath === "/en" ? header.backButton.en : header.backButton.id}
           </DefaultButton>
           <DefaultButton
             destination="https://herbana.id"
@@ -42,23 +46,9 @@ export default function Header({
           </DefaultButton>
           <DefaultButton
             className="text-mNav md:text-nav w-28 md:w-fit font-maisonMono text-right tracking-tight"
-            onClick={() => {
-              if (setCurrentSection) {
-                localStorage.removeItem('questionnaire')
-                setCurrentSection(null)
-                setCurrentQuestion(null)
-                setCheckStorage(false)
-                setStatus('progress')
-                setColor({
-                  header: '#FFF7E9',
-                  bg: '#DFF2F7',
-                })
-              } else {
-                router.push('/')
-              }
-            }}
+            onClick={() => setReset(true)}
           >
-            {header.title.en}
+            {getPath === '/en' ? header.title.en : header.title.id}
           </DefaultButton>
         </div>
       </Container>
