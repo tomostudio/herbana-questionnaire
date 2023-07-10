@@ -19,9 +19,9 @@ const ResultComponent = ({ quiz, setReset }) => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
     setResultData(dataQuestionnaire.questionnaireRespond)
 
-    // if (dataQuestionnaire.updatedAt !== quiz.timestamp) {
-    //   setReset(true)
-    // }
+    if (dataQuestionnaire.updatedAt !== quiz.timestamp) {
+      setReset(true)
+    }
   }, [])
 
   const variants = {
