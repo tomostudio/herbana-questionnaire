@@ -134,24 +134,45 @@ const ResultComponent = ({ quiz, setReset }) => {
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
                         )
                         .map((f) =>
-                          // console.log(f)
-                          f.answer.map((g) => (
-                            <li>
-                              {
-                                quiz.sections
-                                  .find(
-                                    (e) =>
-                                      parseInt(e.ID) === parseInt(f.sectionID),
-                                  )
-                                  .questions.find(
-                                    (e) =>
-                                      parseInt(e.ID) === parseInt(f.questionID),
-                                  )
-                                  .answers.find((h) => h.value === g)
-                                  .summaryText.en
-                              }
-                            </li>
-                          )),
+                          getPath === '/en'
+                            ? f.answer.map((g) => (
+                                <li>
+                                  {
+                                    quiz.sections
+                                      .find(
+                                        (e) =>
+                                          parseInt(e.ID) ===
+                                          parseInt(f.sectionID),
+                                      )
+                                      .questions.find(
+                                        (e) =>
+                                          parseInt(e.ID) ===
+                                          parseInt(f.questionID),
+                                      )
+                                      .answers.find((h) => h.value === g)
+                                      .summaryText.en
+                                  }
+                                </li>
+                              ))
+                            : f.answer.map((g) => (
+                                <li>
+                                  {
+                                    quiz.sections
+                                      .find(
+                                        (e) =>
+                                          parseInt(e.ID) ===
+                                          parseInt(f.sectionID),
+                                      )
+                                      .questions.find(
+                                        (e) =>
+                                          parseInt(e.ID) ===
+                                          parseInt(f.questionID),
+                                      )
+                                      .answers.find((h) => h.value === g)
+                                      .summaryText.id
+                                  }
+                                </li>
+                              )),
                         )}
                     </ul>
                   </motion.div>
