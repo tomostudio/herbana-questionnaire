@@ -25,7 +25,7 @@
   "dependencies": {
     "framer-motion": "^10.2.3",
     "html-react-parser": "^3.0.16",
-    "next": "^13.4.3",
+    "next": "^13.4.19",
     "next-seo": "^6.0.0",
     "postcss-import": "^15.1.0",
     "postcss-nested": "^6.0.0",
