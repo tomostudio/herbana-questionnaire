@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const QuestionComponent = ({
+  continueTitle,
   sections,
   subTitle = '',
   placeholder = '',
@@ -74,7 +75,7 @@ const QuestionComponent = ({
                   className="w-full max-w-md md:max-w-xl mb-12 px-8 uppercase text-mInput md:text-body outline-none placeholder:text-black tracking-wider placeholder:opacity-50 text-center border py-4 border-black rounded-xl"
                   required
                 />
-                <BorderButton>CONTINUE</BorderButton>
+                <BorderButton className="uppercase">{continueTitle}</BorderButton>
               </form>
             </div>
           </Container>
@@ -223,7 +224,7 @@ const QuestionComponent = ({
               </div>
               {type === 'multiple' && (
                 <BorderButton
-                  className="mt-6 md:mt-7"
+                  className="mt-6 md:mt-7 uppercase"
                   onClick={() => {
                     if (getAnswer.length > 0) {
                       controls.start('hidden')
@@ -243,7 +244,7 @@ const QuestionComponent = ({
                     }
                   }}
                 >
-                  CONTINUE
+                  {continueTitle}
                 </BorderButton>
               )}
             </div>
@@ -307,10 +308,10 @@ const QuestionComponent = ({
             <input
               type="text"
               placeholder={placeholder}
-              className="w-full max-w-md md:max-w-xl mb-12 px-8 uppercase text-mInput md:text-body outline-none placeholder:text-black tracking-wider placeholder:opacity-50 text-center border py-4 border-black rounded-xl"
+              className="w-full max-w-md md:max-w-xl mb-12 px-8 uppercase text-mInput md:text-body outline-none placeholder:text-black tracking-wider placeholder:opacity-50 text-center border py-4 border-black rounded-xl uppercase"
               required
             />
-            <BorderButton>CONTINUE</BorderButton>
+            <BorderButton className="uppercase">{continueTitle}</BorderButton>
           </form>
         </Container>
       )
@@ -436,7 +437,7 @@ const QuestionComponent = ({
             </div>
             {type === 'multiple' && (
               <BorderButton
-                className="mt-6 md:mt-8"
+                className="mt-6 md:mt-8 uppercase"
                 onClick={() => {
                   if (getAnswer.length > 0) {
                     controls.start('hidden')
@@ -457,7 +458,7 @@ const QuestionComponent = ({
                   }
                 }}
               >
-                CONTINUE
+                {continueTitle}
               </BorderButton>
             )}
           </div>

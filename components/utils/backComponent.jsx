@@ -3,6 +3,7 @@ import { DefaultButton } from './buttons'
 import { ArrowLeft, ArrowLeftMobile } from './svg'
 
 const BackComponent = ({
+  backButtonTitle,
   currentSection,
   currentQuestion,
   setCurrentSection,
@@ -273,7 +274,7 @@ const BackComponent = ({
       >
         <ArrowLeft className="hidden md:block mr-3 md:mr-4 w-[23px] md:w-auto" />
         <ArrowLeftMobile className="md:hidden mr-2 w-[23px]" />
-        <span className="leading-none pt-[2px]">Back</span>
+        <span className="leading-none pt-[2px]">{backButtonTitle}</span>
       </DefaultButton>
     </Container>
   )

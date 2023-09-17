@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import BackComponent from '../utils/backComponent'
 
 const ProgressIndicator = ({
+  backButtonTitle,
   currentSection,
   currentQuestion,
   setCurrentSection,
@@ -17,6 +18,7 @@ const ProgressIndicator = ({
   return (
     <div className="relative flex flex-col w-full">
       <BackComponent
+        backButtonTitle={backButtonTitle}
         currentSection={currentSection}
         currentQuestion={currentQuestion}
         setCurrentSection={setCurrentSection}
