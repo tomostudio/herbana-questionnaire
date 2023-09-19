@@ -192,6 +192,11 @@ const ShowComponent = ({
         } else {
           return (
             <QuestionComponent
+              continueTitle={
+                getPath === '/en'
+                  ? quiz.defaultData.continueButtonText.en
+                  : quiz.defaultData.continueButtonText.id
+              }
               sections={quiz.sections}
               questionId={question.ID}
               nextSection={nextSection}
