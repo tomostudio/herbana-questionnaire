@@ -3,21 +3,22 @@ import Wrapper from './wrapper'
 import '@/styles/main.scss'
 
 export const metadata = {
-  metadataBase: new URL("https://quiz.herbana.id"),
+  metadataBase: new URL('https://quiz.herbana.id'),
   title: {
     default: 'Herbana',
     template: '%s | Herbana',
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: '/favicon.ico',
   },
 }
-
 
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <TOMOStudioHead />
+      <head>
+        <TOMOStudioHead />
+      </head>
       <body>
         <Wrapper>{children}</Wrapper>
       </body>
