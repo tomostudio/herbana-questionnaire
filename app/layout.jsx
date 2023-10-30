@@ -1,3 +1,4 @@
+import TOMOStudioHead from '@/components/utils/tomostudio-insert'
 import Wrapper from './wrapper'
 import '@/styles/main.scss'
 
@@ -16,6 +17,7 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
+      <TOMOStudioHead />
       <body>
         <Wrapper>{children}</Wrapper>
       </body>
