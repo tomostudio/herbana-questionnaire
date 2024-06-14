@@ -6,7 +6,7 @@ import Script from 'next/script'
 const Wrapper = ({ children }) => {
   return (
     <AppWrapper>
-      <Script>
+      <Script id="google-analytics" strategy="afterInteractive">
         {`
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
