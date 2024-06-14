@@ -23,6 +23,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@next/third-parties": "^14.2.4",
     "framer-motion": "^10.2.3",
     "html-react-parser": "^3.0.16",
     "next": "^13.4.19",

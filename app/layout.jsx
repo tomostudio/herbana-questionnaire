@@ -1,6 +1,7 @@
 import TOMOStudioHead from '@/components/utils/tomostudio-insert'
 import Wrapper from './wrapper'
 import '@/styles/main.scss'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata = {
   metadataBase: new URL('https://quiz.herbana.id'),
@@ -22,6 +23,7 @@ const RootLayout = ({ children }) => {
       <body>
         <Wrapper>{children}</Wrapper>
       </body>
+      <GoogleAnalytics gaId="G-FBD33KFSRE" />
     </html>
   )
 }
