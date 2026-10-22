@@ -242,7 +242,12 @@ const ResultComponent = ({ quiz, setReset }) => {
                     .then((res) => {
                       setLoading(false)
                       if (res.status === 1) {
-                        window.location = `https://herbana.id/quiz-result.php?s=${res.data}`
+                        if (getPath.startsWith('/campaign')) {
+                          window.scroll(0, 0)
+                          setReset(true)
+                        } else {
+                          window.location = `https://herbana.id/quiz-result.php?s=${res.data}`
+                        }
                       } else {
                         console.log(res)
                       }
