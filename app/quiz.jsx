@@ -157,7 +157,7 @@ const Quiz = () => {
             <div className="relative md:hidden w-full border-b md:border-b-default border-black">
               <div className="relative z-10 text-center text-footer font-maisonMono pt-3.5 pb-3">
                 <span className="relative uppercase">
-                  {getPath === '/en'
+                  {getPath.endsWith('/en')
                     ? quiz.sections[currentSection].title.en
                     : quiz.sections[currentSection].title.id}
                 </span>
@@ -204,7 +204,7 @@ const Quiz = () => {
             quiz.sections[currentSection].type === 'fundamental' ? (
               <div className="relative flex flex-col w-full">
                 <BackComponent
-                  backButtonTitle={getPath === '/en' ? 'Back' : 'Kembali'}
+                  backButtonTitle={getPath.endsWith('/en') ? 'Back' : 'Kembali'}
                   currentSection={currentSection}
                   currentQuestion={currentQuestion}
                   setCurrentSection={setCurrentSection}
@@ -220,7 +220,7 @@ const Quiz = () => {
               </div>
             ) : (
               <ProgressIndicator
-                backButtonTitle={getPath === '/en' ? 'Back' : 'Kembali'}
+                backButtonTitle={getPath.endsWith('/en') ? 'Back' : 'Kembali'}
                 currentSection={currentSection}
                 currentQuestion={currentQuestion}
                 setCurrentSection={setCurrentSection}

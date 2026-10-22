@@ -36,14 +36,14 @@ const ShowComponent = ({
           <div className="w-full lg:w-1/2 min-h-[50vh] lg:h-full flex flex-col items-center lg:items-start justify-center pt-[40px] pb-14 lg:pt-0 lg:pb-0 lg:pr-8">
             <h1 className="uppercase text-mopHeading max-w-md md:max-w-lg lg:max-w-none text-center lg:text-left lg:text-opHeading m-0 leading-none mb-6">
               {parse(
-                getPath === '/en'
+                getPath.endsWith('/en')
                   ? quiz.coverPage.title.en
                   : quiz.coverPage.title.id,
               )}
             </h1>
             <p className="max-w-[260px] md:max-w-md lg:mb-12 text-center lg:text-left text-[15px] md:text-body leading-[19.5px]">
               {parse(
-                getPath === '/en'
+                getPath.endsWith('/en')
                   ? quiz.coverPage.description.en
                   : quiz.coverPage.description.id,
               )}
@@ -76,7 +76,7 @@ const ShowComponent = ({
                 }, 500)
               }}
             >
-              {getPath === '/en'
+              {getPath.endsWith('/en')
                 ? quiz.coverPage.buttonText.en
                 : quiz.coverPage.buttonText.id}
             </RoundedFullButton>
@@ -132,7 +132,7 @@ const ShowComponent = ({
               }, 500)
             }}
           >
-            {getPath === '/en'
+            {getPath.endsWith('/en')
               ? quiz.coverPage.buttonText.en
               : quiz.coverPage.buttonText.id}
           </RoundedFullButton>
@@ -145,7 +145,7 @@ const ShowComponent = ({
         return (
           <QuestionComponent
             continueTitle={
-              getPath === '/en'
+              getPath.endsWith('/en')
                 ? quiz.defaultData.continueButtonText.en
                 : quiz.defaultData.continueButtonText.id
             }
@@ -154,10 +154,10 @@ const ShowComponent = ({
             nextSection={nextSection}
             nextQuestion={nextQuestion}
             subTitle={
-              getPath === '/en' ? question.content.en : question.content.id
+              getPath.endsWith('/en') ? question.content.en : question.content.id
             }
             placeholder={
-              getPath === '/en'
+              getPath.endsWith('/en')
                 ? question.content.placeholder?.en
                 : question.content.placeholder?.id
             }
@@ -193,7 +193,7 @@ const ShowComponent = ({
           return (
             <QuestionComponent
               continueTitle={
-                getPath === '/en'
+                getPath.endsWith('/en')
                   ? quiz.defaultData.continueButtonText.en
                   : quiz.defaultData.continueButtonText.id
               }
@@ -202,10 +202,10 @@ const ShowComponent = ({
               nextSection={nextSection}
               nextQuestion={nextQuestion}
               subTitle={
-                getPath === '/en' ? question.content.en : question.content.id
+                getPath.endsWith('/en') ? question.content.en : question.content.id
               }
               placeholder={
-                getPath === '/en'
+                getPath.endsWith('/en')
                   ? question.content.placeholder?.en
                   : question.content.placeholder?.id
               }

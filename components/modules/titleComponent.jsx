@@ -23,12 +23,12 @@ const TitleComponent = ({
       <div className="relative max-w-xl z-10 w-fit flex flex-col items-center">
         <Heading
           title={
-            getPath === '/en'
+            getPath.endsWith('/en')
               ? sections[currentSection].title.en
               : sections[currentSection].title.id
           }
           subTitle={
-            getPath === '/en'
+            getPath.endsWith('/en')
               ? sections[currentSection].cover.title.en
               : sections[currentSection].cover.title.id
           }
@@ -54,7 +54,7 @@ const TitleComponent = ({
             }, 500)
           }}
         >
-          {getPath === '/en'
+          {getPath.endsWith('/en')
             ? sections[currentSection].cover.button.en
             : sections[currentSection].cover.button.id}
         </RoundedFullButton>

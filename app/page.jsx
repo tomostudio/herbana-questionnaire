@@ -8,7 +8,7 @@ export async function generateMetadata() {
     .then(({ seoData }) => {
       const headersList = headers()
       const getPathname = (headersList.get('referer') || '').split('/')
-      const pathname = getPathname[3]
+      const pathname = getPathname.at(-1)
       return {
         title: pathname === 'en' ? seoData.title.en : seoData.title.id,
         keywords:

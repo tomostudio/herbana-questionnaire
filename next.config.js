@@ -5,6 +5,10 @@ module.exports = {
         source: '/en',
         destination: '/',
       },
+      {
+        source: '/campaign/en',
+        destination: '/campaign',
+      },
     ];
   },
   images: {

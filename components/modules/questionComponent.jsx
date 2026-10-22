@@ -30,7 +30,7 @@ const QuestionComponent = ({
 }) => {
   const getPath = usePathname()
   const title =
-    getPath === '/en'
+    getPath.endsWith('/en')
       ? sections[currentSection].title.en
       : sections[currentSection].title.id
   const [getAnswer, setAnswer] = useState([])
@@ -163,7 +163,7 @@ const QuestionComponent = ({
                         }
                       }}
                     >
-                      {getPath === '/en' ? data.label.en : data.label.id}
+                      {getPath.endsWith('/en') ? data.label.en : data.label.id}
                     </RoundedButton>
                   ) : (
                     <ImageButton
@@ -217,7 +217,7 @@ const QuestionComponent = ({
                         }
                       }}
                     >
-                      {getPath === '/en' ? data.label.en : data.label.id}
+                      {getPath.endsWith('/en') ? data.label.en : data.label.id}
                     </ImageButton>
                   ),
                 )}
@@ -376,7 +376,7 @@ const QuestionComponent = ({
                       }
                     }}
                   >
-                    {getPath === '/en' ? data.label.en : data.label.id}
+                    {getPath.endsWith('/en') ? data.label.en : data.label.id}
                   </RoundedButton>
                 ) : (
                   <ImageButton
@@ -430,7 +430,7 @@ const QuestionComponent = ({
                       }
                     }}
                   >
-                    {getPath === '/en' ? data.label.en : data.label.id}
+                    {getPath.endsWith('/en') ? data.label.en : data.label.id}
                   </ImageButton>
                 ),
               )}

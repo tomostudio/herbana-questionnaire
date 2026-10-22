@@ -67,7 +67,7 @@ const ProgressIndicator = ({
                     }}
                   />
                   <span className="relative uppercase">
-                    {getPath === '/en' ? data.title.en : data.title.id}
+                    {getPath.endsWith('/en') ? data.title.en : data.title.id}
                   </span>
                 </div>
               ),

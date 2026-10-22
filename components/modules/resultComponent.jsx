@@ -42,7 +42,7 @@ const ResultComponent = ({ quiz, setReset }) => {
         <Container className="relative z-10 text-center h-full flex justify-center items-center">
           <h1 className="whitespace-pre-wrap uppercase text-mendHeading md:text-endHeading max-w-lg">
             {parse(
-              getPath === '/en'
+              getPath.endsWith('/en')
                 ? quiz.beforeResult.title.en
                 : quiz.beforeResult.title.id,
             )}
@@ -73,7 +73,7 @@ const ResultComponent = ({ quiz, setReset }) => {
         <div className="max-w-3xl w-full my-[40px] flex flex-col items-center">
           <h2 className="text-mqHeadingb w-full md:text-qHeadingb m-0 font-normal text-left md:text-center whitespace-pre-wrap leading-tight px-6 md:px-9">
             {parse(
-              getPath === '/en'
+              getPath.endsWith('/en')
                 ? quiz.beforeResult.description.en
                 : quiz.beforeResult.description.id,
             )}
@@ -118,7 +118,7 @@ const ResultComponent = ({ quiz, setReset }) => {
                 >
                   <div className="flex w-full justify-between items-center text-orange font-maisonMono font-bold text-mqHeadingb md:text-qHeadingb">
                     <span className="uppercase">
-                      {getPath === '/en' ? data.title.en : data.title.id}
+                      {getPath.endsWith('/en') ? data.title.en : data.title.id}
                     </span>
                     <div className="dropdown"></div>
                   </div>
@@ -134,7 +134,7 @@ const ResultComponent = ({ quiz, setReset }) => {
                           (f) => parseInt(f.sectionID) === parseInt(data.ID),
                         )
                         .map((f) =>
-                          getPath === '/en'
+                          getPath.endsWith('/en')
                             ? f.answer.map((g) => (
                                 <li>
                                   {
@@ -187,7 +187,7 @@ const ResultComponent = ({ quiz, setReset }) => {
             <div className="h-full md:h-72 text-left px-6 pb-16 pt-6 md:p-12 max-w-xl">
               <span className="text-white text-mheading1 md:text-qHeadingb whitespace-pre-wrap">
                 {parse(
-                  getPath === '/en'
+                  getPath.endsWith('/en')
                     ? quiz.beforeResult.formTitle.en
                     : quiz.beforeResult.formTitle.id,
                 )}
@@ -225,7 +225,7 @@ const ResultComponent = ({ quiz, setReset }) => {
                     },
                     body: JSON.stringify({
                       session: Date.now(),
-                      source: getPath === '/campaign' ? 'campaign' : null,
+                      source: getPath.startsWith('/campaign') ? 'campaign' : null,
                       email: e.target[0].value,
                       phone: e.target[1].value,
                       answers: dataQuestionnaire.questionnaireRespond.map(
@@ -256,7 +256,7 @@ const ResultComponent = ({ quiz, setReset }) => {
                   id="inputEmail"
                   type="email"
                   placeholder={
-                    getPath === '/en'
+                    getPath.endsWith('/en')
                       ? quiz.beforeResult.emailPlaceholder.en
                       : quiz.beforeResult.emailPlaceholder.id
                   }
@@ -266,7 +266,7 @@ const ResultComponent = ({ quiz, setReset }) => {
                 <input
                   type="number"
                   placeholder={
-                    getPath === '/en'
+                    getPath.endsWith('/en')
                       ? quiz.beforeResult.phonePlaceholder.en
                       : quiz.beforeResult.phonePlaceholder.id
                   }
@@ -338,7 +338,7 @@ const ResultComponent = ({ quiz, setReset }) => {
                     </svg>
                   ) : (
                     <span className="mr-3 md:mr-0">
-                      {getPath === '/en'
+                      {getPath.endsWith('/en')
                         ? quiz.beforeResult.buttonText.en
                         : quiz.beforeResult.buttonText.id}
                     </span>

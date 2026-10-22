@@ -32,7 +32,7 @@ export default function Header({
             className="hidden md:flex items-center text-nav font-maisonMono"
           >
             <ArrowLeft className="mr-4" />
-            {getPath === "/en" ? header.backButton.en : header.backButton.id}
+            {getPath.endsWith("/en") ? header.backButton.en : header.backButton.id}
           </DefaultButton>
           <DefaultButton
             destination="https://herbana.id"
@@ -48,7 +48,7 @@ export default function Header({
             className="text-mNav md:text-nav w-28 md:w-fit font-maisonMono text-right tracking-tight"
             onClick={() => setReset(true)}
           >
-            {getPath === '/en' ? header.title.en : header.title.id}
+            {getPath.endsWith('/en') ? header.title.en : header.title.id}
           </DefaultButton>
         </div>
       </Container>
