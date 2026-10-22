@@ -225,7 +225,7 @@ const ResultComponent = ({ quiz, setReset }) => {
                     },
                     body: JSON.stringify({
                       session: Date.now(),
-                      ...(getPath === '/campaign' && { source: 'campaign' }),
+                      source: getPath === '/campaign' ? 'campaign' : null,
                       email: e.target[0].value,
                       phone: e.target[1].value,
                       answers: dataQuestionnaire.questionnaireRespond.map(
