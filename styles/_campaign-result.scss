@@ -229,6 +229,13 @@
     @media (max-width: 750px) {
       scroll-snap-type: x mandatory;
       scroll-padding: 0 1.5rem;
+      cursor: grab;
+      user-select: none;
+
+      &.dragging {
+        scroll-snap-type: none;
+        cursor: grabbing;
+      }
     }
 
     @media (min-width: 600px) and (max-width: 750px) {
