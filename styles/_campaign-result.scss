@@ -1,448 +1,402 @@
-/* Result page for /campaign, copied from https://herbana.id/css/result.css (checkout CTA & add-to-cart removed) */
+/* Campaign Result
+   Copy of https://herbana.id/css/result.css (without checkout CTA & add-to-cart), breakpoints follow the original.
+   On herbana.id #heading sits behind its fixed header (110px <599px, 182px <1000px, 150px from 1000px);
+   ours starts below HeaderGap, so heights & spacing below are the original minus that header. */
 .campaign-result {
   #heading {
     position: relative;
-    width: 100%;
-    height: auto;
-    min-height: 200px;
-    padding: 0px;
-    max-height: 400px;
-  }
-  @media (min-width: 599px) {
-    #heading {
-      height: 50vh;
-      min-height: 455px;
-    }
-  }
-  @media (min-width: 751px) {
-    #heading {
-      height: fit-content;
-      min-height: 50vh;
-    }
-  }
-  #heading>img.bg-img {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    height: calc(100% - 80px);
-    object-fit: cover;
-    object-position: center;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    overflow: hidden;
-  }
-  #heading>div.opening {
-    z-index: 2;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 5rem;
-  }
-  &.nodoctor #heading>div.opening {
-    padding-bottom: 2.5rem;
-  }
-  @media (min-width: 599px) {
-    #heading>div.opening {
-      padding-bottom: 3.5rem;
-      padding-left: 40px;
-      padding-right: 40px;
-    }
-  }
-  @media (min-width: 751px) {
-    #heading>div.opening {
-      padding-bottom: 5rem;
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-  }
-  #heading>div.opening::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 105px;
-    flex-grow: 1;
-  }
-  @media (min-width: 599px) {
-    #heading>div.opening::before {
-      height: 200px;
-      min-height: 0;
-    }
-  }
-  @media (min-width: 751px) {
-    #heading>div.opening::before {
-      height: 200px;
-    }
-  }
-  #heading>div.opening>div {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 52rem;
-    flex-grow: 1;
-    height: auto;
-    text-align: left;
-    padding-top: 30px;
-    justify-content: start;
-  }
-  @media (min-width: 600px) {
-    #heading>div.opening>div {
+    min-height: 200px;
+
+    @media (min-width: 599px) {
+      min-height: 273px;
+    }
+
+    @media (min-width: 751px) {
+      min-height: calc(max(400px, 50vh) - 182px);
+    }
+
+    @media (min-width: 1000px) {
+      min-height: calc(max(400px, 50vh) - 150px);
+    }
+
+    & > img.bg-img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      padding: 0;
+      object-fit: cover;
+      object-position: center;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+
+    & > div.opening {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: center;
       align-items: center;
-      text-align: center;
-      justify-content: end;
+      width: 100%;
+      padding: 0 20px 5rem;
+
+      @media (min-width: 599px) {
+        padding: 0 40px 3.5rem;
+      }
+
+      @media (min-width: 751px) {
+        padding: 0 50px 2.5rem;
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        flex-grow: 1;
+        width: 100%;
+        height: 0;
+
+        @media (min-width: 599px) {
+          height: 20px;
+        }
+
+        @media (min-width: 751px) {
+          flex-grow: 0;
+          height: 18px;
+        }
+
+        @media (min-width: 1000px) {
+          height: 50px;
+        }
+      }
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: start;
+        width: 100%;
+        max-width: 52rem;
+        padding-top: 30px;
+        text-align: left;
+
+        @media (min-width: 600px) {
+          justify-content: end;
+          align-items: center;
+          padding: 0;
+          text-align: center;
+        }
+
+        @media (min-width: 751px) {
+          justify-content: start;
+        }
+
+        & h1 {
+          /* margin comes from herbana.id's base stylesheet */
+          margin: 0.67em 0;
+          font-family: 'Maison';
+          font-size: 30px;
+          font-weight: normal;
+          line-height: 105%;
+
+          @media (min-width: 600px) {
+            font-size: 35px;
+          }
+
+          & > span {
+            display: inline-block;
+            text-decoration: underline;
+            text-decoration-color: #e46b37;
+            text-underline-offset: 3px;
+          }
+        }
+
+        & p {
+          width: 100%;
+          margin-top: 0.5rem;
+          font-family: 'Maison';
+          font-size: 15px;
+          font-weight: normal;
+          line-height: 130%;
+
+          @media (min-width: 751px) {
+            margin: 0;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    & > div.doctor {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 0 20px;
+      transform: translateY(50%);
+
+      @media (min-width: 600px) {
+        padding: 0 40px;
+      }
+
+      @media (min-width: 751px) {
+        padding: 0 50px;
+      }
+
+      & > div {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.75rem 1.25rem 0.65rem;
+        border: 1.5px solid #e46b37;
+        border-radius: 1.25rem;
+        background-color: #fff;
+
+        @media (min-width: 600px) {
+          width: auto;
+        }
+
+        @media (min-width: 751px) {
+          padding: 1.25rem 1.5rem 1rem;
+        }
+
+        & > div:first-child,
+        & > div:last-child {
+          width: 23px;
+          height: 23px;
+
+          & img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+          }
+        }
+
+        & > div.content {
+          display: block;
+          flex-grow: 1;
+          width: auto;
+
+          & p {
+            display: block;
+            width: auto;
+            font-family: 'Maison Mono';
+            font-size: 0.75rem;
+            letter-spacing: 0.01em;
+            text-align: center;
+            text-transform: uppercase;
+            color: #e46b37;
+
+            @media (min-width: 751px) {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
     }
   }
-  #heading>div.opening>div h1 {
-    font-family: "Maison";
-    font-size: 30px;
-    font-weight: normal;
-    line-height: 105%;
-  }
-  @media (min-width: 600px) {
-    #heading>div.opening>div h1 {
-      font-size: 35px;
-    }
-  }
-  #heading>div.opening>div h1>span {
-    display: inline-block;
-    text-decoration: underline;
-    text-decoration-color: #e46b37;
-    text-underline-offset: 3px;
-  }
-  #heading>div.opening>div p {
-    font-family: "Maison";
-    font-weight: normal;
-    width: 100%;
-    line-height: 130%;
-    margin-top: .5rem;
-    font-size: 15px;
-  }
-  @media (min-width: 751px) {
-    #heading>div.opening>div p {
-      font-size: 18px;
-      margin: 0;
-    }
-  }
-  #heading>div.doctor {
-    z-index: 2;
-    position: absolute;
-    bottom: 0%;
-    left: 0%;
-    transform: translate(0%, 50%);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px 20px;
-  }
-  @media (min-width: 600px) {
-    #heading>div.doctor {
-      padding: 0px 40px;
-    }
-  }
-  @media (min-width: 751px) {
-    #heading>div.doctor {
-      padding: 0px 50px;
-    }
-  }
-  #heading>div.doctor>div {
-    border-radius: 1.25rem;
-    border: 1.5px solid #e46b37;
-    background-color: #fff;
-    max-width: none;
-    position: relative;
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: .75rem 1.25rem .65rem;
-    gap: .5rem;
-    width: 100%;
-  }
-  @media (min-width: 600px) {
-    #heading>div.doctor>div {
-      width: auto;
-    }
-  }
-  @media (min-width: 751px) {
-    #heading>div.doctor>div {
-      padding: 1.25rem 1.5rem 1rem;
-    }
-  }
-  #heading>div.doctor>div>div:first-child, #heading>div.doctor>div div:last-child {
-    width: 23px;
-    height: 23px;
-  }
-  #heading>div.doctor>div>div:first-child img, #heading>div.doctor>div div:last-child img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-  }
-  #heading>div.doctor>div>div.content {
-    display: block;
-    width: auto;
-    flex-grow: 1;
-  }
-  #heading>div.doctor>div>div.content p {
-    width: auto;
-    display: block;
-    max-width: none;
-    text-align: center;
-    font-family: "Maison Mono";
-    color: #e46b37;
-    letter-spacing: .01em;
-    font-size: .75rem;
-    text-transform: uppercase;
-  }
-  @media (min-width: 751px) {
-    #heading>div.doctor>div>div.content p {
-      font-size: 1rem;
-    }
-  }
-  &.nodoctor #heading>div.doctor {
-    display: none;
-  }
+
   .product_container {
     width: 100%;
-    padding: 0px 0px;
     max-width: 1400px;
-    margin: 0px auto;
+    margin: 0 auto;
     overflow: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-  @media (min-width: 600px) {
-    .product_container {
-      padding: 0px 0px;
-    }
-  }
-  @media (min-width: 751px) {
-    .product_container {
-      padding: 0px 50px;
-    }
-  }
-  .product_container::-webkit-scrollbar {
-    display: none;
-  }
-  section.products {
-    display: flex;
-    flex-flow: row nowrap;
-    margin: 0 auto;
-    padding: 4rem 0px 3.5rem;
-    justify-content: flex-start;
-    position: relative;
-    gap: 1.5rem;
-  }
-  &.nodoctor section.products {
-    padding-top: 3rem;
-  }
-  @media (min-width: 751px) {
-    section.products {
-      padding: 5rem 0px 4rem;
-      width: 100%;
-      display: flex;
-      max-width: 1300px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-  }
-  section.products .product {
-    flex-shrink: 0;
-    border: 1.5px solid #bbb;
-    border-radius: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    padding: 22px 26px;
-    width: 75vw;
-    max-width: 350px;
-    min-width: 250px;
-    pointer-events: none;
-  }
-  @media (min-width: 751px) {
-    section.products .product {
-      width: calc((100% - 1.5rem)/2);
-      padding: 30px 40px;
-      max-width: none;
-    }
-  }
-  @media (min-width: 1024px) {
-    section.products .product {
-      width: calc((100% - 3rem)/3);
-      max-width: none;
-      padding: 30px 40px;
-    }
-  }
-  section.products .product>* {
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-    pointer-events: none;
-  }
-  section.products .product>a {
-    pointer-events: auto;
-  }
-  section.products .product div.icon {
-    display: flex;
-    align-items: end;
-    width: 100%;
-    gap: .75rem;
-    margin-bottom: .75rem;
-  }
-  section.products .product div.icon img {
-    width: 19px;
-    height: 19px;
-    object-fit: cover;
-  }
-  section.products .product div.icon span {
-    font-family: "Maison";
-    font-weight: bold;
-    font-size: .875rem;
-    letter-spacing: .1em;
-  }
-  @media (min-width: 751px) {
-    section.products .product div.icon span {
-      letter-spacing: .05em;
-    }
-  }
-  section.products .product div.icon span span {
-    color: #e46b37;
-    letter-spacing: .1em;
-  }
-  @media (min-width: 751px) {
-    section.products .product div.icon span span {
-      letter-spacing: .05em;
-    }
-  }
-  section.products .product div.productimage {
-    pointer-events: auto;
-    padding: 1rem 0;
-    border-top: 1.5px solid #bbb;
-    border-bottom: 1.5px solid #bbb;
-  }
-  section.products .product div.productimage img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    aspect-ratio: 9/10;
-  }
-  section.products .product div.producttitle {
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 0;
-  }
-  section.products .product div.producttitle img {
-    width: 100%;
-    max-width: 180px;
-    object-fit: contain;
-  }
-  section.products .product div.producttitle span {
-    margin-top: 10px;
-    font-family: "Maison";
-    font-size: 1.125rem;
-    font-weight: 400;
-    letter-spacing: .1em;
-  }
-  section.products .product div.whythis {
-    padding: 1rem 0;
-    border-top: 1.5px solid #bbb;
-    border-bottom: 1.5px solid #bbb;
-  }
-  section.products .product div.whythis p {
-    margin: 0;
-    font-size: .875rem;
-    font-family: "Maison";
-    line-height: 24px;
-  }
-  section.products .product div span.label {
-    display: block;
-    margin-bottom: .5rem;
-    font-size: .75rem;
-    font-family: "Maison";
-    font-weight: bold;
-    color: #bbb;
-    letter-spacing: .1em;
-  }
-  section.products .product div.otherbenefit {
-    padding: 1rem 0;
-    border-bottom: 1.5px solid #bbb;
-  }
-  section.products .product div.otherbenefit ul {
-    margin: 0;
-    list-style-position: inside;
-    padding-left: 0;
-  }
-  section.products .product div.otherbenefit ul li {
-    padding-top: .25rem;
-    font-size: .875rem;
-    font-family: "Maison";
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-  section.products #slider {
-    display: flex;
-    width: 100%;
-    position: relative;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-  @media (min-width: 751px) {
-    section.products #slider {
-      padding: 0px;
-    }
-  }
 
-  /* Overrides: herbana.id's #heading sits under its own (taller) fixed header, ours sits below HeaderGap */
-  /* h1 margin comes from herbana.id's base stylesheet */
-  #heading {
-    @media (min-width: 751px) {
-      min-height: calc(50vh - 80px);
+    &::-webkit-scrollbar {
+      display: none;
     }
-  }
-  #heading > img.bg-img {
-    height: 100%;
-  }
-  #heading > div.opening::before {
-    height: 0;
-    @media (min-width: 599px) {
-      height: 50px;
-    }
-  }
-  #heading > div.opening > div h1 {
-    margin: 0.67em 0;
-  }
 
-  /* Mobile slider (replaces slick on herbana.id) */
-  @media (max-width: 750px) {
-    .product_container {
+    /* Mobile slider (replaces slick on herbana.id) */
+    @media (max-width: 750px) {
       scroll-snap-type: x mandatory;
       scroll-padding: 0 1.5rem;
     }
-    section.products #slider {
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      width: max-content;
-      padding: 0 1.5rem;
-    }
-    section.products .product {
-      scroll-snap-align: start;
-    }
-  }
-  @media (min-width: 600px) and (max-width: 750px) {
-    .product_container {
+
+    @media (min-width: 600px) and (max-width: 750px) {
       scroll-padding: 0 40px;
     }
-    section.products #slider {
-      padding: 0 40px;
+
+    @media (min-width: 751px) {
+      padding: 0 50px;
+    }
+  }
+
+  section.products {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    margin: 0 auto;
+    padding: 4rem 0 3.5rem;
+
+    @media (min-width: 751px) {
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 1300px;
+      padding: 5rem 0 4rem;
+    }
+
+    & #slider {
+      position: relative;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 1.5rem;
+      width: max-content;
+      padding: 0 1.5rem;
+
+      @media (min-width: 600px) {
+        padding: 0 40px;
+      }
+
+      @media (min-width: 751px) {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+      }
+    }
+
+    & .product {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      width: 75vw;
+      min-width: 250px;
+      max-width: 350px;
+      padding: 22px 26px;
+      border: 1.5px solid #bbb;
+      border-radius: 1.5rem;
+      scroll-snap-align: start;
+
+      @media (min-width: 751px) {
+        width: calc((100% - 1.5rem) / 2);
+        max-width: none;
+        padding: 30px 40px;
+      }
+
+      @media (min-width: 1024px) {
+        width: calc((100% - 3rem) / 3);
+      }
+
+      & div.icon {
+        display: flex;
+        align-items: end;
+        gap: 0.75rem;
+        width: 100%;
+        margin-bottom: 0.75rem;
+
+        & img {
+          width: 19px;
+          height: 19px;
+          object-fit: cover;
+        }
+
+        & span {
+          font-family: 'Maison';
+          font-size: 0.875rem;
+          font-weight: bold;
+          letter-spacing: 0.1em;
+
+          @media (min-width: 751px) {
+            letter-spacing: 0.05em;
+          }
+
+          & span {
+            color: #e46b37;
+          }
+        }
+      }
+
+      & div.productimage {
+        padding: 1rem 0;
+        border-top: 1.5px solid #bbb;
+        border-bottom: 1.5px solid #bbb;
+
+        & img {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 9 / 10;
+          object-fit: contain;
+        }
+      }
+
+      & div.producttitle {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem 0;
+
+        & img {
+          width: 100%;
+          max-width: 180px;
+          object-fit: contain;
+        }
+
+        & span {
+          margin-top: 10px;
+          font-family: 'Maison';
+          font-size: 1.125rem;
+          font-weight: 400;
+          letter-spacing: 0.1em;
+        }
+      }
+
+      & div.whythis {
+        padding: 1rem 0;
+        border-top: 1.5px solid #bbb;
+        border-bottom: 1.5px solid #bbb;
+
+        & p {
+          margin: 0;
+          font-family: 'Maison';
+          font-size: 0.875rem;
+          line-height: 24px;
+        }
+      }
+
+      & div.otherbenefit {
+        padding: 1rem 0;
+        border-bottom: 1.5px solid #bbb;
+
+        & ul {
+          margin: 0;
+          padding-left: 0;
+          list-style: disc inside;
+
+          & li {
+            padding-top: 0.25rem;
+            font-family: 'Maison';
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      & div span.label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-family: 'Maison';
+        font-size: 0.75rem;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        color: #bbb;
+      }
     }
   }
 
@@ -451,18 +405,37 @@
     justify-content: center;
     margin-top: -1.5rem;
     margin-bottom: 3.5rem;
+
     @media (min-width: 751px) {
       display: none;
     }
-    button {
+
+    & button {
       width: 14px;
       height: 14px;
       margin: 0 8px;
       border-radius: 100%;
       background-color: #d9d9d9;
+
       &.active {
         background-color: #e46b37;
       }
+    }
+  }
+
+  &.nodoctor {
+    #heading {
+      & > div.opening {
+        padding-bottom: 2.5rem;
+      }
+
+      & > div.doctor {
+        display: none;
+      }
+    }
+
+    section.products {
+      padding-top: 3rem;
     }
   }
 }
