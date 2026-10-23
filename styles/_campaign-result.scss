@@ -3,6 +3,11 @@
    On herbana.id #heading sits behind its fixed header (110px <599px, 182px <1000px, 150px from 1000px);
    ours starts below HeaderGap, so heights & spacing below are the original minus that header. */
 .campaign-result {
+  /* herbana.id's body defaults (our body is antialiased, which renders Maison thinner) */
+  line-height: 1.42857143;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+
   #heading {
     position: relative;
     display: flex;
@@ -193,6 +198,7 @@
             width: auto;
             font-family: 'Maison Mono';
             font-size: 0.75rem;
+            line-height: inherit;
             letter-spacing: 0.01em;
             text-align: center;
             text-transform: uppercase;
@@ -282,6 +288,7 @@
       padding: 22px 26px;
       border: 1.5px solid #bbb;
       border-radius: 1.5rem;
+      color: #030303;
       scroll-snap-align: start;
 
       @media (min-width: 751px) {
