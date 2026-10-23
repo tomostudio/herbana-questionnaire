@@ -6,10 +6,11 @@ import { DefaultButton, RoundedFullButton } from '../utils/buttons'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import parse from 'html-react-parser'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 const ResultComponent = ({ quiz, setReset }) => {
   const getPath = usePathname()
+  const router = useRouter()
   const [resultData, setResultData] = useState([])
   const [isOpen, setIsOpen] = useState([false, false, false])
   const [messageError, setMessageError] = useState(null)
@@ -242,7 +243,14 @@ const ResultComponent = ({ quiz, setReset }) => {
                     .then((res) => {
                       setLoading(false)
                       if (res.status === 1) {
-                        window.location = `https://herbana.id/quiz-result.php?s=${res.data}`
+                        if (getPath.startsWith('/campaign')) {
+                          localStorage.removeItem('questionnaire')
+                          router.push(
+                            `/campaign/result${getPath.endsWith('/en') ? '/en' : ''}?s=${res.data}`,
+                          )
+                        } else {
+                          window.location = `https://herbana.id/quiz-result.php?s=${res.data}`
+                        }
                       } else {
                         console.log(res)
                       }

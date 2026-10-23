@@ -9,6 +9,10 @@ module.exports = {
         source: '/campaign/en',
         destination: '/campaign',
       },
+      {
+        source: '/campaign/result/en',
+        destination: '/campaign/result?lang=en',
+      },
     ];
   },
   images: {

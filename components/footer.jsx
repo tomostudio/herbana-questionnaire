@@ -5,8 +5,13 @@ import { ArrowLeft } from './utils/svg'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export default function Footer({ footer }) {
-  const basePath = usePathname().startsWith('/campaign') ? '/campaign' : ''
+export default function Footer({ footer, search = '' }) {
+  const getPath = usePathname()
+  const basePath = getPath.startsWith('/campaign/result')
+    ? '/campaign/result'
+    : getPath.startsWith('/campaign')
+      ? '/campaign'
+      : ''
   return (
     <footer className={`bg-grey w-full`}>
       <Container>
@@ -27,13 +32,13 @@ export default function Footer({ footer }) {
           <div className="flex space-x-8">
             <div className="flex items-center">
               <DefaultButton
-                destination={`${basePath}/en`}
+                destination={`${basePath}/en${search}`}
                 className="text-footer font-maisonMono pr-2 border-r border-black"
               >
                 EN
               </DefaultButton>
               <DefaultButton
-                destination={basePath || '/'}
+                destination={`${basePath || '/'}${search}`}
                 className="text-footer font-maisonMono ml-2"
               >
                 ID
