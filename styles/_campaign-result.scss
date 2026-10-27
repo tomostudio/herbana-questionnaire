@@ -437,15 +437,10 @@
     }
   }
 
+  /* Results without the doctor notice */
   &.nodoctor {
-    #heading {
-      & > div.opening {
-        padding-bottom: 2.5rem;
-      }
-
-      & > div.doctor {
-        display: none;
-      }
+    #heading > div.opening {
+      padding-bottom: 2.5rem;
     }
 
     section.products {

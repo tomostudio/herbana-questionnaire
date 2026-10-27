@@ -31,7 +31,6 @@
     "html-react-parser": "^3.0.16",
     "next": "^13.4.19",
     "next-seo": "^6.0.0",
-    "node-html-parser": "^9.0.5",
     "postcss-import": "^15.1.0",
     "postcss-nested": "^6.0.0",
     "postcss-preset-env": "^8.0.1",

@@ -5,12 +5,14 @@ import Header from '@/components/header'
 import HeaderGap from '@/components/headerGap'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useRef, useState } from 'react'
+import { HEADING_IMAGE, INFO_ICON, RESULT_TEXT } from './data'
 
 const SLIDE_GAP = 24
 
 const CampaignResult = ({ result, quiz }) => {
   const router = useRouter()
   const isEn = usePathname().endsWith('/en')
+  const text = RESULT_TEXT[isEn ? 'en' : 'id']
   const s = useSearchParams().get('s')
   const sliderRef = useRef(null)
   const dragRef = useRef(null)
@@ -77,10 +79,33 @@ const CampaignResult = ({ result, quiz }) => {
           setReset={() => router.push(isEn ? '/campaign/en' : '/campaign')}
         />
         <HeaderGap />
-        <div
-          className={`campaign-result ${result.noDoctor ? 'nodoctor' : ''}`}
-        >
-          <div dangerouslySetInnerHTML={{ __html: result.heading }} />
+        <div className={`campaign-result ${result.notice ? '' : 'nodoctor'}`}>
+          <section id="heading">
+            <div className="opening">
+              <div>
+                <h1>
+                  {text.title} <span>{result.name}</span>.
+                </h1>
+                <p>{text.description}</p>
+              </div>
+            </div>
+            {result.notice && (
+              <div className="doctor">
+                <div>
+                  <div>
+                    <img src={INFO_ICON} alt="" />
+                  </div>
+                  <div className="content">
+                    <p>{text.notice}</p>
+                  </div>
+                  <div>
+                    <img src={INFO_ICON} alt="" />
+                  </div>
+                </div>
+              </div>
+            )}
+            <img className="bg-img" src={HEADING_IMAGE} alt="" />
+          </section>
           <div
             ref={sliderRef}
             onScroll={handleScroll}
@@ -93,12 +118,38 @@ const CampaignResult = ({ result, quiz }) => {
           >
             <section className="products">
               <div id="slider">
-                {result.products.map((product, index) => (
-                  <div
-                    key={index}
-                    className="product"
-                    dangerouslySetInnerHTML={{ __html: product }}
-                  />
+                {result.products.map((product) => (
+                  <div key={product.id} className="product">
+                    <div className="icon">
+                      {product.category ? (
+                        <>
+                          {product.category.icon && (
+                            <img src={product.category.icon} alt="" />
+                          )}
+                          <span>
+                            {text.categoryPrefix}
+                            <span>{product.category.label}</span>
+                            {text.categorySuffix}
+                          </span>
+                        </>
+                      ) : (
+                        <span>{text.recommendation}</span>
+                      )}
+                    </div>
+                    <div className="productimage">
+                      <img src={product.image} alt={product.alt} />
+                    </div>
+                    <div className="producttitle">
+                      <img src={product.seriesLogo} alt={product.series} />
+                      <span>{product.name}</span>
+                    </div>
+                    <div className="whythis">
+                      <span className="label">{text.whyThis}</span>
+                      {product.whythis.map((reason, index) => (
+                        <p key={index}>{reason}</p>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </section>
