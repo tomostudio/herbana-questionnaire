@@ -1,5 +1,6 @@
 import Container from '../container'
 import { DefaultButton } from './buttons'
+import { getPreviousScreen } from './quizNavigation'
 import { ArrowLeft, ArrowLeftMobile } from './svg'
 
 const BackComponent = ({
@@ -16,250 +17,38 @@ const BackComponent = ({
   setReset,
   top = true,
 }) => {
-  const updateQuestionnaire = (updateSection, updateQuestion) => {
+  const handleBackClick = () => {
     const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    if (sections[updateSection].questions[updateQuestion]) {
-      dataQuestionnaire.questionnaireRespond.pop()
-    }
+    const previous = getPreviousScreen(
+      sections,
+      currentSection,
+      currentQuestion,
+      dataQuestionnaire.questionnaireRespond,
+    )
+    if (!previous) return setReset(true)
+
+    const previousQuestion =
+      sections[previous.section].questions[previous.question]
+
     localStorage.setItem(
       'questionnaire',
       JSON.stringify({
         ...dataQuestionnaire,
-        currentSection: updateSection,
-        currentQuestion: updateQuestion,
+        currentSection: previous.section,
+        currentQuestion: previous.question,
+        // The question we go back to gets answered again, so drop its old answer
+        questionnaireRespond: previousQuestion
+          ? dataQuestionnaire.questionnaireRespond.filter(
+              (respond) =>
+                parseInt(respond.questionID) !== parseInt(previousQuestion.ID),
+            )
+          : dataQuestionnaire.questionnaireRespond,
       }),
     )
 
-    setCurrentSection(updateSection)
-    setCurrentQuestion(updateQuestion)
+    setCurrentSection(previous.section)
+    setCurrentQuestion(previous.question)
     setStatus('progress')
-  }
-
-  let newSection = currentSection
-  let newQuestion = currentQuestion
-  let lastQuestion = false
-
-  const skipQuestion = () => {
-    const skipQuiz = sections[currentSection].questions[newQuestion - 1]
-    if (skipQuiz) {
-      newQuestion = newQuestion - 1
-      updateQuestionnaire(currentSection, newQuestion)
-    } else {
-      newQuestion = null
-      updateQuestionnaire(currentSection, null)
-    }
-  }
-
-  const loopSkip = () => {
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-    if (sections[currentSection].questions[newQuestion - 1]) {
-      const showQuiz = sections[currentSection].questions[
-        newQuestion - 1
-      ].display.condition?.find((i) =>
-        i.answer.find(
-          (j) =>
-            j.toLowerCase() ===
-            dataQuestionnaire.questionnaireRespond
-              .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
-              ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
-              ?.toLowerCase(),
-        ),
-      )
-
-      if (
-        parseInt(
-          sections[currentSection].questions[newQuestion - 1].display.state,
-        ) === 0
-      ) {
-        if (!showQuiz) {
-          newQuestion = newQuestion - 1
-          return true
-        } else {
-          updateQuestionnaire(currentSection, newQuestion - 1)
-          return false
-        }
-      } else {
-        if (showQuiz) {
-          newQuestion = newQuestion - 1
-          return true
-        } else {
-          updateQuestionnaire(currentSection, newQuestion - 1)
-          return false
-        }
-      }
-    } else {
-      updateQuestionnaire(currentSection, null)
-      return false
-    }
-  }
-
-  const loopSkipFundamental = () => {
-    const dataQuestionnaire = JSON.parse(localStorage.getItem('questionnaire'))
-
-    if (lastQuestion) {
-      lastQuestion = false
-      newSection = newSection - 1
-      newQuestion = sections[newSection].questions.length - 1
-      const showQuiz = sections[newSection].questions[
-        newQuestion
-      ].display.condition?.find((i) =>
-        i.answer.find(
-          (j) =>
-            j.toLowerCase() ===
-            dataQuestionnaire.questionnaireRespond
-              .find((h) => parseInt(h.questionID) === parseInt(i.questionID))
-              ?.answer.find((k) => k.toLowerCase() === j.toLowerCase())
-              ?.toLowerCase(),
-        ),
-      )
-
-      if (
-        parseInt(sections[newSection].questions[newQuestion].display.state) ===
-        0
-      ) {
-        if (!showQuiz) {
-          const skipQuiz = sections[newSection].questions[newQuestion - 1]
-          if (skipQuiz) {
-            newQuestion = newQuestion - 1
-            return true
-          } else {
-            if (sections[newSection - 1]) {
-              newSection = newSection - 1
-              newQuestion = sections[newSection].questions.length - 1
-              if (
-                parseInt(
-                  sections[newSection].questions[newQuestion].display.state,
-                ) === 0
-              ) {
-                lastQuestion = true
-                loopSkipFundamental()
-                return true
-              } else {
-                updateQuestionnaire(newSection, newQuestion)
-                return false
-              }
-            } else {
-              setReset(true)
-
-              return false
-            }
-          }
-        } else {
-          updateQuestionnaire(newSection, newQuestion)
-          return false
-        }
-      } else {
-        if (showQuiz) {
-          const skipQuiz = sections[newSection].questions[newQuestion - 1]
-          if (skipQuiz) {
-            newQuestion = newQuestion - 1
-            return true
-          } else {
-            if (sections[newSection - 1]) {
-              newSection = newSection - 1
-              newQuestion = sections[newSection].questions.length - 1
-              if (
-                parseInt(
-                  sections[newSection].questions[newQuestion].display.state,
-                ) === 0
-              ) {
-                lastQuestion = true
-                loopSkipFundamental()
-                return true
-              } else {
-                updateQuestionnaire(newSection, newQuestion)
-                return false
-              }
-            } else {
-              setReset(true)
-
-              return false
-            }
-          }
-        } else {
-          updateQuestionnaire(newSection, newQuestion)
-          return false
-        }
-      }
-    } else {
-      if (sections[newSection].questions[newQuestion - 1]) {
-        newQuestion = newQuestion - 1
-        updateQuestionnaire(newSection, newQuestion)
-        return false
-      } else {
-        if (sections[newSection].type === 'quiz') {
-          updateQuestionnaire(newSection, null)
-          return false
-        } else {
-          if (sections[newSection - 1]) {
-            newSection = newSection - 1
-            newQuestion = sections[newSection].questions.length - 1
-            if (
-              parseInt(
-                sections[newSection].questions[newQuestion].display.state,
-              ) === 0
-            ) {
-              lastQuestion = true
-              loopSkipFundamental()
-              return true
-            } else {
-              updateQuestionnaire(newSection, newQuestion)
-              return false
-            }
-          } else {
-            setReset(true)
-
-            return false
-          }
-        }
-      }
-    }
-  }
-
-  const handleBackClick = () => {
-    if (currentQuestion > 0) {
-      if (
-        parseInt(
-          sections[currentSection].questions[currentQuestion - 1].display.state,
-        ) === 0
-      ) {
-        while (true) {
-          if (loopSkip() === false) {
-            break
-          }
-        }
-      } else {
-        updateQuestionnaire(currentSection, currentQuestion - 1)
-      }
-    } else {
-      if (type === 'quiz' && currentQuestion === 0) {
-        updateQuestionnaire(currentSection, null)
-      } else {
-        if (sections[currentSection - 1]) {
-          if (
-            parseInt(
-              sections[currentSection - 1].questions[
-                sections[currentSection - 1].questions.length - 1
-              ].display.state,
-            ) === 0
-          ) {
-            lastQuestion = true
-            while (true) {
-              if (loopSkipFundamental() === false) {
-                break
-              }
-            }
-          } else {
-            updateQuestionnaire(
-              currentSection - 1,
-              sections[currentSection - 1].questions.length - 1,
-            )
-          }
-        } else {
-          setReset(true)
-        }
-      }
-    }
   }
 
   return (
