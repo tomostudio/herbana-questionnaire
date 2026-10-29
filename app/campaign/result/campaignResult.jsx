@@ -177,7 +177,7 @@ const CampaignResult = ({ result, quiz }) => {
               bg="bg-orange hover:bg-white"
               borderColor="border-orange"
               hoverTextIcon="hover-orange"
-              className="!text-[1.05rem] md:!text-[1.2rem]"
+              className="uppercase !text-[1.05rem] md:!text-[1.2rem]"
               onClick={retake}
             >
               Retake Test
