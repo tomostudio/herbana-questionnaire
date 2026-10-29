@@ -3,6 +3,7 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import HeaderGap from '@/components/headerGap'
+import { RoundedFullButton } from '@/components/utils/buttons'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useRef, useState } from 'react'
 import { HEADING_IMAGE, INFO_ICON, RESULT_TEXT } from './data'
@@ -13,6 +14,10 @@ const CampaignResult = ({ result, quiz }) => {
   const router = useRouter()
   const isEn = usePathname().endsWith('/en')
   const text = RESULT_TEXT[isEn ? 'en' : 'id']
+  const retake = () => {
+    localStorage.removeItem('questionnaire')
+    router.push(isEn ? '/campaign/en' : '/campaign')
+  }
   const s = useSearchParams().get('s')
   const sliderRef = useRef(null)
   const dragRef = useRef(null)
@@ -76,7 +81,7 @@ const CampaignResult = ({ result, quiz }) => {
       <div className="relative min-h-screen w-full flex flex-col">
         <Header
           header={quiz.headerData}
-          setReset={() => router.push(isEn ? '/campaign/en' : '/campaign')}
+          setReset={retake}
         />
         <HeaderGap />
         <div className={`campaign-result ${result.notice ? '' : 'nodoctor'}`}>
@@ -166,6 +171,17 @@ const CampaignResult = ({ result, quiz }) => {
               ))}
             </div>
           )}
+          <div className="flex justify-center pb-16 md:pb-20">
+            <RoundedFullButton
+              color="text-white"
+              bg="bg-orange hover:bg-white"
+              borderColor="border-orange"
+              hoverTextIcon="hover-orange"
+              onClick={retake}
+            >
+              Retake Test
+            </RoundedFullButton>
+          </div>
         </div>
       </div>
       <Footer footer={quiz.footerData} search={`?s=${s}`} />
